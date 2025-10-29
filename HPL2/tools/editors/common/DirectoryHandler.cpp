@@ -22,6 +22,8 @@
 
 #include "EditorBaseClasses.h"
 
+#include <utility>
+
 tWString gsNullStringW = _W("");
 
 //-------------------------------------------------------------------------

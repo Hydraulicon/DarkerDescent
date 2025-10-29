@@ -22,6 +22,8 @@
 #include "../Common/Editor.h"
 #include "../Common/EditorTypes.h"
 
+#include <utility>
+
 //-------------------------------------------------------------------------
 
 // Lovely magic from the "LuxBasePersonal.h" in game code.  We should maybe make this into a engine function or something
@@ -126,7 +128,7 @@ bool cEdDirectoryHandler::AddLookUpDir(int alCategory, const tWString& asDir,
 	if(it==mmapDirs.end())
 	{
 		tLookupDirVec vDirs = tLookupDirVec(1, cLookupDirectory(asDir, abAddSubdirs));
-		mmapDirs.insert(std::pair<int, tLookupDirVec>(alCategory, vDirs));
+            mmapDirs.insert(std::pair<int, tLookupDirVec>(alCategory, vDirs));
 	}
 	else
 	{

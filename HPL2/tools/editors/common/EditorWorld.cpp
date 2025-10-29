@@ -27,6 +27,7 @@
 
 
 #include <algorithm>
+#include <utility>
 
 static tString gsEmptyString = "";
 
@@ -163,7 +164,7 @@ bool iEditorWorld::AddObject(iEntityWrapper* apObject)
 	if(apObject==NULL)
 		return false;
 
-	mmapEntities.insert(pair<unsigned int, iEntityWrapper*>(apObject->GetID(), apObject));
+    mmapEntities.insert(std::pair<unsigned int, iEntityWrapper*>(apObject->GetID(), apObject));
 
 	// Call on add stuff.
 	apObject->OnAddToWorld();

@@ -23,6 +23,7 @@
 #include "EditorThumbnailBuilder.h"
 
 #include <algorithm>
+#include <utility>
 
 //-------------------------------------------------------------------
 
@@ -241,7 +242,7 @@ bool iEditorObjectIndexDir::CreateFromDir(iEditorObjectIndexDir* apParentDir, co
 	{
 		iEditorObjectIndexEntry* pEntry = CreateEntry();
 		if(pEntry->CreateFromFile(*itFiles))
-			mmapEntries.insert(pair<tString, iEditorObjectIndexEntry*>(pEntry->GetEntryName(), pEntry));
+                    mmapEntries.insert(std::pair<tString, iEditorObjectIndexEntry*>(pEntry->GetEntryName(), pEntry));
 		else
 			hplDelete(pEntry);
 	}

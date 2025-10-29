@@ -23,6 +23,7 @@
 #include "../Common/EdThumbnailBuilder.h"
 
 #include <algorithm>
+#include <utility>
 
 //-------------------------------------------------------------------
 
@@ -242,7 +243,7 @@ bool iEdObjectIndexDir::CreateFromDir(iEdObjectIndexDir* apParentDir, const tWSt
 	{
 		iEdObjectIndexEntry* pEntry = CreateEntry();
 		if(pEntry->CreateFromFile(*itFiles))
-			mmapEntries.insert(pair<tString, iEdObjectIndexEntry*>(pEntry->GetEntryName(), pEntry));
+                    mmapEntries.insert(std::pair<tString, iEdObjectIndexEntry*>(pEntry->GetEntryName(), pEntry));
 		else
 			hplDelete(pEntry);
 	}
