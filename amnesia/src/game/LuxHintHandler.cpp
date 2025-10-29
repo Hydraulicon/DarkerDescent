@@ -21,7 +21,7 @@
 
 #include "LuxHelpFuncs.h"
 #include "input/Gamepad.h"
-
+#include "system/String.h"
 #include <stdarg.h>
 #include <stdlib.h>
 
@@ -470,9 +470,7 @@ tWString cLuxHintHandler::AddGamepadIconAtPosition(const tWString& asCommand, in
 {
 	////////////
 	// Convert the command from wString to tString
-	tString sCommand;
-	sCommand.resize(asCommand.size());
-	std::copy(asCommand.begin(), asCommand.end(), sCommand.begin());
+	tString sCommand = cString::To8Char(asCommand);
 
 	////////////////
 	// Get icon from command string

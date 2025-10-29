@@ -727,8 +727,7 @@ dgVector dgCollisionConvex::CalculateVolumeIntegral (
 	dgVector cg  (dgFloat32 (0.0f), dgFloat32 (0.0f), dgFloat32 (0.0f), dgFloat32 (0.0f));
 	if (buoyancyPlane) {
 		dgPlane globalPlane;
-		//if (buoyancyPlane (GetUserData(), context, globalMatrix, globalPlane)) {
-		if (buoyancyPlane ((void*)SetUserDataID(), context, globalMatrix, globalPlane)) {
+		if (buoyancyPlane(GetUserData(), context, globalMatrix, globalPlane)) {
 			globalPlane = globalMatrix.UntransformPlane (globalPlane);
 			cg  = CalculateVolumeIntegral (globalPlane);
 		}

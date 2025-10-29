@@ -32,7 +32,7 @@
 #include "LuxJournal.h"
 #include "LuxGlobalDataHandler.h"
 #include "LuxAchievementHandler.h"
-
+#include "system/String.h"
 
 //////////////////////////////////////////////////////////////////////////
 // CONSTRUCTORS
@@ -2609,9 +2609,7 @@ tWString cLuxInventory::AddGamepadTextAtPosition(const tWString& asCommand, int 
 {
 	////////////
 	// Convert the command from wString to tString
-	tString sCommand;
-	sCommand.resize(asCommand.size());
-	std::copy(asCommand.begin(), asCommand.end(), sCommand.begin());
+	tString sCommand = cString::To8Char(asCommand);
 
 	////////////////
 	// Get icon from command string
