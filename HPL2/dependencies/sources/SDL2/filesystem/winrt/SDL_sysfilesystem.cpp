@@ -37,7 +37,9 @@ extern "C" {
 #include <string>
 #include <unordered_map>
 
-using namespace std;
+using std::string;
+using std::unordered_map;
+using std::wstring;
 using namespace Windows::Storage;
 
 extern "C" const wchar_t *

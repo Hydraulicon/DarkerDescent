@@ -22,7 +22,8 @@
 
 #include "gui/Widget.h"
 
-using namespace std;
+#include <vector>
+
 
 namespace hpl
 {
@@ -37,6 +38,8 @@ namespace hpl
 	class cWidgetTabFrame;
 
 	class cGuiGfxElement;
+
+        using std::vector;
 
 	typedef vector<cWidgetTab*>			tWidgetTabVector;
 	typedef tWidgetTabVector::iterator	tWidgetTabVectorIt;

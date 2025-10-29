@@ -21,6 +21,7 @@
 #define HPL_PLATFORM_H
 
 #include "system/SystemTypes.h"
+#include "graphics/GraphicsTypes.h"
 
 #include <cstdarg>
 
@@ -33,9 +34,34 @@ namespace hpl {
 
 	//-----------------------------------------
 
-    struct VideoComp : public std::binary_function<cVideoMode, cVideoMode, bool> {
-        bool operator() (const cVideoMode& aVM1, const cVideoMode& aVM2) const;
-    };
+	///////////////////////////////////////////////////////////////
+	// Predicate for sorting video mode lists
+
+	struct VideoComp {
+		using result_type = bool;
+		using first_argument_type = cVideoMode;
+		using second_argument_type = cVideoMode;
+
+		constexpr bool operator()(const cVideoMode& aVM1, const cVideoMode& aVM2) const noexcept
+		{
+			if(aVM1.mlDisplay != aVM2.mlDisplay)
+			{
+				return aVM1.mlDisplay < aVM2.mlDisplay;
+			}
+
+			if(aVM1.mvScreenSize.x != aVM2.mvScreenSize.x)
+			{
+				return aVM1.mvScreenSize.x < aVM2.mvScreenSize.x;
+			}
+
+			if(aVM1.mvScreenSize.y != aVM2.mvScreenSize.y)
+			{
+				return aVM1.mvScreenSize.y < aVM2.mvScreenSize.y;
+			}
+
+			return false;
+		}
+	};
 
 	//-----------------------------------------
 

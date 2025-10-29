@@ -25,7 +25,6 @@
 #include "../Common/StdAfx.h"
 
 using namespace hpl;
-using namespace std;
 
 //-----------------------------------------------
 

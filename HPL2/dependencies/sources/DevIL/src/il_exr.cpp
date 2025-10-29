@@ -214,7 +214,6 @@ ILboolean ilLoadExrL(const void *Lump, ILuint Size)
 
 using namespace Imath;
 using namespace Imf;
-using namespace std;
 
 
 ILboolean iLoadExrInternal()

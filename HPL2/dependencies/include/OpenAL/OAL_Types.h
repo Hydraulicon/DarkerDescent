@@ -56,7 +56,10 @@
 #include <AL/efx.h>
 #include <AL/efx-creative.h>
 
-using namespace std;
+using std::list;
+using std::string;
+using std::vector;
+using std::wstring;
 
 class cOAL_Source;
 class cOAL_Sample;

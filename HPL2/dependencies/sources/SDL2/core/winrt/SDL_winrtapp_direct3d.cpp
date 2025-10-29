@@ -24,8 +24,6 @@
 #include <functional>
 #include <string>
 #include <sstream>
-using namespace std;
-
 
 /* Windows includes */
 #include "ppltasks.h"

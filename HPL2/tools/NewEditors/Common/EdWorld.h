@@ -24,7 +24,6 @@
 
 #include "../Common/EdModule.h"
 
-using namespace std;
 using namespace hpl;
 
 //-----------------------------------------------------------------------

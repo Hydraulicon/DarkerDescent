@@ -3,7 +3,7 @@
 #include <string>
 #include <assert.h>
 
-using namespace std;
+using std::string;
 
 BEGIN_AS_NAMESPACE
 
