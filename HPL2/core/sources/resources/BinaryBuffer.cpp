@@ -27,8 +27,8 @@
 #include "math/CRC.h"
 
 // Include SDL Endian code
-#ifdef USE_SDL2
-#include <SDL2/SDL_endian.h>
+#ifdef USE_SDL3
+#include <SDL3/SDL_endian.h>
 #else
 #include <SDL/SDL_endian.h>
 #endif

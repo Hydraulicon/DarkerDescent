@@ -4,10 +4,10 @@
 #include "OpenAL/OAL_Types.h"
 #include "OpenAL/OAL_LowLevelObject.h"
 
-#ifdef USE_SDL2
-#include <SDL2/SDL.h>
+#ifdef USE_SDL3
+#include <SDL3/SDL.h>
 #else
-#include <SDL/SDL.h>
+#include <SDL3/SDL.h>
 #endif
 
 class cOAL_EFXManager;

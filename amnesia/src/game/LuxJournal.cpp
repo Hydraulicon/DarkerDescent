@@ -2233,7 +2233,7 @@ bool cLuxJournal::UIListenerArrowPress(iWidget* apWidget, const cGuiMessageData&
 		break;
 	case eUIArrow_Down:
 #ifdef USE_GAMEPAD
-# if USE_SDL2
+# if USE_SDL3
 		if(gpBase->mpInputHandler->GetGamepad() && gpBase->mpInputHandler->GetGamepad()->ButtonIsDown(eGamepadButton_DpadDown) == false) break;
 # else
 		if(gpBase->mpInputHandler->GetGamepad() && gpBase->mpInputHandler->GetGamepad()->HatIsInState(eGamepadHat_0, eGamepadHatState_Down) == false) break;

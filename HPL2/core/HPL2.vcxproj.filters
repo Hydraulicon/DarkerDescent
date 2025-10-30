@@ -1060,7 +1060,7 @@
     <ClInclude Include="include\impl\MeshLoaderFBX.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="include\impl\GamepadSDL2.h">
+    <ClInclude Include="include\impl\GamepadSDL3.h">
       <Filter>Impl\Input</Filter>
     </ClInclude>
   </ItemGroup>
@@ -1935,7 +1935,7 @@
     <ClCompile Include="sources\impl\MeshLoaderFBX.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
-    <ClCompile Include="sources\impl\GamepadSDL2.cpp">
+    <ClCompile Include="sources\impl\GamepadSDL3.cpp">
       <Filter>Impl\Input</Filter>
     </ClCompile>
   </ItemGroup>

@@ -5,10 +5,10 @@
 #include "OpenAL/OAL_Helper.h"
 #include "OpenAL/OAL_LoggerObject.h"
 
-#ifdef USE_SDL2
-#include <SDL2/SDL.h>
+#ifdef USE_SDL3
+#include <SDL3/SDL.h>
 #else
-#include <SDL/SDL.h>
+#include <SDL3/SDL.h>
 #endif
 
 typedef enum

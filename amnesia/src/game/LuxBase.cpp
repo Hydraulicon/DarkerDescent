@@ -689,10 +689,10 @@ bool cLuxBase::InitApp()
 	
 	//Get the config file paths
 	msDefaultUserConfigPath = pInitCfg->GetStringW("ConfigFiles", "DefaultUserSettings",_W(""));
-#if USE_SDL2
+#if USE_SDL3
 	
-    msDefaultUserKeyConfigPath = pInitCfg->GetStringW("ConfigFiles", "DefaultUserKeysSDL2", _W(""));
-	msDefaultMainConfigPath = pInitCfg->GetStringW("ConfigFiles", "DefaultMainSettingsSDL2",_W(""));
+    msDefaultUserKeyConfigPath = pInitCfg->GetStringW("ConfigFiles", "DefaultUserKeysSDL3", _W(""));
+	msDefaultMainConfigPath = pInitCfg->GetStringW("ConfigFiles", "DefaultMainSettingsSDL3",_W(""));
 
 	if(msDefaultUserKeyConfigPath.empty() || msDefaultMainConfigPath.empty())
 	{
@@ -704,38 +704,38 @@ bool cLuxBase::InitApp()
 				return false;
 			}
 
-			tWString sSDL2CfgWarning = _W("The following 'ConfigFiles' path entries were not defined in ") + msInitConfigFile;
+			tWString sSDL3CfgWarning = _W("The following 'ConfigFiles' path entries were not defined in ") + msInitConfigFile;
 
 			if(msDefaultMainConfigPath.empty())
 			{
-				sSDL2CfgWarning += _W("\n - DefaultMainSettingsSDL2");
+				sSDL3CfgWarning += _W("\n - DefaultMainSettingsSDL3");
 
-				msDefaultMainConfigPath = pInitCfgDefaults->GetStringW("ConfigFiles", "DefaultMainSettingsSDL2",_W(""));
+				msDefaultMainConfigPath = pInitCfgDefaults->GetStringW("ConfigFiles", "DefaultMainSettingsSDL3",_W(""));
 			}
 
 			if(msDefaultUserKeyConfigPath.empty())
 			{
-				sSDL2CfgWarning += _W("\n - DefaultUserKeysSDL2");
+				sSDL3CfgWarning += _W("\n - DefaultUserKeysSDL3");
 			
-				msDefaultUserKeyConfigPath = pInitCfgDefaults->GetStringW("ConfigFiles", "DefaultUserKeysSDL2",_W(""));
+				msDefaultUserKeyConfigPath = pInitCfgDefaults->GetStringW("ConfigFiles", "DefaultUserKeysSDL3",_W(""));
 			}
 
-			sSDL2CfgWarning += _W("\nGame defaults will be used");
+			sSDL3CfgWarning += _W("\nGame defaults will be used");
 			
 			hplDelete(pInitCfgDefaults);
 
 			if(msDefaultMainConfigPath.empty()==false && msDefaultUserKeyConfigPath.empty()==false)
-				cPlatform::CreateMessageBox(eMsgBoxType_Warning, _W("Warning"), sSDL2CfgWarning.c_str());
+				cPlatform::CreateMessageBox(eMsgBoxType_Warning, _W("Warning"), sSDL3CfgWarning.c_str());
 		}
 		
 		if(msDefaultMainConfigPath.empty() || msDefaultUserKeyConfigPath.empty())
 		{
 			msErrorMessage = _W("Could not load default settings files:");
 			if(msDefaultMainConfigPath.empty())
-				msErrorMessage += _W("\n - DefaultMainSettingsSDL2");
+				msErrorMessage += _W("\n - DefaultMainSettingsSDL3");
 
 			if(msDefaultUserKeyConfigPath.empty())
-				msErrorMessage += _W("\n - DefaultUserKeysSDL2");
+				msErrorMessage += _W("\n - DefaultUserKeysSDL3");
 
 			return false;
 		}

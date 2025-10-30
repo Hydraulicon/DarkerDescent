@@ -17,7 +17,7 @@
  * along with Amnesia: The Dark Descent.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#include "impl/GamepadSDL2.h"
+#include "impl/GamepadSDL3.h"
 
 #include "impl/LowLevelInputSDL.h"
 
@@ -36,14 +36,14 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	float cGamepadSDL2::mfInvAxisMax = 1.0f/32767.5f;
-	//float cGamepadSDL2::mfDeadZoneRadius = 6553.5f*cGamepadSDL2::mfInvAxisMax;
-	float cGamepadSDL2::mfDeadZoneRadius = 0.333f;
-	float cGamepadSDL2::mfDeadZoneRadiusSqr = cGamepadSDL2::mfDeadZoneRadius*cGamepadSDL2::mfDeadZoneRadius;
+	float cGamepadSDL3::mfInvAxisMax = 1.0f/32767.5f;
+	//float cGamepadSDL3::mfDeadZoneRadius = 6553.5f*cGamepadSDL3::mfInvAxisMax;
+	float cGamepadSDL3::mfDeadZoneRadius = 0.333f;
+	float cGamepadSDL3::mfDeadZoneRadiusSqr = cGamepadSDL3::mfDeadZoneRadius*cGamepadSDL3::mfDeadZoneRadius;
 
 	//-----------------------------------------------------------------------
 
-	cGamepadSDL2::cGamepadSDL2(cLowLevelInputSDL *apLowLevelInputSDL, int alIndex) : iGamepad("SDL Portable Gamepad", alIndex)
+	cGamepadSDL3::cGamepadSDL3(cLowLevelInputSDL *apLowLevelInputSDL, int alIndex) : iGamepad("SDL Portable Gamepad", alIndex)
 	{
 		mpLowLevelInputSDL = apLowLevelInputSDL;
 
@@ -73,7 +73,7 @@ namespace hpl {
 		}
 	}
 
-	cGamepadSDL2::~cGamepadSDL2()
+	cGamepadSDL3::~cGamepadSDL3()
 	{
 		if(mpHaptic)
 		{
@@ -92,29 +92,29 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	int cGamepadSDL2::GetNumButtons()
+	int cGamepadSDL3::GetNumButtons()
 	{
 		return (int)mvButtonArray.size();
 	}
 
-	int cGamepadSDL2::GetNumAxes()
+	int cGamepadSDL3::GetNumAxes()
 	{
 		return (int)mvAxisArray.size();
 	}
 
-	int cGamepadSDL2::GetNumHats()
+	int cGamepadSDL3::GetNumHats()
 	{
 		return 0;
 	}
 
-	int cGamepadSDL2::GetNumBalls()
+	int cGamepadSDL3::GetNumBalls()
 	{
 		return 0;
 	}
 
 	//-----------------------------------------------------------------------
 
-	void cGamepadSDL2::ClearState()
+	void cGamepadSDL3::ClearState()
 	{
 		mvButtonArray.assign(mvButtonArray.size(), false);
 		mvAxisArray.assign(mvAxisArray.size(), 0.0f);
@@ -122,7 +122,7 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	float cGamepadSDL2::GetTimeSinceLastActive()
+	float cGamepadSDL3::GetTimeSinceLastActive()
 	{
 		if(mlLastTimeActive == -1) return FLT_MAX;
 		return (float)(cPlatform::GetApplicationTime() - mlLastTimeActive) / 1000.0f;
@@ -130,7 +130,7 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	void cGamepadSDL2::Update()
+	void cGamepadSDL3::Update()
 	{
 		cGamepadInputData inputUpdate;
 
@@ -248,7 +248,7 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	void cGamepadSDL2::UpdateAxis(int alAxis, float afVal)
+	void cGamepadSDL3::UpdateAxis(int alAxis, float afVal)
 	{
 		if(cMath::Abs(afVal) < mfDeadZoneRadius)
 			afVal = 0.0f;
@@ -258,7 +258,7 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	void cGamepadSDL2::UpdateAxis(int alAxis0, float afVal0, int alAxis1, float afVal1)
+	void cGamepadSDL3::UpdateAxis(int alAxis0, float afVal0, int alAxis1, float afVal1)
 	{
 		////////////
 		// Update two axis at the same time, for thumb sticks
@@ -276,12 +276,12 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	bool cGamepadSDL2::HasInputUpdates()
+	bool cGamepadSDL3::HasInputUpdates()
 	{
 		return mlstInputUpdates.empty()==false;
 	}
 
-	cGamepadInputData cGamepadSDL2::GetInputUpdate()
+	cGamepadInputData cGamepadSDL3::GetInputUpdate()
 	{
 		cGamepadInputData input = mlstInputUpdates.front();
 		mlstInputUpdates.pop_front();
@@ -306,7 +306,7 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	bool cGamepadSDL2::ButtonIsDown(eGamepadButton aButton)
+	bool cGamepadSDL3::ButtonIsDown(eGamepadButton aButton)
 	{
 		if ((size_t)aButton >= mvButtonArray.size()) return false;
 
@@ -316,7 +316,7 @@ namespace hpl {
 	//-----------------------------------------------------------------------
 
 
-	cGamepadInputData cGamepadSDL2::GetButton()
+	cGamepadInputData cGamepadSDL3::GetButton()
 	{
 		cGamepadInputData button = mlstButtonsPressed.front();
 		mlstButtonsPressed.pop_front();
@@ -327,14 +327,14 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	bool cGamepadSDL2::ButtonIsPressed()
+	bool cGamepadSDL3::ButtonIsPressed()
 	{
 		return mlstButtonsPressed.empty()==false;
 	}
 
 	//-----------------------------------------------------------------------
 
-	cGamepadInputData cGamepadSDL2::GetReleasedButton()
+	cGamepadInputData cGamepadSDL3::GetReleasedButton()
 	{
 		cGamepadInputData button = mlstButtonsReleased.front();
 		mlstButtonsReleased.pop_front();
@@ -345,31 +345,31 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	bool cGamepadSDL2::ButtonIsReleased()
+	bool cGamepadSDL3::ButtonIsReleased()
 	{
 		return mlstButtonsReleased.empty()==false;
 	}
 
 	//-----------------------------------------------------------------------
 
-	float cGamepadSDL2::GetAxisValue(eGamepadAxis aAxis)
+	float cGamepadSDL3::GetAxisValue(eGamepadAxis aAxis)
 	{
 		if ((size_t)aAxis >= mvAxisArray.size()) return 0;
 
 		return mvAxisArray[aAxis];
 	}
 
-	float cGamepadSDL2::GetAxisDeadZoneRadiusValue()
+	float cGamepadSDL3::GetAxisDeadZoneRadiusValue()
 	{
 		return mfDeadZoneRadius;
 	}
 
-	void cGamepadSDL2::SetAxisDeadZoneRadiusValue(float afValue)
+	void cGamepadSDL3::SetAxisDeadZoneRadiusValue(float afValue)
 	{
 		mfDeadZoneRadius = afValue;
 	}
 
-	cGamepadInputData cGamepadSDL2::GetUpdatedAxis()
+	cGamepadInputData cGamepadSDL3::GetUpdatedAxis()
 	{
 		cGamepadInputData axis = mlstAxisChanges.front();
 		mlstAxisChanges.pop_front();
@@ -378,48 +378,48 @@ namespace hpl {
 		return axis;
 	}
 
-	bool cGamepadSDL2::AxesUpdated()
+	bool cGamepadSDL3::AxesUpdated()
 	{
 		return mlstAxisChanges.empty()==false;
 	}
 
 	//-----------------------------------------------------------------------
 
-	eGamepadHatState cGamepadSDL2::GetHatCurrentState(eGamepadHat aHat)
+	eGamepadHatState cGamepadSDL3::GetHatCurrentState(eGamepadHat aHat)
 	{
 		return eGamepadHatState_Centered;
 	}
 
-	bool cGamepadSDL2::HatIsInState(eGamepadHat aHat, eGamepadHatState aState)
+	bool cGamepadSDL3::HatIsInState(eGamepadHat aHat, eGamepadHatState aState)
 	{
 		return (GetHatCurrentState(aHat)&aState)!=0;
 	}
 
-	bool cGamepadSDL2::HatsChanged()
+	bool cGamepadSDL3::HatsChanged()
 	{
 		return false;
 	}
 
-	cGamepadInputData cGamepadSDL2::GetHatState()
+	cGamepadInputData cGamepadSDL3::GetHatState()
 	{
 		return cGamepadInputData();
 	}
 
 	//-----------------------------------------------------------------------
 
-	cVector2l cGamepadSDL2::GetBallAbsPos(eGamepadBall aBall)
+	cVector2l cGamepadSDL3::GetBallAbsPos(eGamepadBall aBall)
 	{
 		return cVector2l(0,0);
 	}
 
-	cVector2l cGamepadSDL2::GetBallRelPos(eGamepadBall aBall)
+	cVector2l cGamepadSDL3::GetBallRelPos(eGamepadBall aBall)
 	{
 		return cVector2l(0,0);
 	}
 
 	//-----------------------------------------------------------------------
 
-	void cGamepadSDL2::SetRumble(float afValue, int alMillisec)
+	void cGamepadSDL3::SetRumble(float afValue, int alMillisec)
 	{
 		if(mpHaptic)
 		{
@@ -436,32 +436,32 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	eGamepadButton cGamepadSDL2::SDLToButton(Uint8 alButton)
+	eGamepadButton cGamepadSDL3::SDLToButton(Uint8 alButton)
 	{
 		return static_cast<eGamepadButton>(alButton);
 	}
 
-	eGamepadAxis	cGamepadSDL2::SDLToAxis(Uint8 alAxis)
+	eGamepadAxis	cGamepadSDL3::SDLToAxis(Uint8 alAxis)
 	{
 		return static_cast<eGamepadAxis>(alAxis);
 	}
 
-	float cGamepadSDL2::SDLToAxisValue(Sint16 alAxisValue)
+	float cGamepadSDL3::SDLToAxisValue(Sint16 alAxisValue)
 	{
 		return cMath::Clamp((float)alAxisValue*mfInvAxisMax, -1.0f, 1.0f);
 	}
 
-	eGamepadHat cGamepadSDL2::SDLToHat(Uint8 alHat)
+	eGamepadHat cGamepadSDL3::SDLToHat(Uint8 alHat)
 	{
 		return static_cast<eGamepadHat>(alHat);
 	}
 
-	eGamepadHatState cGamepadSDL2::SDLToHatState(Uint8 alHatState)
+	eGamepadHatState cGamepadSDL3::SDLToHatState(Uint8 alHatState)
 	{
 		return static_cast<eGamepadHatState>(alHatState);
 	}
 
-	eGamepadBall cGamepadSDL2::SDLToBall(Uint8 alBall)
+	eGamepadBall cGamepadSDL3::SDLToBall(Uint8 alBall)
 	{
 		return static_cast<eGamepadBall>(alBall);
 	}

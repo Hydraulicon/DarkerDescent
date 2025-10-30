@@ -19,10 +19,10 @@
 
 #include "impl/KeyboardSDL.h"
 
-#if USE_SDL2
-#include "SDL2/SDL.h"
+#if USE_SDL3
+#include "SDL3/SDL.h"
 #else
-#include "SDL/SDL.h"
+#include "SDL3/SDL.h"
 #endif
 
 #include "impl/LowLevelInputSDL.h"
@@ -45,7 +45,7 @@ namespace hpl {
 		mpLowLevelInputSDL = apLowLevelInputSDL;
 
 		mvKeyArray.resize(eKey_LastEnum);
-#if !USE_SDL2 && defined __APPLE__
+#if !USE_SDL3 && defined __APPLE__
 		// world keys 0 to 95
 		mvWorldKeyMap.resize(96);
 		// Initialize to None

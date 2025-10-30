@@ -18,11 +18,11 @@
 #include "OpenAL/OAL_Helper.h"
 #include "OpenAL/OAL_SourceManager.h"
 
-#ifdef USE_SDL2
-#include <SDL2/SDL.h>
-#include <SDL2/SDL_thread.h>
+#ifdef USE_SDL3
+#include <SDL3/SDL.h>
+#include <SDL3/SDL_thread.h>
 #else
-#include <SDL/SDL.h>
+#include <SDL3/SDL.h>
 #include <SDL/SDL_thread.h>
 #endif
 

@@ -138,7 +138,7 @@ static cLuxInput gvLuxInputs[] =
 	cLuxInput("MouseButton", eMouseButton_Button9, eLuxAction_MouseButton9Click),
 
 #ifdef USE_GAMEPAD
-#if USE_SDL2
+#if USE_SDL3
 	cLuxInput("GamepadButton", eGamepadButton_DpadUp, eLuxAction_UIArrowUp),
 	cLuxInput("GamepadButton", eGamepadButton_DpadDown, eLuxAction_UIArrowDown),
 	cLuxInput("GamepadButton", eGamepadButton_DpadLeft, eLuxAction_UIArrowLeft),
@@ -242,7 +242,7 @@ static cLuxInput gvLuxInputs[] =
 	// 4 --> (-) LTrigger, (+) RTrigger
 
 #ifdef USE_GAMEPAD
-#if USE_SDL2
+#if USE_SDL3
 	cLuxInput("GamepadAxis.Axis LeftY", eGamepadAxisRange_Negative, eLuxAction_Forward),
 	cLuxInput("GamepadAxis.Axis LeftX", eGamepadAxisRange_Positive, eLuxAction_Right),
 	cLuxInput("GamepadAxis.Axis LeftY", eGamepadAxisRange_Positive, eLuxAction_Backward),
@@ -1142,7 +1142,7 @@ void cLuxInputHandler::UpdateGamePlayerInput()
 	// Gamepad movement and look
 	if(IsGamepadPresent())
 	{
-#if USE_SDL2
+#if USE_SDL3
 		if(mpPad->ButtonIsDown(eGamepadButton_DpadUp) || mpPad->ButtonIsDown(eGamepadButton_DpadDown))
 #else
 		if(mpPad->HatIsInState(eGamepadHat_0, eGamepadHatState_Up) || mpPad->HatIsInState(eGamepadHat_0, eGamepadHatState_Down))
@@ -1164,7 +1164,7 @@ void cLuxInputHandler::UpdateGamePlayerInput()
 
 		//////////////////////////////////////////
 		// Look / Lean
-#if USE_SDL2
+#if USE_SDL3
 		cVector2f vAnalogLookAxis = cVector2f(mpPad->GetAxisValue(eGamepadAxis_RightX), mpPad->GetAxisValue(eGamepadAxis_RightY));
 #else
 		cVector2f vAnalogLookAxis = cVector2f(mpPad->GetAxisValue(eGamepadAxis_4), mpPad->GetAxisValue(eGamepadAxis_3));
@@ -1176,7 +1176,7 @@ void cLuxInputHandler::UpdateGamePlayerInput()
 			{
 				mpPlayer->Scroll(-gpBase->mpEngine->GetFrameTime() * 6.0f * vAnalogLookAxis.y);
 
-#if USE_SDL2
+#if USE_SDL3
 				vAnalogLookAxis = cVector2f(mpPad->GetAxisValue(eGamepadAxis_LeftX), mpPad->GetAxisValue(eGamepadAxis_LeftY));
 #else
 				vAnalogLookAxis = cVector2f(mpPad->GetAxisValue(eGamepadAxis_0), mpPad->GetAxisValue(eGamepadAxis_1));

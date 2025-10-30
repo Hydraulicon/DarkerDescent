@@ -197,7 +197,7 @@ bool cOAL_EFXManager::Initialize(int alNumSlotsHint, int alNumSends, bool abUseT
 
 		mlThreadWaitTime = 1000/alSlotUpdateFreq;
         
-#ifdef USE_SDL2
+#ifdef USE_SDL3
 		mpUpdaterThread = SDL_CreateThread(SlotUpdaterThread, "SlotUpdater", NULL);
 #else
 		mpUpdaterThread = SDL_CreateThread(SlotUpdaterThread, NULL);

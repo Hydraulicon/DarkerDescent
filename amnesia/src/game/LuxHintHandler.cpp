@@ -56,7 +56,7 @@ cLuxHintHandler::cLuxHintHandler() : iLuxUpdateable("LuxHintHandler")
 		mpGamepadButtonIcon[i] = NULL;
 	}
 
-# if USE_SDL2
+# if USE_SDL3
     mpGamepadButtonIcon[eGamepadButton_A]             = pGui->CreateGfxTexture("gamepad_a.tga", eGuiMaterial_Alpha, eTextureType_2D, cColor(1,1), false);
 	mpGamepadButtonIcon[eGamepadButton_B]             = pGui->CreateGfxTexture("gamepad_b.tga", eGuiMaterial_Alpha, eTextureType_2D, cColor(1,1), false);
 	mpGamepadButtonIcon[eGamepadButton_X]             = pGui->CreateGfxTexture("gamepad_x.tga", eGuiMaterial_Alpha, eTextureType_2D, cColor(1,1), false);
@@ -110,7 +110,7 @@ cLuxHintHandler::cLuxHintHandler() : iLuxUpdateable("LuxHintHandler")
 		mpGampadAxisIcon[i * 2 + 1] = NULL;
 	}
 
-# if USE_SDL2
+# if USE_SDL3
 	mpGampadAxisIcon[eGamepadAxis_LeftTrigger * 2 + eGamepadAxisRange_Positive - 1]  = pGui->CreateGfxTexture("gamepad_lt.tga", eGuiMaterial_Alpha, eTextureType_2D, cColor(1,1), false);
 	mpGampadAxisIcon[eGamepadAxis_RightTrigger * 2 + eGamepadAxisRange_Positive - 1] = pGui->CreateGfxTexture("gamepad_rt.tga", eGuiMaterial_Alpha, eTextureType_2D, cColor(1,1), false);
 #else

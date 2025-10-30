@@ -41,10 +41,10 @@
 #include "impl/SqScript.h"
 #include "system/Platform.h"
 
-#if USE_SDL2
-#include "SDL2/SDL.h"
+#if USE_SDL3
+#include "SDL3/SDL.h"
 #else
-#include "SDL/SDL.h"
+#include "SDL3/SDL.h"
 #endif
 
 #include "impl/scriptstring.h"

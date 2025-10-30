@@ -20,7 +20,7 @@
 #ifndef HPL_GAMEPAD_SDL_H
 #define HPL_GAMEPAD_SDL_H
 
-#if !USE_SDL2
+#if !USE_SDL3
 
 #include <vector>
 #include <list>
@@ -28,7 +28,7 @@
 #include "input/Gamepad.h"
 //#include "input/InputTypes.h"
 
-#include "SDL/SDL.h"
+#include "SDL3/SDL.h"
 
 namespace hpl {
 
@@ -111,6 +111,6 @@ namespace hpl {
 
 };
 
-#endif // USE_SDL2
+#endif // USE_SDL3
 
 #endif // HPL_GAMEPAD_SDL_H

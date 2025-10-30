@@ -52,8 +52,8 @@
 #include <OpenGL/OpenGL.h>
 #endif
 
-#if USE_SDL2
-#include "SDL2/SDL_syswm.h"
+#if USE_SDL3
+#include "SDL3/SDL_syswm.h"
 #else
 #include "SDL/SDL_syswm.h"
 #endif

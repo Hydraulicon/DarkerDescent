@@ -54,7 +54,7 @@ namespace hpl {
 		void AddKeyToList(int alSDLMod, eKey aKey, int alUnicode, std::list<cKeyPress>& alstKeys);
 
 		std::vector<bool> mvKeyArray;
-#if !USE_SDL2 && defined __APPLE__
+#if !USE_SDL3 && defined __APPLE__
 		std::vector<eKey> mvWorldKeyMap;
 #endif
 		std::list<cKeyPress> mlstKeysPressed;

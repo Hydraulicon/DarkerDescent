@@ -23,8 +23,8 @@
 
 #include "system/LowLevelSystem.h"
 
-#if USE_SDL2
-#include "SDL2/SDL_stdinc.h"
+#if USE_SDL3
+#include "SDL3/SDL_stdinc.h"
 #else
 #include "SDL/SDL_stdinc.h"
 #endif

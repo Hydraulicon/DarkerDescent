@@ -17,7 +17,7 @@
  * along with Amnesia: The Dark Descent.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#if !USE_SDL2
+#if !USE_SDL3
 
 #include "impl/GamepadSDL.h"
 
@@ -408,4 +408,4 @@ namespace hpl {
 	//-----------------------------------------------------------------------
 
 }
-#endif // !USE_SDL2
+#endif // !USE_SDL3

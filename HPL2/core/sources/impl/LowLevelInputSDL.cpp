@@ -22,18 +22,18 @@
 #include "impl/MouseSDL.h"
 #include "impl/KeyboardSDL.h"
 #include "impl/GamepadSDL.h"
-#include "impl/GamepadSDL2.h"
+#include "impl/GamepadSDL3.h"
 
 #include "system/LowLevelSystem.h"
 #include "graphics/LowLevelGraphics.h"
 
 #include "engine/Engine.h"
 
-#if USE_SDL2
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_syswm.h"
+#if USE_SDL3
+#include "SDL3/SDL.h"
+#include "SDL3/SDL_syswm.h"
 #else
-#include "SDL/SDL.h"
+#include "SDL3/SDL.h"
 #include "SDL/SDL_syswm.h"
 #endif
 
@@ -120,7 +120,7 @@ namespace hpl {
 			else
 #endif //WIN32
 #if SDL_VERSION_ATLEAST(2, 0, 0)
-            // built-in SDL2 gamepad hotplug code
+            // built-in SDL3 gamepad hotplug code
             // this whole contract should be rewritten to allow clean adding/removing
             // of controllers, instead of brute force rescanning
             if (sdlEvent.type==SDL_CONTROLLERDEVICEADDED)
@@ -202,8 +202,8 @@ namespace hpl {
 
 	iGamepad* cLowLevelInputSDL::CreateGamepad(int alIndex)
 	{
-#if USE_SDL2
-		return hplNew( cGamepadSDL2, (this, alIndex) );
+#if USE_SDL3
+		return hplNew( cGamepadSDL3, (this, alIndex) );
 #else
 		return hplNew( cGamepadSDL, (this, alIndex) );
 #endif

@@ -351,7 +351,7 @@ namespace hpl {
 		eGamepadButton_29,
 		
 		eGamepadButton_LastEnum,
-        // Pretty symbols for SDL2
+        // Pretty symbols for SDL3
         eGamepadButton_A = eGamepadButton_0,
         eGamepadButton_B = eGamepadButton_1,
         eGamepadButton_X = eGamepadButton_2,
@@ -383,7 +383,7 @@ namespace hpl {
 		eGamepadAxis_9,
 				
 		eGamepadAxis_LastEnum,
-        // Pretty symbosl for SDL2
+        // Pretty symbosl for SDL3
         eGamepadAxis_LeftX = eGamepadAxis_0,
         eGamepadAxis_LeftY = eGamepadAxis_1,
         eGamepadAxis_RightX = eGamepadAxis_2,

@@ -17,8 +17,8 @@
  * along with Amnesia: The Dark Descent.  If not, see <https://www.gnu.org/licenses/>.
  */
 
-#ifndef HPL_GAMEPAD_SDL2_H
-#define HPL_GAMEPAD_SDL2_H
+#ifndef HPL_GAMEPAD_SDL3_H
+#define HPL_GAMEPAD_SDL3_H
 
 #include <vector>
 #include <list>
@@ -26,17 +26,17 @@
 #include "input/Gamepad.h"
 //#include "input/InputTypes.h"
 
-#include "SDL2/SDL.h"
+#include "SDL3/SDL.h"
 
 namespace hpl {
 
 	class cLowLevelInputSDL;
 
-	class cGamepadSDL2 : public iGamepad
+	class cGamepadSDL3 : public iGamepad
 	{
 	public:
-		cGamepadSDL2(cLowLevelInputSDL *apLowLevelInputSDL, int alIndex);
-		~cGamepadSDL2();
+		cGamepadSDL3(cLowLevelInputSDL *apLowLevelInputSDL, int alIndex);
+		~cGamepadSDL3();
 
 		tString GetGamepadName() { return msGamepadName; }
 
@@ -119,4 +119,4 @@ namespace hpl {
 
 };
 
-#endif // HPL_GAMEPAD_SDL2_H
+#endif // HPL_GAMEPAD_SDL3_H

@@ -19,10 +19,22 @@
 
 #include "impl/MouseSDL.h"
 
-#if USE_SDL2
-#include "SDL2/SDL.h"
+#if USE_SDL3
+#include "SDL3/SDL.h"
 #else
-#include "SDL/SDL.h"
+#include "SDL3/SDL.h"
+#endif
+
+#if SDL_VERSION_ATLEAST(3, 0, 0)
+#define HPL_MOUSE_EVENT_MOTION SDL_EVENT_MOUSE_MOTION
+#define HPL_MOUSE_EVENT_BUTTON_DOWN SDL_EVENT_MOUSE_BUTTON_DOWN
+#define HPL_MOUSE_EVENT_BUTTON_UP SDL_EVENT_MOUSE_BUTTON_UP
+#define HPL_MOUSE_EVENT_WHEEL SDL_EVENT_MOUSE_WHEEL
+#else
+#define HPL_MOUSE_EVENT_MOTION SDL_MOUSEMOTION
+#define HPL_MOUSE_EVENT_BUTTON_DOWN SDL_MOUSEBUTTONDOWN
+#define HPL_MOUSE_EVENT_BUTTON_UP SDL_MOUSEBUTTONUP
+#define HPL_MOUSE_EVENT_WHEEL SDL_MOUSEWHEEL
 #endif
 
 #include "graphics/LowLevelGraphics.h"
@@ -74,7 +86,13 @@ namespace hpl {
 			for(int i=0; i<10; ++i)
 			{
 				SDL_PumpEvents();
-				int lX,lY;
+#if SDL_VERSION_ATLEAST(3, 0, 0)
+				float lX = 0.0f;
+				float lY = 0.0f;
+#else
+				int lX = 0;
+				int lY = 0;
+#endif
 				SDL_GetRelativeMouseState(&lX, &lY);
 			}
 			mbFirstTime = false;
@@ -90,19 +108,19 @@ namespace hpl {
 		{
 			SDL_Event *pEvent = &(*it);
 
-			if(	pEvent->type != SDL_MOUSEMOTION && 
-				pEvent->type != SDL_MOUSEBUTTONDOWN &&
+			if (pEvent->type != HPL_MOUSE_EVENT_MOTION &&
+				pEvent->type != HPL_MOUSE_EVENT_BUTTON_DOWN &&
 #if SDL_VERSION_ATLEAST(2, 0, 0)
-                pEvent->type != SDL_MOUSEWHEEL &&
+				pEvent->type != HPL_MOUSE_EVENT_WHEEL &&
 #endif
-				pEvent->type != SDL_MOUSEBUTTONUP)
+				pEvent->type != HPL_MOUSE_EVENT_BUTTON_UP)
 			{
 				continue;
 			}
 
-			if(pEvent->type == SDL_MOUSEMOTION)
+			if (pEvent->type == HPL_MOUSE_EVENT_MOTION)
 			{
-#if SDL_VERSION_ATLEAST(2, 0, 0) && _WIN32
+#if SDL_VERSION_ATLEAST(3, 0, 0) && _WIN32
 				/*if(pLowLevelGfx->GetFullscreenModeActive() == false)
 				{
 					/////////////
