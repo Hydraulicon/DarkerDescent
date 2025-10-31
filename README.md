@@ -1,12 +1,14 @@
-# Amnesia 64
-64-bit Windows port of Amnesia: The Dark Descent
+# Darker Descent
+64-bit Windows port of Amnesia: The Dark Descent, based on "Amnesia64" from buzer2020.
+
+Currently pre-alpha; stable, as per my independent testing, but currently lacking gamma control.
+In-game gamma slider does not function due to breaking changes in SDL3, and will require a gamma post-process, which I plan to integrate.
+Default game brightness without gamma correction may potentially be too dark to produce legible image in darker areas.
 
 ## Key changes:
-- Can be compiled in both 32-bit and 64-bit modes using VS2019 with latest build tools.
-- Single solution file for all projects (main game, HPL2, dependencies and editors). No need to compile the engine separately.
-- Produces self-contained .exe files without dependency on 3rd party dlls (this prevents cluttering user's game folder with 64-bit dlls).
-- Some libraries were changed, most notably:
-	- SDL2 was upgraded from 2.0.4 to 2.0.12
-	- alut was replaced with freealut
-	- Newton Dynamics was upgraded from 2.08 to 2.32 (I simply couldn't find the source code for 2.08)
-	- Fbx support is temporarily removed (I'm planning to re-implement it using OpenFBX)
+	- 64bit solution for VS2022 and C++14 included; builds all projects at once.
+	- Static linkage for most external dependencies, excluding OpenAL Soft, which requires a DLL to launch.
+	- SDL2 2.0.12 was upgraded to SDL3 3.2.26.
+	- alut was replaced with freealut.
+	- Newton Dynamics was upgraded from 2.08 to 2.32.
+	- FBX support not available at this time.
