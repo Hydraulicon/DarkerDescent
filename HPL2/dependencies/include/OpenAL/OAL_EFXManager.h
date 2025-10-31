@@ -5,11 +5,9 @@
 #include "OpenAL/OAL_Helper.h"
 #include "OpenAL/OAL_LoggerObject.h"
 
-#ifdef USE_SDL2
-#include <SDL2/SDL.h>
-#else
-#include <SDL/SDL.h>
-#endif
+
+#include <SDL3/SDL.h>
+
 
 typedef enum
 {

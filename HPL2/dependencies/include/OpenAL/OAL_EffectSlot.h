@@ -4,11 +4,7 @@
 #include "OpenAL/OAL_Types.h"
 #include "OpenAL/OAL_LowLevelObject.h"
 
-#ifdef USE_SDL2
-#include <SDL2/SDL.h>
-#else
-#include <SDL/SDL.h>
-#endif
+#include <SDL3/SDL.h>
 
 class cOAL_EFXManager;
 
@@ -48,7 +44,7 @@ private:
 	bool mbAutoAdjust;
 	cOAL_EFXManager* mpEFXManager;
 
-	SDL_mutex*		mpMutex;
+	SDL_Mutex*		mpMutex;
     
 };
 

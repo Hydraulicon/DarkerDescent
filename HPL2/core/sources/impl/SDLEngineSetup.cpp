@@ -1,18 +1,18 @@
 /*
  * Copyright © 2009-2020 Frictional Games
- * 
+ *
  * This file is part of Amnesia: The Dark Descent.
- * 
+ *
  * Amnesia: The Dark Descent is free software: you can redistribute it and/or modify
  * it under the terms of the GNU General Public License as published by
  * the Free Software Foundation, either version 3 of the License, or
- * (at your option) any later version. 
+ * (at your option) any later version.
 
  * Amnesia: The Dark Descent is distributed in the hope that it will be useful,
  * but WITHOUT ANY WARRANTY; without even the implied warranty of
  * MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
  * GNU General Public License for more details.
- * 
+ *
  * You should have received a copy of the GNU General Public License
  * along with Amnesia: The Dark Descent.  If not, see <https://www.gnu.org/licenses/>.
  */
@@ -40,20 +40,10 @@
 #include "impl/LowLevelPhysicsNewton.h"
 
 #ifdef INCLUDE_HAPTIC 
-	#include "impl/LowLevelHapticHaptX.h"
+#include "impl/LowLevelHapticHaptX.h"
 #endif
 
-#if USE_SDL2
-#include "SDL2/SDL.h"
-#include "SDL2/SDL_syswm.h"
-#else
-#include "SDL/SDL.h"
-#include "SDL/SDL_syswm.h"
-#endif
-#ifdef _WIN32
-#include "Windows.h"
-#include "Dbt.h"
-#endif
+#include <SDL3/SDL.h>
 
 namespace hpl {
 
@@ -65,82 +55,58 @@ namespace hpl {
 
 	cSDLEngineSetup::cSDLEngineSetup(tFlag alHplSetupFlags)
 	{
-#if SDL_VERSION_ATLEAST(2,0,0)
+		// SDL3: Hint names unchanged
 		SDL_SetHint(SDL_HINT_VIDEO_MAC_FULLSCREEN_SPACES, "0");
-#endif
-		if(alHplSetupFlags & (eHplSetup_Screen | eHplSetup_Video))
+
+		if (alHplSetupFlags & (eHplSetup_Screen | eHplSetup_Video))
 		{
-			if(SDL_Init( SDL_INIT_VIDEO | SDL_INIT_TIMER ) < 0) {
-				FatalError("Error Initializing Display: %s",SDL_GetError()); 
+			// SDL3: Timer is always available, SDL_Init returns bool
+			if (!SDL_Init(SDL_INIT_VIDEO)) {
+				FatalError("Error Initializing Display: %s", SDL_GetError());
 				exit(1);
 			}
-#if SDL_VERSION_ATLEAST(2,0,0)
-            SDL_DisableScreenSaver();
-#elif defined _WIN32 // only on SDL1.2
-			// Set up device notifications!
-			// This is bad, cos it is actually Windows specific code, should not be here. TODO: move it, obviously
-			SDL_SysWMinfo info;
-			SDL_VERSION(&info.version);
-			if(SDL_GetWMInfo(&info))
-			{
-				DEV_BROADCAST_DEVICEINTERFACE notificationFilter;
-				ZeroMemory(&notificationFilter, sizeof(notificationFilter));
- 
-				// set up filtering, so we only get notified of input device changes
-				notificationFilter.dbcc_devicetype = DBT_DEVTYP_DEVICEINTERFACE;
-				static const GUID GuidDevInterfaceHID = {0x745a17a0, 0x74d3, 0x11d0,
-															{ 0xb6, 0xfe, 0x00, 0xa0, 0xc9, 0x0f, 0x57, 0xda }};
-				notificationFilter.dbcc_classguid = GuidDevInterfaceHID;
 
-				notificationFilter.dbcc_size = sizeof(notificationFilter);
- 
-				HDEVNOTIFY hDevNotify;
-				hDevNotify = RegisterDeviceNotification(info.window, &notificationFilter,
-					DEVICE_NOTIFY_WINDOW_HANDLE |
-					DEVICE_NOTIFY_ALL_INTERFACE_CLASSES);
- 
-				if(hDevNotify == NULL) {
-				}
-			}
-#endif // WIN32
+			// SDL3: Screen saver control
+			SDL_DisableScreenSaver();
 		}
 		else
 		{
-			SDL_Init( SDL_INIT_TIMER );
+			// SDL3: Timer is always available, minimal init
+			SDL_Init(0);
 		}
-		
+
 		//////////////////////////
 		// System
-		mpLowLevelSystem = hplNew( cLowLevelSystemSDL, () );
-		
+		mpLowLevelSystem = hplNew(cLowLevelSystemSDL, ());
+
 		//////////////////////////
 		// Graphics
-		mpLowLevelGraphics = hplNew( cLowLevelGraphicsSDL,() );
-		
+		mpLowLevelGraphics = hplNew(cLowLevelGraphicsSDL, ());
+
 		//////////////////////////
 		// Input
-		mpLowLevelInput = hplNew( cLowLevelInputSDL,(mpLowLevelGraphics) );
-		
+		mpLowLevelInput = hplNew(cLowLevelInputSDL, (mpLowLevelGraphics));
+
 		//////////////////////////
 		// Resources
-		mpLowLevelResources = hplNew( cLowLevelResourcesSDL,(mpLowLevelGraphics) );
-		
+		mpLowLevelResources = hplNew(cLowLevelResourcesSDL, (mpLowLevelGraphics));
+
 		//////////////////////////
 		// Sound
-		mpLowLevelSound	= hplNew( cLowLevelSoundOpenAL,() );
-		
+		mpLowLevelSound = hplNew(cLowLevelSoundOpenAL, ());
+
 		//////////////////////////
 		// Physics
-		mpLowLevelPhysics = hplNew( cLowLevelPhysicsNewton,() );
-		
+		mpLowLevelPhysics = hplNew(cLowLevelPhysicsNewton, ());
+
 		//////////////////////////
 		// Haptic
 #ifdef INCLUDE_HAPTIC 
-		mpLowLevelHaptic = hplNew( cLowLevelHapticHaptX,() );
+		mpLowLevelHaptic = hplNew(cLowLevelHapticHaptX, ());
 #else 
 		mpLowLevelHaptic = NULL;
 #endif
-		
+
 	}
 
 	//-----------------------------------------------------------------------
@@ -148,7 +114,7 @@ namespace hpl {
 	cSDLEngineSetup::~cSDLEngineSetup()
 	{
 		Log("- Deleting lowlevel stuff.\n");
-		
+
 		Log("  Physics\n");
 		hplDelete(mpLowLevelPhysics);
 		Log("  Sound\n");
@@ -166,9 +132,8 @@ namespace hpl {
 		hplDelete(mpLowLevelHaptic);
 #endif
 
-#if SDL_VERSION_ATLEAST(2,0,0)
-        SDL_EnableScreenSaver();
-#endif
+		// SDL3: Re-enable screen saver
+		SDL_EnableScreenSaver();
 		SDL_Quit();
 	}
 
@@ -179,65 +144,65 @@ namespace hpl {
 	//////////////////////////////////////////////////////////////////////////
 
 	//-----------------------------------------------------------------------
-	
-	cScene* cSDLEngineSetup::CreateScene(cGraphics* apGraphics, cResources *apResources, cSound* apSound,
-										cPhysics *apPhysics, cSystem *apSystem,cAI *apAI,cGui *apGui,
-										cHaptic *apHaptic)
+
+	cScene* cSDLEngineSetup::CreateScene(cGraphics* apGraphics, cResources* apResources, cSound* apSound,
+		cPhysics* apPhysics, cSystem* apSystem, cAI* apAI, cGui* apGui,
+		cHaptic* apHaptic)
 	{
-		cScene *pScene = hplNew( cScene, (apGraphics,apResources, apSound,apPhysics, apSystem,apAI,apGui,apHaptic) );
+		cScene* pScene = hplNew(cScene, (apGraphics, apResources, apSound, apPhysics, apSystem, apAI, apGui, apHaptic));
 		return pScene;
 	}
 
 	//-----------------------------------------------------------------------
 
-	
+
 	/**
 	 * \todo Lowlevelresource and resource both use lowlevel graphics. Can this be fixed??
-	 * \param apGraphics 
-	 * \return 
+	 * \param apGraphics
+	 * \return
 	 */
 	cResources* cSDLEngineSetup::CreateResources(cGraphics* apGraphics)
 	{
-		cResources *pResources = hplNew( cResources, (mpLowLevelResources,mpLowLevelGraphics) );
+		cResources* pResources = hplNew(cResources, (mpLowLevelResources, mpLowLevelGraphics));
 		return pResources;
 	}
-	
+
 	//-----------------------------------------------------------------------
 
 	cInput* cSDLEngineSetup::CreateInput(cGraphics* apGraphics)
 	{
-		cInput *pInput = hplNew( cInput, (mpLowLevelInput) );
+		cInput* pInput = hplNew(cInput, (mpLowLevelInput));
 		return pInput;
 	}
-	
+
 	//-----------------------------------------------------------------------
 
 	cSystem* cSDLEngineSetup::CreateSystem()
 	{
-		cSystem *pSystem = hplNew( cSystem, (mpLowLevelSystem) );
+		cSystem* pSystem = hplNew(cSystem, (mpLowLevelSystem));
 		return pSystem;
 	}
-	
+
 	//-----------------------------------------------------------------------
 
 	cGraphics* cSDLEngineSetup::CreateGraphics()
 	{
-		cGraphics *pGraphics = hplNew( cGraphics, (mpLowLevelGraphics,mpLowLevelResources) );
+		cGraphics* pGraphics = hplNew(cGraphics, (mpLowLevelGraphics, mpLowLevelResources));
 		return pGraphics;
 	}
 	//-----------------------------------------------------------------------
-	
+
 	cSound* cSDLEngineSetup::CreateSound()
 	{
-		cSound *pSound = hplNew( cSound, (mpLowLevelSound) );
+		cSound* pSound = hplNew(cSound, (mpLowLevelSound));
 		return pSound;
 	}
-	
+
 	//-----------------------------------------------------------------------
-	
+
 	cPhysics* cSDLEngineSetup::CreatePhysics()
 	{
-		cPhysics *pPhysics = hplNew( cPhysics, (mpLowLevelPhysics) );
+		cPhysics* pPhysics = hplNew(cPhysics, (mpLowLevelPhysics));
 		return pPhysics;
 	}
 
@@ -245,7 +210,7 @@ namespace hpl {
 
 	cAI* cSDLEngineSetup::CreateAI()
 	{
-		cAI *pAI = hplNew( cAI,() );
+		cAI* pAI = hplNew(cAI, ());
 		return pAI;
 	}
 
@@ -253,7 +218,7 @@ namespace hpl {
 
 	cHaptic* cSDLEngineSetup::CreateHaptic()
 	{
-		cHaptic *pHaptic = hplNew( cHaptic, (mpLowLevelHaptic) );
+		cHaptic* pHaptic = hplNew(cHaptic, (mpLowLevelHaptic));
 		return pHaptic;
 	}
 

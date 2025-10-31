@@ -3,11 +3,9 @@
 
 #include "OpenAL/OAL_LowLevelObject.h"
 
-#ifdef USE_SDL2
-#include <SDL2/SDL.h>
-#else
-#include <SDL/SDL.h>
-#endif
+
+#include <SDL3/SDL.h>
+
 
 class cOAL_Effect : public iOAL_LowLevelObject
 {
@@ -38,7 +36,7 @@ protected:
 	ALuint	mlEffectId;
 	bool	mbNeedsUpdate;
 
-	SDL_mutex* mpMutex;
+	SDL_Mutex* mpMutex;
 };
 
 #endif	// _OAL_EFFECT_H
