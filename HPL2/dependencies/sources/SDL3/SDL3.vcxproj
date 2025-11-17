@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -85,6 +85,8 @@
       <DisableSpecificWarnings>4100;4127;4152;4201;4244;4267;%(DisableSpecificWarnings)</DisableSpecificWarnings>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>SDL_internal.h</PrecompiledHeaderFile>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
@@ -93,7 +95,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-
   <ItemGroup>
     <ClCompile Include="core\windows\pch.c">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
@@ -365,7 +366,6 @@
     <ClCompile Include="video\yuv2rgb\yuv_rgb_sse.c" />
     <ClCompile Include="video\yuv2rgb\yuv_rgb_std.c" />
   </ItemGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+<Project xmlns="http://schemas.microsoft.com/developer/msbuild/2003" DefaultTargets="Build">
   <ItemGroup Label="ProjectConfigurations">
     <ProjectConfiguration Include="Debug|x64">
       <Configuration>Debug</Configuration>
@@ -75,7 +75,7 @@
       <PreprocessorDefinitions>NDEBUG;_LIB;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;_CRT_SECURE_NO_WARNINGS;RESTRICT=__restrict;_WINDOWS;NOMINMAX;FMT_HEADER_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\include;$(ProjectDir)\include\AL;$(ProjectDir)\common;$(ProjectDir)\alc;$(ProjectDir)\core;$(ProjectDir)\fmt-11.2.0\include;$(ProjectDir)\..\..\..\include\SDL3;$(ProjectDir)\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
@@ -87,8 +87,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-
-  <!-- AL API Implementation -->
   <ItemGroup>
     <ClCompile Include="al\auxeffectslot.cpp" />
     <ClCompile Include="al\buffer.cpp" />
@@ -102,8 +100,6 @@
     <ClCompile Include="al\source.cpp" />
     <ClCompile Include="al\state.cpp" />
   </ItemGroup>
-
-  <!-- AL Effects Implementation -->
   <ItemGroup>
     <ClCompile Include="al\effects\autowah.cpp">
       <ObjectFileName>$(IntDir)al_effects_autowah.obj</ObjectFileName>
@@ -149,8 +145,6 @@
       <ObjectFileName>$(IntDir)al_effects_vmorpher.obj</ObjectFileName>
     </ClCompile>
   </ItemGroup>
-
-  <!-- ALC Core Implementation -->
   <ItemGroup>
     <ClCompile Include="alc\alc.cpp" />
     <ClCompile Include="alc\alu.cpp" />
@@ -164,8 +158,6 @@
     <ClCompile Include="alc\events.cpp" />
     <ClCompile Include="alc\panning.cpp" />
   </ItemGroup>
-
-  <!-- ALC Effects -->
   <ItemGroup>
     <ClCompile Include="alc\effects\autowah.cpp" />
     <ClCompile Include="alc\effects\chorus.cpp" />
@@ -184,8 +176,6 @@
     <ClCompile Include="alc\effects\reverb.cpp" />
     <ClCompile Include="alc\effects\vmorpher.cpp" />
   </ItemGroup>
-
-  <!-- ALC Backends - SDL3 Only -->
   <ItemGroup>
     <ClCompile Include="alc\backends\base.cpp" />
     <ClCompile Include="alc\backends\loopback.cpp" />
@@ -194,8 +184,6 @@
     </ClCompile>
     <ClCompile Include="alc\backends\sdl3.cpp" />
   </ItemGroup>
-
-  <!-- Core Audio Processing -->
   <ItemGroup>
     <ClCompile Include="core\ambdec.cpp" />
     <ClCompile Include="core\ambidefs.cpp" />
@@ -227,15 +215,11 @@
     <ClCompile Include="core\uiddefs.cpp" />
     <ClCompile Include="core\voice.cpp" />
   </ItemGroup>
-
-  <!-- Core Filters -->
   <ItemGroup>
     <ClCompile Include="core\filters\biquad.cpp" />
     <ClCompile Include="core\filters\nfc.cpp" />
     <ClCompile Include="core\filters\splitter.cpp" />
   </ItemGroup>
-
-  <!-- Core Mixer -->
   <ItemGroup>
     <ClCompile Include="core\mixer\mixer_c.cpp" />
     <ClCompile Include="core\mixer\mixer_sse.cpp" />
@@ -243,8 +227,6 @@
     <ClCompile Include="core\mixer\mixer_sse3.cpp" />
     <ClCompile Include="core\mixer\mixer_sse41.cpp" />
   </ItemGroup>
-
-  <!-- Common Utilities -->
   <ItemGroup>
     <ClCompile Include="common\alcomplex.cpp" />
     <ClCompile Include="common\almalloc.cpp" />
@@ -256,7 +238,6 @@
     <ClCompile Include="common\polyphase_resampler.cpp" />
     <ClCompile Include="common\strutils.cpp" />
   </ItemGroup>
-
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>

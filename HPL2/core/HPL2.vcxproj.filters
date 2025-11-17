@@ -636,81 +636,6 @@
     <ClInclude Include="include\impl\OpenALSoundEnvironment.h">
       <Filter>Impl\Sound</Filter>
     </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_AudioData.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Buffer.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Device.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Effect.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Effect_Reverb.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_EffectSlot.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_EFX.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_EFXManager.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Filter.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Funcs.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Helper.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Init.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Loaders.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_LoggerObject.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_LowLevelObject.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_OggHelper.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_OggSample.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_OggStream.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Playback.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Sample.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Source.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_SourceManager.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Stream.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_Types.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
-    <ClInclude Include="..\dependencies\include\OpenAL\OAL_WAVSample.h">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClInclude>
     <ClInclude Include="include\impl\HapticForceHaptX.h">
       <Filter>Impl\Haptic</Filter>
     </ClInclude>
@@ -1060,6 +985,33 @@
     <ClInclude Include="include\impl\GamepadSDL2.h">
       <Filter>Impl\Input</Filter>
     </ClInclude>
+    <ClInclude Include="include\impl\OpenGLExtensions.h" />
+    <ClInclude Include="include\impl\OAL_AudioData.h" />
+    <ClInclude Include="include\impl\OAL_Buffer.h" />
+    <ClInclude Include="include\impl\OAL_Device.h" />
+    <ClInclude Include="include\impl\OAL_Effect.h" />
+    <ClInclude Include="include\impl\OAL_Effect_Reverb.h" />
+    <ClInclude Include="include\impl\OAL_EffectSlot.h" />
+    <ClInclude Include="include\impl\OAL_EFX.h" />
+    <ClInclude Include="include\impl\OAL_EFXManager.h" />
+    <ClInclude Include="include\impl\OAL_Filter.h" />
+    <ClInclude Include="include\impl\OAL_Funcs.h" />
+    <ClInclude Include="include\impl\OAL_Helper.h" />
+    <ClInclude Include="include\impl\OAL_Init.h" />
+    <ClInclude Include="include\impl\OAL_Loaders.h" />
+    <ClInclude Include="include\impl\OAL_LoggerObject.h" />
+    <ClInclude Include="include\impl\OAL_LowLevelObject.h" />
+    <ClInclude Include="include\impl\OAL_OggHelper.h" />
+    <ClInclude Include="include\impl\OAL_OggSample.h" />
+    <ClInclude Include="include\impl\OAL_OggStream.h" />
+    <ClInclude Include="include\impl\OAL_Playback.h" />
+    <ClInclude Include="include\impl\OAL_Sample.h" />
+    <ClInclude Include="include\impl\OAL_Source.h" />
+    <ClInclude Include="include\impl\OAL_SourceManager.h" />
+    <ClInclude Include="include\impl\OAL_Stream.h" />
+    <ClInclude Include="include\impl\OAL_Types.h" />
+    <ClInclude Include="include\impl\OAL_WAVSample.h" />
+    <ClInclude Include="include\impl\WAVLoader.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="sources\system\Container.cpp">
@@ -1563,75 +1515,6 @@
     <ClCompile Include="sources\impl\OpenALSoundEnvironment.cpp">
       <Filter>Impl\Sound</Filter>
     </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_AudioData.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Buffer.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Device.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Effect.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Effect_Reverb.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_EffectSlot.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_EFX.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_EFXManager.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Filter.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Helper.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Init.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Loaders.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_LoggerObject.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_OggHelper.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_OggSample.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_OggStream.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Playback.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Sample.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Source.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_SourceManager.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Stream.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_Types.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
-    <ClCompile Include="..\dependencies\sources\OpenAL\OAL_WAVSample.cpp">
-      <Filter>Impl\Sound\OpenAL</Filter>
-    </ClCompile>
     <ClCompile Include="sources\impl\HapticForceHaptX.cpp">
       <Filter>Impl\Haptic</Filter>
     </ClCompile>
@@ -1932,5 +1815,30 @@
     <ClCompile Include="sources\impl\GamepadSDL2.cpp">
       <Filter>Impl\Input</Filter>
     </ClCompile>
+    <ClCompile Include="sources\impl\OpenGLExtensions.cpp" />
+    <ClCompile Include="sources\impl\OAL_AudioData.cpp" />
+    <ClCompile Include="sources\impl\OAL_Buffer.cpp" />
+    <ClCompile Include="sources\impl\OAL_Device.cpp" />
+    <ClCompile Include="sources\impl\OAL_Effect.cpp" />
+    <ClCompile Include="sources\impl\OAL_Effect_Reverb.cpp" />
+    <ClCompile Include="sources\impl\OAL_EffectSlot.cpp" />
+    <ClCompile Include="sources\impl\OAL_EFX.cpp" />
+    <ClCompile Include="sources\impl\OAL_EFXManager.cpp" />
+    <ClCompile Include="sources\impl\OAL_Filter.cpp" />
+    <ClCompile Include="sources\impl\OAL_Helper.cpp" />
+    <ClCompile Include="sources\impl\OAL_Init.cpp" />
+    <ClCompile Include="sources\impl\OAL_Loaders.cpp" />
+    <ClCompile Include="sources\impl\OAL_LoggerObject.cpp" />
+    <ClCompile Include="sources\impl\OAL_OggHelper.cpp" />
+    <ClCompile Include="sources\impl\OAL_OggSample.cpp" />
+    <ClCompile Include="sources\impl\OAL_OggStream.cpp" />
+    <ClCompile Include="sources\impl\OAL_Playback.cpp" />
+    <ClCompile Include="sources\impl\OAL_Sample.cpp" />
+    <ClCompile Include="sources\impl\OAL_Source.cpp" />
+    <ClCompile Include="sources\impl\OAL_SourceManager.cpp" />
+    <ClCompile Include="sources\impl\OAL_Stream.cpp" />
+    <ClCompile Include="sources\impl\OAL_Types.cpp" />
+    <ClCompile Include="sources\impl\OAL_WAVSample.cpp" />
+    <ClCompile Include="sources\impl\WAVLoader.cpp" />
   </ItemGroup>
 </Project>

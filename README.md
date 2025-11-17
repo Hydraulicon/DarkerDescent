@@ -4,7 +4,7 @@
 Currently pre-alpha; stable, as per my independent testing.
 
 ## Key changes:
-	- 64bit solution for VS2022 and C++14 included; builds all projects at once.
+	- 64-bit only solution for VS2022 with C++23 and ISO C17 compliance; builds all projects at once.
 	- Static linkage for all external dependencies.
 	- SDL2 2.0.12 was upgraded to SDL3 3.2.26.
 	- Gamma correction implemented via post-processing shader to replace SDL3's removed hardware gamma functionality.
