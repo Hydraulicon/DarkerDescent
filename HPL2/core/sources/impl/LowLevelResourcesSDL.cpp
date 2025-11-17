@@ -23,8 +23,8 @@
 #include "impl/MeshLoaderCollada.h"
 #include "impl/VideoStreamTheora.h"
 #include "impl/XmlDocumentTiny.h"
-#include "impl/BitmapLoaderDevilDDS.h"
-#include "impl/BitmapLoaderDevilMisc.h"
+#include "impl/BitmapLoaderDDS.h"
+#include "impl/BitmapLoaderSTB.h"
 
 #include "system/String.h"
 
@@ -62,8 +62,8 @@ namespace hpl {
 
 	void cLowLevelResourcesSDL::AddBitmapLoaders(cBitmapLoaderHandler* apHandler)
 	{
-		apHandler->AddLoader(hplNew( cBitmapLoaderDevilDDS,()));
-		apHandler->AddLoader(hplNew( cBitmapLoaderDevilMisc,()));
+		apHandler->AddLoader(hplNew( cBitmapLoaderDDS,()));
+		apHandler->AddLoader(hplNew( cBitmapLoaderSTB,()));
 	}
 
 	//-----------------------------------------------------------------------

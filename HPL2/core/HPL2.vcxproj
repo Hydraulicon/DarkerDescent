@@ -320,9 +320,8 @@
     <ClInclude Include="include\impl\VertexBufferOGL_VBO.h" />
     <ClInclude Include="include\impl\VertexBufferOpenGL.h" />
     <ClInclude Include="include\impl\VideoStreamTheora.h" />
-    <ClInclude Include="include\impl\BitmapLoaderDevil.h" />
-    <ClInclude Include="include\impl\BitmapLoaderDevilDDS.h" />
-    <ClInclude Include="include\impl\BitmapLoaderDevilMisc.h" />
+    <ClInclude Include="include\impl\BitmapLoaderSTB.h" />
+    <ClInclude Include="include\impl\BitmapLoaderDDS.h" />
     <ClInclude Include="include\impl\LowLevelResourcesSDL.h" />
     <ClInclude Include="include\impl\MeshLoaderCollada.h" />
     <ClInclude Include="include\impl\MeshLoaderMSH.h" />
@@ -631,9 +630,8 @@
     <ClCompile Include="sources\impl\VertexBufferOGL_VBO.cpp" />
     <ClCompile Include="sources\impl\VertexBufferOpenGL.cpp" />
     <ClCompile Include="sources\impl\VideoStreamTheora.cpp" />
-    <ClCompile Include="sources\impl\BitmapLoaderDevil.cpp" />
-    <ClCompile Include="sources\impl\BitmapLoaderDevilDDS.cpp" />
-    <ClCompile Include="sources\impl\BitmapLoaderDevilMisc.cpp" />
+    <ClCompile Include="sources\impl\BitmapLoaderSTB.cpp" />
+    <ClCompile Include="sources\impl\BitmapLoaderDDS.cpp" />
     <ClCompile Include="sources\impl\LowLevelResourcesSDL.cpp" />
     <ClCompile Include="sources\impl\MeshLoaderCollada.cpp" />
     <ClCompile Include="sources\impl\MeshLoaderColladaHelpers.cpp" />

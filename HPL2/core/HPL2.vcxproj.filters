@@ -528,13 +528,10 @@
     <ClInclude Include="include\impl\VideoStreamTheora.h">
       <Filter>Impl\Graphics</Filter>
     </ClInclude>
-    <ClInclude Include="include\impl\BitmapLoaderDevil.h">
+    <ClInclude Include="include\impl\BitmapLoaderSTB.h">
       <Filter>Resources</Filter>
     </ClInclude>
-    <ClInclude Include="include\impl\BitmapLoaderDevilDDS.h">
-      <Filter>Resources</Filter>
-    </ClInclude>
-    <ClInclude Include="include\impl\BitmapLoaderDevilMisc.h">
+    <ClInclude Include="include\impl\BitmapLoaderDDS.h">
       <Filter>Resources</Filter>
     </ClInclude>
     <ClInclude Include="include\impl\LowLevelResourcesSDL.h">
@@ -1449,13 +1446,10 @@
     <ClCompile Include="sources\impl\VideoStreamTheora.cpp">
       <Filter>Impl\Graphics</Filter>
     </ClCompile>
-    <ClCompile Include="sources\impl\BitmapLoaderDevil.cpp">
+    <ClCompile Include="sources\impl\BitmapLoaderSTB.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
-    <ClCompile Include="sources\impl\BitmapLoaderDevilDDS.cpp">
-      <Filter>Resources</Filter>
-    </ClCompile>
-    <ClCompile Include="sources\impl\BitmapLoaderDevilMisc.cpp">
+    <ClCompile Include="sources\impl\BitmapLoaderDDS.cpp">
       <Filter>Resources</Filter>
     </ClCompile>
     <ClCompile Include="sources\impl\LowLevelResourcesSDL.cpp">
