@@ -53,18 +53,18 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	unsigned long cPlatform::GetFileSize(const tWString& asFileName)
+	size_t cPlatform::GetFileSize(const tWString& asFileName)
 	{
 		struct stat statbuf;
 		if (stat(cString::To8Char(asFileName).c_str(), &statbuf) == -1) {
 			return 0;
 		};
-		return statbuf.st_size;
+		return (size_t)statbuf.st_size;
 	}
-	
+
 	//-----------------------------------------------------------------------
 
-	bool cPlatform::CopyFileToBuffer(const tWString& asFileName, void *apBuffer, unsigned long alSize)
+	bool cPlatform::CopyFileToBuffer(const tWString& asFileName, void *apBuffer, size_t alSize)
 	{
 		FILE *pFile = OpenFile(asFileName, _W("r"));
 		if (pFile==NULL) return false;

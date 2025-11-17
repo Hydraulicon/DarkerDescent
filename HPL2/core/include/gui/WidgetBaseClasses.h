@@ -219,7 +219,7 @@ namespace hpl {
 
 		void GetFilesAndFoldersInCurrentPath(int alCategoryIndex, tWStringList& alstDestination);
 		eFileBrowserFileType GetFileTypeByName(const tWString& asFilename);
-		tWString GetHumanReadableSize(unsigned long alSize);
+		tWString GetHumanReadableSize(size_t alSize);
 
 
 		tWString InterpretPath(const tWString& asPath);

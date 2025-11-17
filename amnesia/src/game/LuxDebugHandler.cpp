@@ -1373,7 +1373,7 @@ void cLuxDebugHandler::TestChangeMapSave()
 void cLuxDebugHandler::LoadBatchLoadFile(const tWString& asFilePath)
 {
 	tString sFileData;
-	unsigned int lFileSize = cPlatform::GetFileSize(asFilePath);
+	size_t lFileSize = cPlatform::GetFileSize(asFilePath);
 	sFileData.resize(lFileSize);
 	cPlatform::CopyFileToBuffer(asFilePath,&sFileData[0],lFileSize);
 

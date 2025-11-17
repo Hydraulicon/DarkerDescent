@@ -96,16 +96,16 @@ void IterateFiles(const tWString & asDir)
 				continue;
 			}
 		}
-        
-		unsigned long lFileSize = cPlatform::GetFileSize(sPath);
-		if(lFileSize <= 0) 
+
+		size_t lFileSize = cPlatform::GetFileSize(sPath);
+		if(lFileSize <= 0)
 		{
 			Warning("%s has zero size!\n", cString::To8Char(sPath).c_str());
 			glNumOfProblems++;
 			continue;
 		}
 
-		
+
 		char *pBuffer = (char*) hplMalloc(lFileSize);
 		cPlatform::CopyFileToBuffer(sPath,pBuffer, lFileSize);
 

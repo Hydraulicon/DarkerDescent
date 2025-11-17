@@ -14,6 +14,7 @@ Currently pre-alpha; stable, as per my independent testing.
 	- DevIL, jpeg, and png dependencies removed; replaced with stb_image and tinyddsloader single-header libraries.
 	- Newton Dynamics was upgraded from 2.08 to 2.32.
 	- FBX support not available at this time.
+	- 64-bit optimizations: Converted vertex/index counts and file I/O operations from fixed-width types (int/unsigned long) to platform-appropriate size_t for improved performance and large file support (>4GB).
 
 ## Third-Party Libraries and Licenses
 

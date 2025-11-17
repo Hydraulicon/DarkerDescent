@@ -735,7 +735,7 @@ namespace hpl {
 			
 			if(cPlatform::FileExists(sPath))
 			{
-				unsigned int lFileSize = cPlatform::GetFileSize(sPath);
+				size_t lFileSize = cPlatform::GetFileSize(sPath);
 				tString sFileData;
 				sFileData.resize(lFileSize);
 				cPlatform::CopyFileToBuffer(sPath,&sFileData[0],lFileSize);

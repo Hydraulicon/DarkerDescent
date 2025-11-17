@@ -55,27 +55,27 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	unsigned long cPlatform::GetFileSize(const tWString& asFileName)
+	size_t cPlatform::GetFileSize(const tWString& asFileName)
 	{
 		/*__stat64 fileStat;
 		int lErr = _wstat64( asFileName.c_str(), &fileStat );
 		if (lErr != 0) return 0;
-		return (unsigned long)fileStat.st_size; */
+		return (size_t)fileStat.st_size; */
 
 		FILE* pFile = _wfopen(asFileName.c_str(), _W("rb"));
 		if (pFile == NULL)	return 0;
 
-		fseek(pFile, 0, SEEK_END);
-		long lFileSize = ftell(pFile);
+		_fseeki64(pFile, 0, SEEK_END);
+		__int64 lFileSize = _ftelli64(pFile);
 		rewind(pFile);
 
 		fclose(pFile);
-		return (unsigned long)lFileSize;
+		return (size_t)lFileSize;
 	}
 
 	//-----------------------------------------------------------------------
 
-	bool cPlatform::CopyFileToBuffer(const tWString& asFileName, void* apBuffer, unsigned long alSize)
+	bool cPlatform::CopyFileToBuffer(const tWString& asFileName, void* apBuffer, size_t alSize)
 	{
 		FILE* pFile = _wfopen(asFileName.c_str(), _W("rb"));
 		if (pFile == NULL)	return false;

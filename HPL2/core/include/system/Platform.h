@@ -47,8 +47,8 @@ namespace hpl {
 		////////// FILE HANDLING /////////////////////////////
 		//////////////////////////////////////////////////////
 
-		static unsigned long GetFileSize(const tWString& asFileName);
-		static bool CopyFileToBuffer(const tWString& asFileName, void *apBuffer, unsigned long alSize);
+		static size_t GetFileSize(const tWString& asFileName);
+		static bool CopyFileToBuffer(const tWString& asFileName, void *apBuffer, size_t alSize);
 
 		static bool FileExists(const tWString& asFileName);
 		static void RemoveFile(const tWString& asFileName);

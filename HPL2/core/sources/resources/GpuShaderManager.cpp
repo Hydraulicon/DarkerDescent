@@ -122,7 +122,7 @@ namespace hpl {
 
 			/////////////////////////////////
 			//Load data
-			unsigned int lFileSize = cPlatform::GetFileSize(sPath);
+			size_t lFileSize = cPlatform::GetFileSize(sPath);
 
 			sFileData.resize(lFileSize);
 			cPlatform::CopyFileToBuffer(sPath,&sFileData[0],lFileSize);

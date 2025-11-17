@@ -570,7 +570,7 @@ namespace hpl {
 	 * \param alSize 
 	 * \return 
 	 */
-	tWString iFileBrowser::GetHumanReadableSize(unsigned long alSize)
+	tWString iFileBrowser::GetHumanReadableSize(size_t alSize)
 	{
 		int i=0;
 		for(; i<4; ++i)
@@ -581,7 +581,7 @@ namespace hpl {
 				break;
 		}
 
-		return cString::ToStringW(alSize) + _W(" ") + mvSizeStrings[i];
+		return cString::ToStringW(static_cast<unsigned long>(alSize)) + _W(" ") + mvSizeStrings[i];
 	}
 
 	//-------------------------------------------------------------------------
