@@ -230,10 +230,10 @@ namespace hpl {
 	void cSubMesh::CheckOneSided()
 	{
 		//Log("--- %s\n",GetName().c_str());
-		
+
 		if(mpVtxBuffer==NULL) return;
 
-		int lIdxNum = mpVtxBuffer->GetIndexNum();
+		size_t lIdxNum = mpVtxBuffer->GetIndexNum();
 
 		if(lIdxNum > 400*3) return; //Just skip larger buffers for now, they should never be planes.
 
@@ -295,9 +295,10 @@ namespace hpl {
 	{
 		if(mvVtxBonePairs.empty()) return;
 
-		mpVertexWeights = hplNewArray( float, 4 * mpVtxBuffer->GetVertexNum());
-		mpVertexBones = hplNewArray( unsigned char, 4 * mpVtxBuffer->GetVertexNum()) ;
-		memset(mpVertexWeights,0,4 * mpVtxBuffer->GetVertexNum()*sizeof(float));
+		size_t lVtxNum = mpVtxBuffer->GetVertexNum();
+		mpVertexWeights = hplNewArray( float, 4 * lVtxNum);
+		mpVertexBones = hplNewArray( unsigned char, 4 * lVtxNum) ;
+		memset(mpVertexWeights,0,4 * lVtxNum*sizeof(float));
 		bool bWarn = true;
 		///////////////////////////////////
 		// Iterate pairs and fill arrays
@@ -331,7 +332,7 @@ namespace hpl {
 
 		/////////////////////////////////
 		//Normalize the weights
-		for(int vtx =0; vtx < mpVtxBuffer->GetVertexNum(); ++vtx)
+		for(size_t vtx =0; vtx < mpVtxBuffer->GetVertexNum(); ++vtx)
 		{
 			float *pWeight = &mpVertexWeights[vtx*4];
 

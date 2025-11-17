@@ -61,12 +61,12 @@ namespace hpl {
 	{
 		iVertexBuffer *pDest = apSrc->CreateCopy(eVertexBufferType_Hardware, eVertexBufferUsageType_Static, apSrc->GetVertexElementFlags());
 
-        pDest->ResizeIndices(apSrc->GetIndexNum()*4);
+        pDest->ResizeIndices(static_cast<int>(apSrc->GetIndexNum()*4));
 		unsigned int* pDestArray = pDest->GetIndices();
 		int lDestCount=0;
-		
+
 		unsigned int* pIdxArray = apSrc->GetIndices();
-		for(int tri=0; tri < apSrc->GetIndexNum(); tri+=3)
+		for(size_t tri=0; tri < apSrc->GetIndexNum(); tri+=3)
 		{
 			unsigned int* pTri = &pIdxArray[tri];
 
@@ -294,7 +294,7 @@ namespace hpl {
 
 		// Create triangles for south pole slice
 		{
-			int lLastVertex = pVtxBuffer->GetVertexNum()-1;
+			int lLastVertex = static_cast<int>(pVtxBuffer->GetVertexNum())-1;
 			int lSliceStart = lLastVertex-alSections;
 
 			WrapLowerCap(pVtxBuffer, lLastVertex, lSliceStart, alSections); 
@@ -373,7 +373,7 @@ namespace hpl {
 
 		// Bottom cap
 		{
-			int lLastVertex = pVtxBuffer->GetVertexNum()-1;
+			int lLastVertex = static_cast<int>(pVtxBuffer->GetVertexNum())-1;
 			int lCapStart = lLastVertex-alSections;
 			WrapLowerCap(pVtxBuffer, lLastVertex, lCapStart, alSections);
 		}
@@ -501,7 +501,7 @@ namespace hpl {
 			WrapSides(pVtxBuffer, 1 + i*alSections, alSections);
 		}
 
-		int lLastVertex = pVtxBuffer->GetVertexNum()-1;
+		int lLastVertex = static_cast<int>(pVtxBuffer->GetVertexNum())-1;
 		WrapLowerCap(pVtxBuffer, lLastVertex, lLastVertex-alSections, alSections);
 
 		if(!pVtxBuffer->Compile(eVertexCompileFlag_CreateTangents))
@@ -578,7 +578,7 @@ namespace hpl {
 		////////////////////////////
 		// Triangles for base
 		{
-			int lLastVertex = pVtxBuffer->GetVertexNum()-1;
+			int lLastVertex = static_cast<int>(pVtxBuffer->GetVertexNum())-1;
 			int lCapStart = lLastVertex-alSections;
 			WrapLowerCap(pVtxBuffer, lLastVertex, lCapStart, alSections);
 		}

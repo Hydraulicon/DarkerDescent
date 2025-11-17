@@ -29,7 +29,7 @@ namespace hpl {
 	public:
 		cVertexBufferOGL_Array(	iLowLevelGraphics* apLowLevelGraphics,
 								eVertexBufferDrawType aDrawType,eVertexBufferUsageType aUsageType,
-								int alReserveVtxSize,int alReserveIdxSize);
+								size_t alReserveVtxSize,size_t alReserveIdxSize);
 		~cVertexBufferOGL_Array();
 
 		void UpdateData(tVertexElementFlag aTypes, bool abIndices);
@@ -46,7 +46,7 @@ namespace hpl {
 		void CompileSpecific();
 		iVertexBufferOpenGL* CreateDataCopy(tVertexElementFlag aFlags, eVertexBufferDrawType aDrawType,
 											eVertexBufferUsageType aUsageType,
-											int alReserveVtxSize,int alReserveIdxSize);
+											size_t alReserveVtxSize,size_t alReserveIdxSize);
 
 		void SetVertexStates();
 	};

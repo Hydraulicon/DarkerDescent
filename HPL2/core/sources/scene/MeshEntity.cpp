@@ -114,10 +114,10 @@ namespace hpl {
 
 			mvSubMeshes.push_back(pSub);
 			m_mapSubMeshes.insert(tSubMeshEntityMap::value_type(mpMesh->GetSubMesh(i)->GetName(), pSub));
-			
+
 			iVertexBuffer *pVtxBuffer = mpMesh->GetSubMesh(i)->GetVertexBuffer();
-			
-			pSub->mBoundingVolume.AddArrayPoints(pVtxBuffer->GetFloatArray(eVertexBufferElement_Position), pVtxBuffer->GetVertexNum());
+
+			pSub->mBoundingVolume.AddArrayPoints(pVtxBuffer->GetFloatArray(eVertexBufferElement_Position), static_cast<int>(pVtxBuffer->GetVertexNum()));
 			pSub->mBoundingVolume.CreateFromPoints(pVtxBuffer->GetElementNum(eVertexBufferElement_Position));
 		}
 				
@@ -1486,8 +1486,8 @@ namespace hpl {
 
 				iVertexBuffer *pVtxBuffer = pSub->GetVertexBuffer();
 
-				mBoundingVolume.AddArrayPoints(pVtxBuffer->GetFloatArray(eVertexBufferElement_Position), 
-																pVtxBuffer->GetVertexNum());
+				mBoundingVolume.AddArrayPoints(pVtxBuffer->GetFloatArray(eVertexBufferElement_Position),
+																static_cast<int>(pVtxBuffer->GetVertexNum()));
 			}
 			if(GetSubMeshEntityNum()>0)
 				mBoundingVolume.CreateFromPoints(GetSubMeshEntity(0)->GetVertexBuffer()->GetElementNum(eVertexBufferElement_Position));

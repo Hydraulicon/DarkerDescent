@@ -191,7 +191,7 @@ namespace hpl {
 	iVertexBufferOpenGL::iVertexBufferOpenGL(	iLowLevelGraphics* apLowLevelGraphics,
 												eVertexBufferType aType,
 												eVertexBufferDrawType aDrawType,eVertexBufferUsageType aUsageType,
-												int alReserveVtxSize,int alReserveIdxSize) :
+												size_t alReserveVtxSize,size_t alReserveIdxSize) :
 	iVertexBuffer(apLowLevelGraphics, aType, aDrawType,aUsageType, alReserveVtxSize, alReserveIdxSize)
 	{
 		if(alReserveIdxSize>0)
@@ -311,7 +311,7 @@ namespace hpl {
 			return bv;
 		}
 
-		bv.AddArrayPoints((float*)pElement->GetArrayPtr(), GetVertexNum());
+		bv.AddArrayPoints((float*)pElement->GetArrayPtr(), static_cast<int>(GetVertexNum()));
 		bv.CreateFromPoints(pElement->mlElementNum);
 
 		return bv;
@@ -333,16 +333,16 @@ namespace hpl {
 			cVtxBufferGLElementArray *pTangentElement = GetElementArray(eVertexBufferElement_Texture1Tangent);
 
 			pTangentElement->Resize(GetVertexNum()*4);
-			
+
 			cMath::CreateTriTangentVectors((float*)pTangentElement->GetArrayPtr(),
-											&mvIndexArray[0], GetIndexNum(),
+											&mvIndexArray[0], static_cast<int>(GetIndexNum()),
 
 											(float*)pPosElement->GetArrayPtr(),
 											pPosElement->mlElementNum,
 
 											(float*)pTextureElement->GetArrayPtr(),
 											(float*)pNormalElement->GetArrayPtr(),
-											GetVertexNum()
+											static_cast<int>(GetVertexNum())
 				);
 		}
 
@@ -405,17 +405,17 @@ namespace hpl {
 	
 		//////////////////////
 		// Get variables
-		int lVtxNum = GetVertexNum();
+		size_t lVtxNum = GetVertexNum();
 
 		cMatrixf mtxRot = a_mtxTransform.GetRotation();
 		cMatrixf mtxNormalRot = cMath::MatrixInverse(mtxRot).GetTranspose();
 
 		int lVtxStride = GetElementArray(eVertexBufferElement_Position)->mlElementNum;
-		int lShadowDoubleOffset = GetVertexNum()*4;
+		size_t lShadowDoubleOffset = GetVertexNum()*4;
 
 		//////////////////////
 		// Iterate and transform data
-		for(int i=0; i<lVtxNum; i++)
+		for(size_t i=0; i<lVtxNum; i++)
 		{
 			//////////////////
 			// Position
@@ -554,11 +554,11 @@ namespace hpl {
 		iVertexBufferOpenGL *pVtxBuff;
 		if(mpLowLevelGraphics->GetCaps(eGraphicCaps_VertexBufferObject) && aType == eVertexBufferType_Hardware)
 		{
-			pVtxBuff = hplNew( cVertexBufferOGL_VBO, (mpLowLevelGraphics, mDrawType,aUsageType,GetIndexNum(),GetVertexNum()) );
+			pVtxBuff = hplNew( cVertexBufferOGL_VBO, (mpLowLevelGraphics, mDrawType,aUsageType,GetVertexNum(),GetIndexNum()) );
 		}
 		else
 		{
-			pVtxBuff = hplNew( cVertexBufferOGL_Array, (mpLowLevelGraphics, mDrawType,aUsageType,GetIndexNum(),GetVertexNum()) );
+			pVtxBuff = hplNew( cVertexBufferOGL_Array, (mpLowLevelGraphics, mDrawType,aUsageType,GetVertexNum(),GetIndexNum()) );
 		}
 
 		//Copy the vertices to the new buffer.
@@ -592,7 +592,7 @@ namespace hpl {
 		}*/
 
 		//Copy indices to the new buffer
-        pVtxBuff->ResizeIndices(GetIndexNum());
+        pVtxBuff->ResizeIndices(static_cast<int>(GetIndexNum()));
 		memcpy(pVtxBuff->GetIndices(), GetIndices(), GetIndexNum() * sizeof(unsigned int) );
 
 		pVtxBuff->mbTangents = mbTangents;
@@ -605,21 +605,21 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	int iVertexBufferOpenGL::GetVertexNum()
+	size_t iVertexBufferOpenGL::GetVertexNum()
 	{
 		cVtxBufferGLElementArray *pPosElement = GetElementArray(eVertexBufferElement_Position);
-		int lSize = (int)pPosElement->Size() / pPosElement->mlElementNum;
+		size_t lSize = pPosElement->Size() / pPosElement->mlElementNum;
 
 		//If there is a shadow double, just return the length of the first half.
 		if(mbHasShadowDouble)	return lSize / 2;
 		else					return lSize;
 	}
-	
+
 	//-----------------------------------------------------------------------
 
-	int iVertexBufferOpenGL::GetIndexNum()
+	size_t iVertexBufferOpenGL::GetIndexNum()
 	{
-		return (int)mvIndexArray.size();
+		return mvIndexArray.size();
 	}
 
 	//-----------------------------------------------------------------------

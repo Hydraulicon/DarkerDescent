@@ -658,11 +658,11 @@ namespace hpl {
 		////////////////////////////////////
 		//Quad used when rendering light.
 		mpFullscreenLightQuad = CreateQuadVertexBuffer(eVertexBufferType_Software,0,1,0,mvScreenSizeFloat, true);
-		
+
 		////////////////////////////////////
 		//Batch vertex buffer
-		mlMaxBatchVertices = mpShapeSphere[eDeferredShapeQuality_Low]->GetVertexNum() * mlMaxBatchLights;
-		mlMaxBatchIndices = mpShapeSphere[eDeferredShapeQuality_Low]->GetIndexNum() * mlMaxBatchLights;
+		mlMaxBatchVertices = static_cast<int>(mpShapeSphere[eDeferredShapeQuality_Low]->GetVertexNum() * mlMaxBatchLights);
+		mlMaxBatchIndices = static_cast<int>(mpShapeSphere[eDeferredShapeQuality_Low]->GetIndexNum() * mlMaxBatchLights);
 		mpBatchBuffer = mpLowLevelGraphics->CreateVertexBuffer(	eVertexBufferType_Software,
 																eVertexBufferDrawType_Quad, eVertexBufferUsageType_Stream,
 																mlMaxBatchVertices,mlMaxBatchIndices);

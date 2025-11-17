@@ -2419,10 +2419,10 @@ namespace hpl {
 														const cMatrixf& a_mtxInvMeshMtx, iVertexBuffer *apVtxBuffer,
 														cVector3f *apIntersectionPos, float *apT, int *apTriIndex, bool abSkipBackfacing)
 	{
-		return CheckLineTriMeshIntersection(avLineStart, avLineEnd, 
+		return CheckLineTriMeshIntersection(avLineStart, avLineEnd,
 											a_mtxInvMeshMtx,
-											apVtxBuffer->GetIndices(), apVtxBuffer->GetIndexNum(),
-											apVtxBuffer->GetFloatArray(eVertexBufferElement_Position), 
+											apVtxBuffer->GetIndices(), static_cast<int>(apVtxBuffer->GetIndexNum()),
+											apVtxBuffer->GetFloatArray(eVertexBufferElement_Position),
 											apVtxBuffer->GetElementNum(eVertexBufferElement_Position),
 											apIntersectionPos, apT, apTriIndex, abSkipBackfacing);
 	}

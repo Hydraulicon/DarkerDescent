@@ -783,8 +783,8 @@ namespace hpl {
 			////////////////////////////
 			//Add Vertices
 			{
-				int lVtxNum =  pVtxBuff->GetVertexNum();
-				binBuff.AddInt32(lVtxNum);
+				size_t lVtxNum =  pVtxBuff->GetVertexNum();
+				binBuff.AddInt32(static_cast<int>(lVtxNum));
 
 				//////////////////////////////
 				// Calculate the number of vertex buffer types
@@ -836,7 +836,7 @@ namespace hpl {
 					else
 					{
 						float* pData = pVtxBuff->GetFloatArray(arrayType);
-						int lElementCount = lElementNum * lVtxNum;
+						size_t lElementCount = lElementNum * lVtxNum;
 
 						while(lElementCount>0)
 						{
@@ -872,9 +872,9 @@ namespace hpl {
 			////////////////////////////
 			//Add Indices
 			{
-				int lIdxNum =  pVtxBuff->GetIndexNum();
+				size_t lIdxNum =  pVtxBuff->GetIndexNum();
 
-				binBuff.AddInt32(lIdxNum);
+				binBuff.AddInt32(static_cast<int>(lIdxNum));
 				binBuff.AddInt32Array((int*)pVtxBuff->GetIndices(), lIdxNum);
 			}
 		}
@@ -1271,7 +1271,7 @@ namespace hpl {
 			cHplMapPhysicsObject& physicsObject = vPhysicsObjects[i];
 
 			if(physicsObject.mpUserData->mbCollides)
-				lIndexCount += physicsObject.mpObject->GetVertexBuffer()->GetIndexNum();
+				lIndexCount += static_cast<int>(physicsObject.mpObject->GetVertexBuffer()->GetIndexNum());
 
 			if(gbLog) Log("  %d Checking '%s', physics material: %d\n",i,physicsObject.mpObject->GetName().c_str(),
 				physicsObject.mpPhysicsMaterial);
@@ -1331,8 +1331,8 @@ namespace hpl {
 			//Check add the vertex num and index num from vertex buffer
 			iVertexBuffer *pVtxBuffer = avObjects[i]->GetVertexBuffer();
 
-			lTotalVtxAmount += pVtxBuffer->GetVertexNum();
-			lTotalIdxAmount += pVtxBuffer->GetIndexNum();
+			lTotalVtxAmount += static_cast<int>(pVtxBuffer->GetVertexNum());
+			lTotalIdxAmount += static_cast<int>(pVtxBuffer->GetIndexNum());
 
 			if(gbLog) Log("   '%s' has %d vtx and %d idx\n",avObjects[i]->GetName().c_str(),pVtxBuffer->GetVertexNum(),pVtxBuffer->GetIndexNum());
 		}
@@ -1401,7 +1401,7 @@ namespace hpl {
 			//Copy to each data array and increase the data pointer
             for(int i=0; i<lDataArrayNum;++i)
 			{
-				int lAmount = lDataArrayTypes[i].mlElementNum * pTransformedVtxBuffer->GetVertexNum();
+				size_t lAmount = lDataArrayTypes[i].mlElementNum * pTransformedVtxBuffer->GetVertexNum();
 				if(gbLog) Log("    copy from data %d: %d elements\n", i, lAmount);
 				
 				memcpy(pDataArray[i], pTransformedVtxBuffer->GetFloatArray(lDataArrayTypes[i].mType), lAmount * sizeof(float));
@@ -1412,12 +1412,12 @@ namespace hpl {
 			//////////////////////////////////////////////
 			//Copy to index array (using offset from previous max) and increase index pointer and offset
 			unsigned int* pTransIdxArray = pTransformedVtxBuffer->GetIndices();
-			for(int i=0; i<pTransformedVtxBuffer->GetIndexNum(); ++i)
+			for(size_t i=0; i<pTransformedVtxBuffer->GetIndexNum(); ++i)
 			{
 				pIndexArray[i] = pTransIdxArray[i] + lIdxOffset;
 			}
 
-			lIdxOffset += pTransformedVtxBuffer->GetVertexNum();
+			lIdxOffset += static_cast<int>(pTransformedVtxBuffer->GetVertexNum());
 			pIndexArray += pTransformedVtxBuffer->GetIndexNum();
 
 			hplDelete(pTransformedVtxBuffer);
@@ -1479,13 +1479,13 @@ namespace hpl {
 			if(avObjects[i].mpUserData->mbCollides==false) continue;
 
 			iVertexBuffer *pVtxBuffer = avObjects[i].mpObject->GetVertexBuffer();
-			
+
 			//Do a special debug test and skip highpoly entities, loading the map faster.
             if((mlCurrentFlags & eWorldLoadFlag_FastPhysicsLoad) && pVtxBuffer->GetIndexNum() > lMaxIndices)	continue;
-			
 
-			lTotalVtxAmount += pVtxBuffer->GetVertexNum();
-			lTotalIdxAmount += pVtxBuffer->GetIndexNum();
+
+			lTotalVtxAmount += static_cast<int>(pVtxBuffer->GetVertexNum());
+			lTotalIdxAmount += static_cast<int>(pVtxBuffer->GetIndexNum());
 
 			if(gbLog) Log("   '%s' has %d vtx and %d idx\n",avObjects[i].mpObject->GetName().c_str(),pVtxBuffer->GetVertexNum(),pVtxBuffer->GetIndexNum());
 		}
@@ -1540,7 +1540,7 @@ namespace hpl {
 			
 			////////////////////////
 			//Copy the data
-			int lAmount = pTransformedVtxBuffer->GetVertexNum() * 4;
+			size_t lAmount = pTransformedVtxBuffer->GetVertexNum() * 4;
 
 			if(gbLog) Log("    Amount: %d\n", lAmount);
 
@@ -1549,12 +1549,12 @@ namespace hpl {
 
 			//Copy to index array and increase index pointer
 			unsigned int* pTransIdxArray = pTransformedVtxBuffer->GetIndices();
-			for(int i=0; i<pTransformedVtxBuffer->GetIndexNum(); ++i)
+			for(size_t i=0; i<pTransformedVtxBuffer->GetIndexNum(); ++i)
 			{
 				pIndexArray[i] = pTransIdxArray[i] + lIdxOffset;
 			}
 
-			lIdxOffset += pTransformedVtxBuffer->GetVertexNum();
+			lIdxOffset += static_cast<int>(pTransformedVtxBuffer->GetVertexNum());
 			pIndexArray += pTransformedVtxBuffer->GetIndexNum();
 
 			hplDelete(pTransformedVtxBuffer);

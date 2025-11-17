@@ -418,8 +418,8 @@ namespace hpl {
 			////////////////////////////
 			//Add Vertices
 			{
-				int lVtxNum =  pVtxBuff->GetVertexNum();
-				binBuff.AddInt32(lVtxNum);
+				size_t lVtxNum =  pVtxBuff->GetVertexNum();
+				binBuff.AddInt32(static_cast<int>(lVtxNum));
 
 				//////////////////////////////
 				// Calculate the number of vertex buffer types
@@ -458,11 +458,11 @@ namespace hpl {
 			////////////////////////////
 			//Add Indices
 			{
-				int lIdxNum =  pVtxBuff->GetIndexNum();
+				size_t lIdxNum =  pVtxBuff->GetIndexNum();
 
 				if(gbLogMSHLoad) Log("Indices: %d\n", lIdxNum);
 
-				binBuff.AddInt32(lIdxNum);
+				binBuff.AddInt32(static_cast<int>(lIdxNum));
 				binBuff.AddInt32Array((int*)pVtxBuff->GetIndices(), lIdxNum);
 			}
 		}

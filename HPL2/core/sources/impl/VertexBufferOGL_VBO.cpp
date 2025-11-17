@@ -41,7 +41,7 @@ namespace hpl {
 
 	cVertexBufferOGL_VBO::cVertexBufferOGL_VBO(iLowLevelGraphics* apLowLevelGraphics,
 												eVertexBufferDrawType aDrawType,eVertexBufferUsageType aUsageType,
-												int alReserveVtxSize,int alReserveIdxSize) :
+												size_t alReserveVtxSize,size_t alReserveIdxSize) :
 	iVertexBufferOpenGL(apLowLevelGraphics,eVertexBufferType_Hardware,  aDrawType,aUsageType, alReserveVtxSize, alReserveIdxSize)
 	{
 		mlElementHandle =0;
@@ -104,7 +104,7 @@ namespace hpl {
 			//glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER_ARB,GetIndexNum()*sizeof(unsigned int),
 			//	NULL, usageType);
 
-			glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER_ARB, GetIndexNum()*sizeof(unsigned int),
+			glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER_ARB, static_cast<GLsizeiptr>(GetIndexNum()*sizeof(unsigned int)),
 				&mvIndexArray[0], usageType);
 
 			//TODO: Same as with vertex, for stream and dynamic.
@@ -130,7 +130,7 @@ namespace hpl {
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB,mlElementHandle);
 
 		int lSize = mlElementNum;
-		if(mlElementNum<0) lSize = GetIndexNum();
+		if(mlElementNum<0) lSize = static_cast<int>(GetIndexNum());
 
 		glDrawElements(mode,lSize,GL_UNSIGNED_INT, (char*) NULL);
 		//glDrawRangeElements(mode,0,GetVertexNum(),lSize,GL_UNSIGNED_INT, NULL);
@@ -223,7 +223,7 @@ namespace hpl {
 		//Create the VBO index array
 		glGenBuffersARB(1,(GLuint *)&mlElementHandle);
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB,mlElementHandle);
-		glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER_ARB, GetIndexNum()*sizeof(unsigned int),
+		glBufferDataARB(GL_ELEMENT_ARRAY_BUFFER_ARB, static_cast<GLsizeiptr>(GetIndexNum()*sizeof(unsigned int)),
 			&mvIndexArray[0], usageType);
 		glBindBufferARB(GL_ELEMENT_ARRAY_BUFFER_ARB,0);
 
@@ -233,7 +233,7 @@ namespace hpl {
 
 	iVertexBufferOpenGL* cVertexBufferOGL_VBO::CreateDataCopy(tVertexElementFlag aFlags, eVertexBufferDrawType aDrawType,
 																eVertexBufferUsageType aUsageType,
-																int alReserveVtxSize,int alReserveIdxSize)
+																size_t alReserveVtxSize,size_t alReserveIdxSize)
 	{
 		return hplNew(cVertexBufferOGL_VBO, (mpLowLevelGraphics,aDrawType,aUsageType,alReserveVtxSize,alReserveIdxSize));
 	}

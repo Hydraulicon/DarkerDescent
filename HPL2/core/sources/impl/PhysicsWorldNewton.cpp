@@ -277,11 +277,11 @@ namespace hpl {
 	iCollideShape* cPhysicsWorldNewton::CreateMeshShape(iVertexBuffer *apVtxBuffer)
 	{
 		cCollideShapeNewton *pShape = hplNew( cCollideShapeNewton, (eCollideShapeType_Mesh, 0, NULL, mpNewtonWorld,this) );
-		
-		pShape->CreateFromVertices(apVtxBuffer->GetIndices(),apVtxBuffer->GetIndexNum(),
+
+		pShape->CreateFromVertices(apVtxBuffer->GetIndices(),static_cast<int>(apVtxBuffer->GetIndexNum()),
 									apVtxBuffer->GetFloatArray(eVertexBufferElement_Position),
 									apVtxBuffer->GetElementNum(eVertexBufferElement_Position),
-									apVtxBuffer->GetVertexNum());
+									static_cast<int>(apVtxBuffer->GetVertexNum()));
 		mlstShapes.push_back(pShape);
 
 		return pShape;

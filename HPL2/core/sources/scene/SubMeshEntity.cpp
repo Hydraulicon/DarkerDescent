@@ -210,7 +210,7 @@ namespace hpl {
 			float *pSkinTangent = mpDynVtxBuffer->GetFloatArray(eVertexBufferElement_Texture1Tangent);
 
 			const int lVtxStride = mpDynVtxBuffer->GetElementNum(eVertexBufferElement_Position);
-			const int lVtxNum = mpDynVtxBuffer->GetVertexNum();
+			const size_t lVtxNum = mpDynVtxBuffer->GetVertexNum();
 
 			for(int vtx=0; vtx < lVtxNum; vtx++)
 			{
@@ -279,8 +279,8 @@ namespace hpl {
 			{
 				//Update triangles
 				cMath::CreateTriangleData(mvDynTriangles,
-					mpDynVtxBuffer->GetIndices(), mpDynVtxBuffer->GetIndexNum(),
-					pSkinPosArray, lVtxStride, lVtxNum);
+					mpDynVtxBuffer->GetIndices(), static_cast<int>(mpDynVtxBuffer->GetIndexNum()),
+					pSkinPosArray, lVtxStride, static_cast<int>(lVtxNum));
 			}*/
 		}
 		

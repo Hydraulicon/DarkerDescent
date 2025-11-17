@@ -36,7 +36,7 @@ namespace hpl {
 
 	cVertexBufferOGL_Array::cVertexBufferOGL_Array(	iLowLevelGraphics* apLowLevelGraphics,
 										eVertexBufferDrawType aDrawType,eVertexBufferUsageType aUsageType,
-										int alReserveVtxSize,int alReserveIdxSize) :
+										size_t alReserveVtxSize,size_t alReserveIdxSize) :
 	iVertexBufferOpenGL(apLowLevelGraphics,eVertexBufferType_Software, aDrawType,aUsageType, alReserveVtxSize, alReserveIdxSize)
 	{
 		
@@ -69,9 +69,9 @@ namespace hpl {
 		///////////////////////////////
 		//Get the draw type
 		GLenum mode = GetDrawModeFromDrawType(drawType);
-		
+
 		int lSize = mlElementNum;
-		if(mlElementNum<0) lSize = GetIndexNum();
+		if(mlElementNum<0) lSize = static_cast<int>(GetIndexNum());
 		
 		glDrawElements(mode,lSize,GL_UNSIGNED_INT, &mvIndexArray[0]);
 	}
@@ -138,7 +138,7 @@ namespace hpl {
 
 	iVertexBufferOpenGL* cVertexBufferOGL_Array::CreateDataCopy(tVertexElementFlag aFlags, eVertexBufferDrawType aDrawType,
 																eVertexBufferUsageType aUsageType,
-																int alReserveVtxSize,int alReserveIdxSize)
+																size_t alReserveVtxSize,size_t alReserveIdxSize)
 	{
 		return hplNew(cVertexBufferOGL_Array, (mpLowLevelGraphics,aDrawType,aUsageType,alReserveVtxSize,alReserveIdxSize));
 	}

@@ -855,7 +855,7 @@ namespace hpl {
 		///////////////////////////////////////
 		//Set up variables
 		int lIndexNum = apVtxBuffer->GetElementNum();
-		if(lIndexNum<0) lIndexNum = apVtxBuffer->GetIndexNum();
+		if(lIndexNum<0) lIndexNum = static_cast<int>(apVtxBuffer->GetIndexNum());
 		unsigned int* pIndexArray = apVtxBuffer->GetIndices();
 
 		float *pVertexArray = apVtxBuffer->GetFloatArray(eVertexBufferElement_Position);

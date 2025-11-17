@@ -72,7 +72,7 @@ namespace hpl {
 		iVertexBufferOpenGL(	iLowLevelGraphics* apLowLevelGraphics,
 							eVertexBufferType aType,
 							eVertexBufferDrawType aDrawType,eVertexBufferUsageType aUsageType,
-							int alReserveVtxSize,int alReserveIdxSize);
+							size_t alReserveVtxSize,size_t alReserveIdxSize);
 		~iVertexBufferOpenGL();
 
 		void CreateElementArray(	eVertexBufferElement aType, eVertexBufferElementFormat aFormat,
@@ -94,8 +94,8 @@ namespace hpl {
 
 		cBoundingVolume CreateBoundingVolume();
 		
-		int GetVertexNum();
-		int GetIndexNum();
+		size_t GetVertexNum();
+		size_t GetIndexNum();
 
 		int GetElementNum(eVertexBufferElement aElement);
 		eVertexBufferElementFormat GetElementFormat(eVertexBufferElement aElement);
@@ -114,7 +114,7 @@ namespace hpl {
 		virtual void CompileSpecific()=0;
 		virtual iVertexBufferOpenGL* CreateDataCopy(tVertexElementFlag aFlags, eVertexBufferDrawType aDrawType,
 													eVertexBufferUsageType aUsageType,
-													int alReserveVtxSize,int alReserveIdxSize)=0;
+													size_t alReserveVtxSize,size_t alReserveIdxSize)=0;
 
 		inline cVtxBufferGLElementArray* GetElementArray(eVertexBufferElement aElement)
 		{

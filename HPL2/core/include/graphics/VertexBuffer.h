@@ -36,12 +36,12 @@ namespace hpl {
 	{
 	public:
 		iVertexBuffer(iLowLevelGraphics* apLowLevelGraphics,
-			eVertexBufferType aType, 
+			eVertexBufferType aType,
 			eVertexBufferDrawType aDrawType,eVertexBufferUsageType aUsageType,
-			int alReserveVtxSize,int alReserveIdxSize) :
+			size_t alReserveVtxSize,size_t alReserveIdxSize) :
 			mType(aType), mVertexFlags(0),
 			mpLowLevelGraphics(apLowLevelGraphics),
-			mDrawType(aDrawType), mUsageType(aUsageType), 
+			mDrawType(aDrawType), mUsageType(aUsageType),
 			mlReservedVtxSize(alReserveVtxSize), mlReservedIdxSize(alReserveIdxSize),
 			mlElementNum(-1) {}
 		
@@ -92,8 +92,8 @@ namespace hpl {
 		
 		virtual unsigned int* GetIndices()=0;
 		
-		virtual int GetVertexNum()=0;
-		virtual int GetIndexNum()=0;
+		virtual size_t GetVertexNum()=0;
+		virtual size_t GetIndexNum()=0;
 
 		/**
 		 * Resizes an array to a custom size, the size is number of elements and NOT number of vertices.
@@ -118,8 +118,8 @@ namespace hpl {
 		eVertexBufferDrawType mDrawType;
 		eVertexBufferUsageType mUsageType;
 		
-		int mlReservedVtxSize;
-		int mlReservedIdxSize;
+		size_t mlReservedVtxSize;
+		size_t mlReservedIdxSize;
 
 		int mlElementNum;
 

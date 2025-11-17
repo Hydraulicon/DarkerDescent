@@ -344,7 +344,7 @@ namespace hpl {
 		mSkyBoxColor = aColor;
 
 		float *pColors = mpSkyBoxVtxBuffer->GetFloatArray(eVertexBufferElement_Color0);
-		int lNum = mpSkyBoxVtxBuffer->GetVertexNum();
+		size_t lNum = mpSkyBoxVtxBuffer->GetVertexNum();
 		for(int i=0; i<lNum;++i)
 		{
 			pColors[0] = mSkyBoxColor.r;
