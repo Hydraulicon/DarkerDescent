@@ -356,8 +356,8 @@ tWString cLuxHelpFuncs::ParseStringCommand(const tWString& asCommand)
 				//////////
 				// Convert the type to wstring and append
 				size_t lSize = sType.length() + 1;
-				sConverted.resize(lSize);
-				std::copy(sType.begin(), sType.end(), sConverted.begin());
+				// Proper char to wchar_t conversion
+				sConverted.assign(sType.begin(), sType.end());
 
 				sOutput += cString::SubW(sConverted, 0, (int)lSize-1);
 				sOutput += _W(".");
@@ -366,8 +366,8 @@ tWString cLuxHelpFuncs::ParseStringCommand(const tWString& asCommand)
 				// Convert name to wstring and append
 				tString sName = pSubAction->GetInputName();
 				lSize = sName.length() + 1;
-				sConverted.resize(lSize);
-				std::copy(sName.begin(), sName.end(), sConverted.begin());
+				// Proper char to wchar_t conversion
+				sConverted.assign(sName.begin(), sName.end());
 
 				sOutput += cString::SubW(sConverted, 0, (int)lSize-1);
 				

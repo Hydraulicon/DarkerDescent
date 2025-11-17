@@ -68,6 +68,20 @@ private:
 	float mfWaveSpeed;
 };
 
+//----------------------------------------
+
+class cLuxPostEffect_Gamma : public iLuxPostEffect
+{
+public:
+	cLuxPostEffect_Gamma(cGraphics *apGraphics, cResources *apResources);
+	~cLuxPostEffect_Gamma();
+
+private:
+	iTexture* RenderEffect(iTexture *apInputTexture, iFrameBuffer *apFinalTempBuffer);
+
+	iGpuProgram *mpProgram;
+};
+
 
 //----------------------------------------------
 
@@ -83,6 +97,7 @@ public:
 	void Reset();
 
 	cLuxPostEffect_Insanity* GetInsanity(){ return mpInsanity; }
+	cLuxPostEffect_Gamma* GetGamma(){ return mpGamma; }
 
 private:
 	void LoadMainConfig();
@@ -91,6 +106,7 @@ private:
 	void AddEffect(iLuxPostEffect *apPostEffect, int alPrio);
 
 	cLuxPostEffect_Insanity *mpInsanity;
+	cLuxPostEffect_Gamma *mpGamma;
 
 	std::vector<iLuxPostEffect*> mvPostEffects;
 	

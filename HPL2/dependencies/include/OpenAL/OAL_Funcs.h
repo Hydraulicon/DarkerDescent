@@ -13,7 +13,7 @@
 //#pragma comment(lib, "libvorbis.lib")
 //#pragma comment(lib, "libvorbisfile.lib")
 //#pragma comment(lib, "alut.lib")
-#pragma comment(lib, "openal32.lib")
+//#pragma comment(lib, "openal32.lib") // Disabled - using static OpenAL Soft via ProjectReference
 //#ifdef USE_SDL2
 //#pragma comment(lib, "SDL2.lib")
 //#else

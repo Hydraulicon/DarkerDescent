@@ -96,7 +96,7 @@ namespace hpl {
 
 			if (pEvent->type == SDL_EVENT_MOUSE_MOTION)
 			{
-				mvMouseAbsPos = cVector2l(pEvent->motion.x, pEvent->motion.y);
+				mvMouseAbsPos = cVector2l(static_cast<int>(pEvent->motion.x), static_cast<int>(pEvent->motion.y));
 
 				// Button state tracking
 				// SDL3: state field still exists in motion event

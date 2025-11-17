@@ -192,13 +192,13 @@ namespace hpl {
 		// Multisampling
 		if (mlMultisampling > 0)
 		{
-			if (SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1) == -1)
+			if (!SDL_GL_SetAttribute(SDL_GL_MULTISAMPLEBUFFERS, 1))
 			{
 				Error("Multisample buffers not supported!\n");
 			}
 			else
 			{
-				if (SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, mlMultisampling) == -1)
+				if (!SDL_GL_SetAttribute(SDL_GL_MULTISAMPLESAMPLES, mlMultisampling))
 				{
 					Error("Couldn't set multisampling samples to %d\n", mlMultisampling);
 				}

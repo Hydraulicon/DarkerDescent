@@ -149,6 +149,69 @@ iTexture* cLuxPostEffect_Insanity::RenderEffect(iTexture *apInputTexture, iFrame
 //-----------------------------------------------------------------------
 
 //////////////////////////////////////////////////////////////////////////
+// GAMMA
+//////////////////////////////////////////////////////////////////////////
+
+//-----------------------------------------------------------------------
+
+#define kVar_afGamma 0
+
+//-----------------------------------------------------------------------
+
+cLuxPostEffect_Gamma::cLuxPostEffect_Gamma(cGraphics *apGraphics, cResources *apResources) : iLuxPostEffect(apGraphics, apResources)
+{
+	//////////////////////////////
+	// Create program
+	cParserVarContainer vars;
+	vars.Add("UseUv");
+	mpProgram = mpGraphics->CreateGpuProgramFromShaders("GammaCorrection", "deferred_base_vtx.glsl", "posteffect_gamma_frag.glsl", &vars);
+	if(mpProgram)
+	{
+		mpProgram->GetVariableAsId("afGamma", kVar_afGamma);
+	}
+}
+
+//-----------------------------------------------------------------------
+
+cLuxPostEffect_Gamma::~cLuxPostEffect_Gamma()
+{
+}
+
+//-----------------------------------------------------------------------
+
+iTexture* cLuxPostEffect_Gamma::RenderEffect(iTexture *apInputTexture, iFrameBuffer *apFinalTempBuffer)
+{
+	/////////////////////////
+	// Init render states
+	mpCurrentComposite->SetFlatProjection();
+	mpCurrentComposite->SetBlendMode(eMaterialBlendMode_None);
+	mpCurrentComposite->SetChannelMode(eMaterialChannelMode_RGBA);
+
+	/////////////////////////
+	// Render to final buffer
+	// This function sets to frame buffer if post effect is last!
+	SetFinalFrameBuffer(apFinalTempBuffer);
+
+	mpCurrentComposite->SetTexture(0, apInputTexture);
+	mpCurrentComposite->SetProgram(mpProgram);
+
+	if(mpProgram)
+	{
+		// Get gamma value from low-level graphics
+		float fGamma = mpLowLevelGraphics->GetGammaCorrection();
+		mpProgram->SetFloat(kVar_afGamma, fGamma);
+	}
+
+	DrawQuad(0, 1, apInputTexture, true);
+
+	mpCurrentComposite->SetTextureRange(NULL, 1);
+
+	return apFinalTempBuffer->GetColorBuffer(0)->ToTexture();
+}
+
+//-----------------------------------------------------------------------
+
+//////////////////////////////////////////////////////////////////////////
 // POST EFFECT HANDLER
 //////////////////////////////////////////////////////////////////////////
 
@@ -164,6 +227,11 @@ cLuxPostEffectHandler::cLuxPostEffectHandler() : iLuxUpdateable("LuxPostEffectHa
 	mpInsanity = hplNew(cLuxPostEffect_Insanity, (pGraphics, pResources) );
 	AddEffect(mpInsanity, 25);
 	mpInsanity->SetActive(true);
+
+	// Gamma correction - should run last, so highest priority
+	mpGamma = hplNew(cLuxPostEffect_Gamma, (pGraphics, pResources) );
+	AddEffect(mpGamma, 1000);
+	mpGamma->SetActive(true);
 }
 
 //-----------------------------------------------------------------------

@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup Label="ProjectConfigurations">
+    <ProjectConfiguration Include="Debug|x64">
+      <Configuration>Debug</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+    <ProjectConfiguration Include="Release|x64">
+      <Configuration>Release</Configuration>
+      <Platform>x64</Platform>
+    </ProjectConfiguration>
+  </ItemGroup>
+  <PropertyGroup Label="Globals">
+    <VCProjectVersion>16.0</VCProjectVersion>
+    <Keyword>Win32Proj</Keyword>
+    <ProjectGuid>{B66E1A66-A0C6-4D9E-9D16-1F4E5C8D7F21}</ProjectGuid>
+    <RootNamespace>OpenALSoft</RootNamespace>
+    <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>true</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+    <ConfigurationType>StaticLibrary</ConfigurationType>
+    <UseDebugLibraries>false</UseDebugLibraries>
+    <PlatformToolset>v143</PlatformToolset>
+    <WholeProgramOptimization>true</WholeProgramOptimization>
+    <CharacterSet>Unicode</CharacterSet>
+  </PropertyGroup>
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props" />
+  <ImportGroup Label="ExtensionSettings">
+  </ImportGroup>
+  <ImportGroup Label="Shared">
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <ImportGroup Label="PropertySheets" Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
+  </ImportGroup>
+  <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <LinkIncremental>true</LinkIncremental>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <LinkIncremental>false</LinkIncremental>
+  </PropertyGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>_DEBUG;_LIB;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;_CRT_SECURE_NO_WARNINGS;RESTRICT=__restrict;_WINDOWS;NOMINMAX;FMT_HEADER_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\include;$(ProjectDir)\include\AL;$(ProjectDir)\common;$(ProjectDir)\alc;$(ProjectDir)\core;$(ProjectDir)\fmt-11.2.0\include;$(ProjectDir)\..\..\..\include\SDL3;$(ProjectDir)\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+  <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <ClCompile>
+      <WarningLevel>Level3</WarningLevel>
+      <FunctionLevelLinking>true</FunctionLevelLinking>
+      <IntrinsicFunctions>true</IntrinsicFunctions>
+      <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>NDEBUG;_LIB;AL_LIBTYPE_STATIC;AL_ALEXT_PROTOTYPES;_CRT_SECURE_NO_WARNINGS;RESTRICT=__restrict;_WINDOWS;NOMINMAX;FMT_HEADER_ONLY;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <ConformanceMode>true</ConformanceMode>
+      <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\include;$(ProjectDir)\include\AL;$(ProjectDir)\common;$(ProjectDir)\alc;$(ProjectDir)\core;$(ProjectDir)\fmt-11.2.0\include;$(ProjectDir)\..\..\..\include\SDL3;$(ProjectDir)\..\..\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <LanguageStandard>stdcpp20</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
+      <MultiProcessorCompilation>true</MultiProcessorCompilation>
+      <AdditionalOptions>/utf-8 %(AdditionalOptions)</AdditionalOptions>
+    </ClCompile>
+    <Link>
+      <SubSystem>Console</SubSystem>
+      <EnableCOMDATFolding>true</EnableCOMDATFolding>
+      <OptimizeReferences>true</OptimizeReferences>
+      <GenerateDebugInformation>true</GenerateDebugInformation>
+    </Link>
+  </ItemDefinitionGroup>
+
+  <!-- AL API Implementation -->
+  <ItemGroup>
+    <ClCompile Include="al\auxeffectslot.cpp" />
+    <ClCompile Include="al\buffer.cpp" />
+    <ClCompile Include="al\debug.cpp" />
+    <ClCompile Include="al\effect.cpp" />
+    <ClCompile Include="al\error.cpp" />
+    <ClCompile Include="al\event.cpp" />
+    <ClCompile Include="al\extension.cpp" />
+    <ClCompile Include="al\filter.cpp" />
+    <ClCompile Include="al\listener.cpp" />
+    <ClCompile Include="al\source.cpp" />
+    <ClCompile Include="al\state.cpp" />
+  </ItemGroup>
+
+  <!-- AL Effects Implementation -->
+  <ItemGroup>
+    <ClCompile Include="al\effects\autowah.cpp">
+      <ObjectFileName>$(IntDir)al_effects_autowah.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\chorus.cpp">
+      <ObjectFileName>$(IntDir)al_effects_chorus.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\compressor.cpp">
+      <ObjectFileName>$(IntDir)al_effects_compressor.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\convolution.cpp">
+      <ObjectFileName>$(IntDir)al_effects_convolution.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\dedicated.cpp">
+      <ObjectFileName>$(IntDir)al_effects_dedicated.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\distortion.cpp">
+      <ObjectFileName>$(IntDir)al_effects_distortion.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\echo.cpp">
+      <ObjectFileName>$(IntDir)al_effects_echo.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\effects.cpp" />
+    <ClCompile Include="al\effects\equalizer.cpp">
+      <ObjectFileName>$(IntDir)al_effects_equalizer.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\fshifter.cpp">
+      <ObjectFileName>$(IntDir)al_effects_fshifter.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\modulator.cpp">
+      <ObjectFileName>$(IntDir)al_effects_modulator.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\null.cpp">
+      <ObjectFileName>$(IntDir)al_effects_null.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\pshifter.cpp">
+      <ObjectFileName>$(IntDir)al_effects_pshifter.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\reverb.cpp">
+      <ObjectFileName>$(IntDir)al_effects_reverb.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="al\effects\vmorpher.cpp">
+      <ObjectFileName>$(IntDir)al_effects_vmorpher.obj</ObjectFileName>
+    </ClCompile>
+  </ItemGroup>
+
+  <!-- ALC Core Implementation -->
+  <ItemGroup>
+    <ClCompile Include="alc\alc.cpp" />
+    <ClCompile Include="alc\alu.cpp" />
+    <ClCompile Include="alc\alconfig.cpp" />
+    <ClCompile Include="alc\context.cpp">
+      <ObjectFileName>$(IntDir)alc_context.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="alc\device.cpp">
+      <ObjectFileName>$(IntDir)alc_device.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="alc\events.cpp" />
+    <ClCompile Include="alc\panning.cpp" />
+  </ItemGroup>
+
+  <!-- ALC Effects -->
+  <ItemGroup>
+    <ClCompile Include="alc\effects\autowah.cpp" />
+    <ClCompile Include="alc\effects\chorus.cpp" />
+    <ClCompile Include="alc\effects\compressor.cpp" />
+    <ClCompile Include="alc\effects\convolution.cpp" />
+    <ClCompile Include="alc\effects\dedicated.cpp" />
+    <ClCompile Include="alc\effects\distortion.cpp" />
+    <ClCompile Include="alc\effects\echo.cpp" />
+    <ClCompile Include="alc\effects\equalizer.cpp" />
+    <ClCompile Include="alc\effects\fshifter.cpp" />
+    <ClCompile Include="alc\effects\modulator.cpp" />
+    <ClCompile Include="alc\effects\null.cpp">
+      <ObjectFileName>$(IntDir)effects_null.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="alc\effects\pshifter.cpp" />
+    <ClCompile Include="alc\effects\reverb.cpp" />
+    <ClCompile Include="alc\effects\vmorpher.cpp" />
+  </ItemGroup>
+
+  <!-- ALC Backends - SDL3 Only -->
+  <ItemGroup>
+    <ClCompile Include="alc\backends\base.cpp" />
+    <ClCompile Include="alc\backends\loopback.cpp" />
+    <ClCompile Include="alc\backends\null.cpp">
+      <ObjectFileName>$(IntDir)backends_null.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="alc\backends\sdl3.cpp" />
+  </ItemGroup>
+
+  <!-- Core Audio Processing -->
+  <ItemGroup>
+    <ClCompile Include="core\ambdec.cpp" />
+    <ClCompile Include="core\ambidefs.cpp" />
+    <ClCompile Include="core\bformatdec.cpp" />
+    <ClCompile Include="core\bs2b.cpp" />
+    <ClCompile Include="core\bsinc_tables.cpp" />
+    <ClCompile Include="core\context.cpp">
+      <ObjectFileName>$(IntDir)core_context.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="core\converter.cpp" />
+    <ClCompile Include="core\cpu_caps.cpp" />
+    <ClCompile Include="core\cubic_tables.cpp" />
+    <ClCompile Include="core\devformat.cpp" />
+    <ClCompile Include="core\device.cpp">
+      <ObjectFileName>$(IntDir)core_device.obj</ObjectFileName>
+    </ClCompile>
+    <ClCompile Include="core\effectslot.cpp" />
+    <ClCompile Include="core\except.cpp" />
+    <ClCompile Include="core\fpu_ctrl.cpp" />
+    <ClCompile Include="core\helpers.cpp" />
+    <ClCompile Include="core\hrtf.cpp" />
+    <ClCompile Include="core\hrtf_loader.cpp" />
+    <ClCompile Include="core\hrtf_resource.cpp" />
+    <ClCompile Include="core\logging.cpp" />
+    <ClCompile Include="core\mastering.cpp" />
+    <ClCompile Include="core\mixer.cpp" />
+    <ClCompile Include="core\storage_formats.cpp" />
+    <ClCompile Include="core\uhjfilter.cpp" />
+    <ClCompile Include="core\uiddefs.cpp" />
+    <ClCompile Include="core\voice.cpp" />
+  </ItemGroup>
+
+  <!-- Core Filters -->
+  <ItemGroup>
+    <ClCompile Include="core\filters\biquad.cpp" />
+    <ClCompile Include="core\filters\nfc.cpp" />
+    <ClCompile Include="core\filters\splitter.cpp" />
+  </ItemGroup>
+
+  <!-- Core Mixer -->
+  <ItemGroup>
+    <ClCompile Include="core\mixer\mixer_c.cpp" />
+    <ClCompile Include="core\mixer\mixer_sse.cpp" />
+    <ClCompile Include="core\mixer\mixer_sse2.cpp" />
+    <ClCompile Include="core\mixer\mixer_sse3.cpp" />
+    <ClCompile Include="core\mixer\mixer_sse41.cpp" />
+  </ItemGroup>
+
+  <!-- Common Utilities -->
+  <ItemGroup>
+    <ClCompile Include="common\alcomplex.cpp" />
+    <ClCompile Include="common\almalloc.cpp" />
+    <ClCompile Include="common\alstring.cpp" />
+    <ClCompile Include="common\althrd_setname.cpp" />
+    <ClCompile Include="common\dynload.cpp" />
+    <ClCompile Include="common\filesystem.cpp" />
+    <ClCompile Include="common\pffft.cpp" />
+    <ClCompile Include="common\polyphase_resampler.cpp" />
+    <ClCompile Include="common\strutils.cpp" />
+  </ItemGroup>
+
+  <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
+  <ImportGroup Label="ExtensionTargets">
+  </ImportGroup>
+</Project>

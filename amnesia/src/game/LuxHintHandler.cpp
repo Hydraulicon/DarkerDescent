@@ -470,9 +470,8 @@ tWString cLuxHintHandler::AddGamepadIconAtPosition(const tWString& asCommand, in
 {
 	////////////
 	// Convert the command from wString to tString
-	tString sCommand;
-	sCommand.resize(asCommand.size());
-	std::copy(asCommand.begin(), asCommand.end(), sCommand.begin());
+	// Proper wchar_t to char conversion using cString utility
+	tString sCommand = cString::To8Char(asCommand);
 
 	////////////////
 	// Get icon from command string

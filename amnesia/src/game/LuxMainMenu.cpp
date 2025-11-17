@@ -54,8 +54,8 @@ std::wstring LongToWString(const long long &l)
     std::stringstream strstream;
     strstream << l;
     strstream >> s;
-    std::wstring temp(s.length(),L' ');
-    std::copy(s.begin(),s.end(), temp.begin());
+    // Proper char to wchar_t conversion using wstring constructor
+    std::wstring temp(s.begin(), s.end());
     return temp;
 }
 
