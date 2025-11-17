@@ -9,7 +9,7 @@ Currently pre-alpha; stable, as per my independent testing.
 	- SDL2 2.0.12 was upgraded to SDL3 3.2.26.
 	- Gamma correction implemented via post-processing shader to replace SDL3's removed hardware gamma functionality.
 	- OpenAL Soft 1.24.3 integrated as static library with SDL3 audio backend.
-	- alut was replaced with freealut.
+	- freealut dependency removed; replaced with custom lightweight WAV loader.
 	- Newton Dynamics was upgraded from 2.08 to 2.32.
 	- FBX support not available at this time.
 

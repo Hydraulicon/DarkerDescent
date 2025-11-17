@@ -31,8 +31,8 @@
 # include "OALWrapper/OAL_Funcs.h"
 # include "OALWrapper/OAL_Effect_Reverb.h"
 #else
-# include "OpenAL/OAL_Funcs.h"
-# include "OpenAL/OAL_Effect_Reverb.h"
+# include "impl/OAL_Funcs.h"
+# include "impl/OAL_Effect_Reverb.h"
 #endif
 
 namespace hpl {
