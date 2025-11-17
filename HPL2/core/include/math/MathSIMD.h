@@ -23,6 +23,7 @@
 #include "math/MathTypes.h"
 #include "math/Vector3.h"
 #include "math/Matrix.h"
+#include "math/Quaternion.h"
 
 // SSE2 intrinsics (guaranteed on x64)
 #include <emmintrin.h>  // SSE2
@@ -37,17 +38,27 @@ namespace hpl {
 
 	// Function pointer typedefs for runtime dispatch
 	typedef cMatrixf (*MatrixMulFunc)(const cMatrixf&, const cMatrixf&);
+	typedef cMatrixf (*MatrixInverseFunc)(const cMatrixf&);
 	typedef cVector3f (*MatrixMulVectorFunc)(const cMatrixf&, const cVector3f&);
 	typedef float (*Vector3DotFunc)(const cVector3f&, const cVector3f&);
 	typedef cVector3f (*Vector3CrossFunc)(const cVector3f&, const cVector3f&);
 	typedef cVector3f (*Vector3NormalizeFunc)(const cVector3f&);
+	typedef cQuaternion (*QuaternionMulFunc)(const cQuaternion&, const cQuaternion&);
+	typedef cQuaternion (*QuaternionSlerpFunc)(float, const cQuaternion&, const cQuaternion&, bool);
+	typedef cQuaternion (*QuaternionNormalizeFunc)(const cQuaternion&);
+	typedef float (*QuaternionDotFunc)(const cQuaternion&, const cQuaternion&);
 
 	// Global function pointers (initialized by InitializeSIMD)
 	extern MatrixMulFunc g_MatrixMul;
+	extern MatrixInverseFunc g_MatrixInverse;
 	extern MatrixMulVectorFunc g_MatrixMulVector;
 	extern Vector3DotFunc g_Vector3Dot;
 	extern Vector3CrossFunc g_Vector3Cross;
 	extern Vector3NormalizeFunc g_Vector3Normalize;
+	extern QuaternionMulFunc g_QuaternionMul;
+	extern QuaternionSlerpFunc g_QuaternionSlerp;
+	extern QuaternionNormalizeFunc g_QuaternionNormalize;
+	extern QuaternionDotFunc g_QuaternionDot;
 
 	// Initialize SIMD system (call once at startup, after SDL_Init)
 	void InitializeSIMD();
@@ -79,6 +90,31 @@ namespace hpl {
 	inline cVector3f Vector3Normalize_SIMD(const cVector3f& avVec)
 	{
 		return g_Vector3Normalize(avVec);
+	}
+
+	inline cMatrixf MatrixInverse_SIMD(const cMatrixf& a_mtxA)
+	{
+		return g_MatrixInverse(a_mtxA);
+	}
+
+	inline cQuaternion QuaternionMul_SIMD(const cQuaternion& aqA, const cQuaternion& aqB)
+	{
+		return g_QuaternionMul(aqA, aqB);
+	}
+
+	inline cQuaternion QuaternionSlerp_SIMD(float afT, const cQuaternion& aqA, const cQuaternion& aqB, bool abShortestPath)
+	{
+		return g_QuaternionSlerp(afT, aqA, aqB, abShortestPath);
+	}
+
+	inline cQuaternion QuaternionNormalize_SIMD(const cQuaternion& aq)
+	{
+		return g_QuaternionNormalize(aq);
+	}
+
+	inline float QuaternionDot_SIMD(const cQuaternion& aqA, const cQuaternion& aqB)
+	{
+		return g_QuaternionDot(aqA, aqB);
 	}
 
 	//-----------------------------------------------------------------------
@@ -269,6 +305,21 @@ namespace hpl {
 
 		return result;
 	}
+
+	//-----------------------------------------------------------------------
+	// BATCH VECTOR OPERATIONS (for particle systems and array processing)
+	// Process multiple vectors at once for maximum SIMD efficiency
+	//-----------------------------------------------------------------------
+
+	// Batch add: dst[i] = src1[i] + src2[i] for count elements
+	void Vector3AddBatch_SIMD(cVector3f* dst, const cVector3f* src1, const cVector3f* src2, int count);
+
+	// Batch multiply-add: dst[i] += src[i] * scalar for count elements
+	// Used for: position += velocity * deltaTime
+	void Vector3MulAddBatch_SIMD(cVector3f* dst, const cVector3f* src, float scalar, int count);
+
+	// Batch scalar multiply: dst[i] = src[i] * scalar for count elements
+	void Vector3MulScalarBatch_SIMD(cVector3f* dst, const cVector3f* src, float scalar, int count);
 
 }; // namespace hpl
 

@@ -38,6 +38,7 @@
 #include "scene/World.h"
 
 #include "math/Math.h"
+#include "math/MathSIMD.h"
 
 #include "system/String.h"
 
@@ -1045,7 +1046,7 @@ namespace hpl {
 					float fSpeed = pParticle->mvVel.Length();
 					
 					cVector3f vReflection = pParticle->mvVel - 
-											(vNormal * 2* cMath::Vector3Dot(pParticle->mvVel,vNormal));
+											(vNormal * 2* Vector3Dot_SIMD(pParticle->mvVel,vNormal));
 					vReflection.Normalize();
 					
 					pParticle->mvVel = vReflection * (fSpeed * pParticle->mfBounceAmount);

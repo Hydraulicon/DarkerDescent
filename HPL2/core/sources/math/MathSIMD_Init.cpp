@@ -30,12 +30,19 @@ namespace hpl {
 
 	// Matrix operations
 	MatrixMulFunc g_MatrixMul = nullptr;
+	MatrixInverseFunc g_MatrixInverse = nullptr;
 	MatrixMulVectorFunc g_MatrixMulVector = nullptr;
 
 	// Vector3 operations
 	Vector3DotFunc g_Vector3Dot = nullptr;
 	Vector3CrossFunc g_Vector3Cross = nullptr;
 	Vector3NormalizeFunc g_Vector3Normalize = nullptr;
+
+	// Quaternion operations
+	QuaternionMulFunc g_QuaternionMul = nullptr;
+	QuaternionSlerpFunc g_QuaternionSlerp = nullptr;
+	QuaternionNormalizeFunc g_QuaternionNormalize = nullptr;
+	QuaternionDotFunc g_QuaternionDot = nullptr;
 
 	//-----------------------------------------------------------------------
 	// EXTERNAL IMPLEMENTATION DECLARATIONS
@@ -44,10 +51,15 @@ namespace hpl {
 
 	// SSE2 implementations (always available on x64)
 	extern cMatrixf MatrixMul_SSE2(const cMatrixf& a_mtxA, const cMatrixf& a_mtxB);
+	extern cMatrixf MatrixInverse_SSE2(const cMatrixf& a_mtxA);
 	extern cVector3f MatrixMulVector_SSE2(const cMatrixf& a_mtxA, const cVector3f& avB);
 	extern float Vector3Dot_SSE2(const cVector3f& avVecA, const cVector3f& avVecB);
 	extern cVector3f Vector3Cross_SSE2(const cVector3f& avVecA, const cVector3f& avVecB);
 	extern cVector3f Vector3Normalize_SSE2(const cVector3f& avVec);
+	extern cQuaternion QuaternionMul_SSE2(const cQuaternion& aqA, const cQuaternion& aqB);
+	extern cQuaternion QuaternionSlerp_SSE2(float afT, const cQuaternion& aqA, const cQuaternion& aqB, bool abShortestPath);
+	extern cQuaternion QuaternionNormalize_SSE2(const cQuaternion& aq);
+	extern float QuaternionDot_SSE2(const cQuaternion& aqA, const cQuaternion& aqB);
 
 	// SSE4.1 implementations (optional, CPU detected)
 	extern float Vector3Dot_SSE41(const cVector3f& avVecA, const cVector3f& avVecB);
@@ -138,6 +150,17 @@ namespace hpl {
 		g_Vector3Cross = Vector3Cross_SSE2;
 		g_Vector3Normalize = Vector3Normalize_SSE2;
 		Log("  Vector3 cross/normalize: Using SSE2\n");
+
+		// Matrix inverse: Always use SSE2 (no AVX/AVX2/AVX-512 versions implemented yet)
+		g_MatrixInverse = MatrixInverse_SSE2;
+		Log("  Matrix inverse: Using SSE2\n");
+
+		// Quaternion operations: Always use SSE2 (no AVX versions needed - quaternions are 4 floats)
+		g_QuaternionMul = QuaternionMul_SSE2;
+		g_QuaternionSlerp = QuaternionSlerp_SSE2;
+		g_QuaternionNormalize = QuaternionNormalize_SSE2;
+		g_QuaternionDot = QuaternionDot_SSE2;
+		Log("  Quaternion operations: Using SSE2\n");
 
 		Log("SIMD initialization complete.\n");
 	}

@@ -20,6 +20,7 @@
 #include "graphics/AnimationTrack.h"
 
 #include "math/Math.h"
+#include "math/MathSIMD.h"
 #include "graphics/Animation.h"
 #include "system/LowLevelSystem.h"
 #include "scene/Node3D.h"
@@ -116,7 +117,7 @@ namespace hpl {
 		apNode->AddScale(vScale);*/
 
 		//Rotation
-		cQuaternion qRot = cMath::QuaternionSlerp(afWeight, cQuaternion::Identity, Frame.rotation, true);
+		cQuaternion qRot = QuaternionSlerp_SIMD(afWeight, cQuaternion::Identity, Frame.rotation, true);
 		apNode->AddRotation(qRot);
 		
 		//Translation
@@ -167,7 +168,7 @@ namespace hpl {
             }
             else
             {
-                ResultKeyFrame.rotation = cMath::QuaternionSlerp(fT, rotA, 
+                ResultKeyFrame.rotation = QuaternionSlerp_SIMD(fT, rotA, 
 													rotB, true);
             }*/
 
@@ -185,7 +186,7 @@ namespace hpl {
             }
 
 
-            ResultKeyFrame.rotation = cMath::QuaternionSlerp(fT, rotA, 
+            ResultKeyFrame.rotation = QuaternionSlerp_SIMD(fT, rotA, 
 													rotB, true);
 
             /*

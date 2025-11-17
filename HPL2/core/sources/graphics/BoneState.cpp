@@ -22,6 +22,7 @@
 #include "physics/PhysicsBody.h"
 
 #include "math/Math.h"
+#include "math/MathSIMD.h"
 
 #include "system/LowLevelSystem.h"
 
@@ -72,7 +73,7 @@ namespace hpl {
 	void cBoneState::SetBodyMatrix(const cMatrixf &a_mtxBody)
 	{
 		m_mtxBody = a_mtxBody;
-		m_mtxInvBody = cMath::MatrixInverse(m_mtxBody);
+		m_mtxInvBody = MatrixInverse_SIMD(m_mtxBody);
 	}
 
 	const cMatrixf& cBoneState::GetBodyMatrix()

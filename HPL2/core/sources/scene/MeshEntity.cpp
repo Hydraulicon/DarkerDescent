@@ -47,6 +47,7 @@
 #include "physics/PhysicsWorld.h"
 
 #include "math/Math.h"
+#include "math/MathSIMD.h"
 
 #include "engine/Engine.h"
 
@@ -301,10 +302,10 @@ namespace hpl {
 		
 		if(pBody)
 		{
-			cMatrixf mtxBoneWorld = cMath::MatrixMul(pBody->GetWorldMatrix(),apBoneState->GetInvBodyMatrix());
-			cMatrixf mtxParentInv = cMath::MatrixInverse(a_mtxParentWorld);
+			cMatrixf mtxBoneWorld = MatrixMul_SIMD(pBody->GetWorldMatrix(),apBoneState->GetInvBodyMatrix());
+			cMatrixf mtxParentInv = MatrixInverse_SIMD(a_mtxParentWorld);
 
-			apBoneState->SetMatrix(cMath::MatrixMul(mtxParentInv,mtxBoneWorld),false);
+			apBoneState->SetMatrix(MatrixMul_SIMD(mtxParentInv,mtxBoneWorld),false);
 
 			cNode3DIterator BoneIt = apBoneState->GetChildIterator();
 			while(BoneIt.HasNext())
@@ -561,7 +562,7 @@ namespace hpl {
 
 						if(pColliderBody)
 						{
-							cMatrixf mtxBody = cMath::MatrixMul(pState->GetWorldMatrix(), pState->GetBodyMatrix());
+							cMatrixf mtxBody = MatrixMul_SIMD(pState->GetWorldMatrix(), pState->GetBodyMatrix());
 							pColliderBody->SetMatrix(mtxBody);
 						}
 					}
@@ -1010,7 +1011,7 @@ namespace hpl {
 
 			if(pBody)
 			{
-				cMatrixf mtxBody = cMath::MatrixMul(pState->GetWorldMatrix(), pState->GetBodyMatrix());
+				cMatrixf mtxBody = MatrixMul_SIMD(pState->GetWorldMatrix(), pState->GetBodyMatrix());
 				pBody->SetMatrix(mtxBody);
 
 				if(abCalculateSpeed)
@@ -1035,7 +1036,7 @@ namespace hpl {
 
 		//Rotation and position
 		cMatrixf mtxInvBind = pBone->GetInvWorldTransform();
-		cMatrixf mtxInvBone = cMath::MatrixInverse(pBoneState->GetWorldMatrix());
+		cMatrixf mtxInvBone = MatrixInverse_SIMD(pBoneState->GetWorldMatrix());
 		cVector3f vStateForward = mtxInvBone.GetForward();
 		cVector3f vBindForward = mtxInvBind.GetForward();
 
@@ -1047,7 +1048,7 @@ namespace hpl {
 
 		cVector3f vRootBoneOffset = pBone->GetLocalTransform().GetTranslation();
 		vRootBoneOffset.y =0;
-		vRootBoneOffset = cMath::MatrixMul(mtxTransform,vRootBoneOffset);
+		vRootBoneOffset = MatrixMulVector_SIMD(mtxTransform,vRootBoneOffset);
 
 		mtxTransform.SetTranslation(pBoneState->GetWorldPosition());// - vRootBoneOffset);
 		
@@ -1073,7 +1074,7 @@ namespace hpl {
 			iPhysicsBody *pBody = pState->GetColliderBody();
 			if(pBody==NULL) continue;
 
-			cMatrixf mtxBody = cMath::MatrixMul(pState->GetWorldMatrix(), pState->GetBodyMatrix());
+			cMatrixf mtxBody = MatrixMul_SIMD(pState->GetWorldMatrix(), pState->GetBodyMatrix());
 			pBody->SetMatrix(mtxBody);
 			
 			bool bRet = apWorld->CheckShapeCollision(pBody->GetShape(),
@@ -1187,7 +1188,7 @@ namespace hpl {
 			if(mlInvWorldMatrixTransformCount != GetTransformUpdateCount())
 			{
 				mlInvWorldMatrixTransformCount = GetTransformUpdateCount();
-				m_mtxInvWorldMatrix = cMath::MatrixInverse(GetWorldMatrix());
+				m_mtxInvWorldMatrix = MatrixInverse_SIMD(GetWorldMatrix());
 			}
 			
 			for(int i=0; i< pSkeleton->GetBoneNum(); i++)
@@ -1197,9 +1198,9 @@ namespace hpl {
                 
 				//Transform the movement of the bone into the
 				//Bind pose's local space.
-				cMatrixf mtxLocal = cMath::MatrixMul(m_mtxInvWorldMatrix,pState->GetWorldMatrix());
+				cMatrixf mtxLocal = MatrixMul_SIMD(m_mtxInvWorldMatrix,pState->GetWorldMatrix());
 				
-				mvBoneMatrices[i] = cMath::MatrixMul(mtxLocal,pBone->GetInvWorldTransform());
+				mvBoneMatrices[i] = MatrixMul_SIMD(mtxLocal,pBone->GetInvWorldTransform());
 			}
 		}
 	}
