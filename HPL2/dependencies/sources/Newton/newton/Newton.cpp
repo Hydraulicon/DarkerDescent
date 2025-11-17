@@ -22,6 +22,7 @@
 #include "NewtonStdAfx.h"
 #include "Newton.h"
 #include "NewtonClass.h"
+#include "dgMathSIMD.h"
 
 
 #if (defined (_WIN_32_VER) || defined (_WIN_64_VER))
@@ -168,6 +169,16 @@ void NewtonSetMemorySystem (NewtonAllocMemory mallocFnt, NewtonFreeMemory mfreeF
 NewtonWorld* NewtonCreate()
 {
 	TRACE_FUNTION(__FUNCTION__);
+
+	// Initialize SIMD dispatch system
+	// Must be called before any Newton operations that use SIMD optimizations
+	static bool s_simdInitialized = false;
+	if (!s_simdInitialized)
+	{
+		dgInitializeSIMD();
+		s_simdInitialized = true;
+	}
+
 	dgMemoryAllocator* const allocator = new dgMemoryAllocator();
 
 
@@ -185,6 +196,26 @@ NewtonWorld* NewtonCreate()
 
 	NewtonSetWorldSize (world, p0, p1);
 	return world;
+}
+
+// Name: NewtonSetSIMDLevel
+// Override SIMD instruction set level for debugging purposes.
+//
+// Parameters:
+// *const char* *level - SIMD level string: "SSE2", "SSE41", "AVX", "AVX2", "AVX512", or NULL for auto-detect
+//
+// Return: Nothing.
+//
+// Remarks: This function must be called BEFORE NewtonCreate() to take effect.
+// It allows forcing the physics engine to use a specific SIMD instruction set level,
+// which is useful for debugging, testing, or working around CPU-specific issues.
+// Pass NULL to restore automatic CPU detection behavior.
+//
+// See also: NewtonCreate
+void NewtonSetSIMDLevel(const char* level)
+{
+	TRACE_FUNTION(__FUNCTION__);
+	dgSetSIMDOverride(level);
 }
 
 // Name: NewtonDestroy 
@@ -1579,7 +1610,7 @@ void NewtonMaterialSetContinuousCollisionMode(const NewtonWorld* newtonWorld, in
 
 
 // Name: NewtonMaterialSetSurfaceThickness 
-// Set an imaginary thickness between the collision geometry of two colliding bodies who’s physics 
+// Set an imaginary thickness between the collision geometry of two colliding bodies whoï¿½s physics 
 // properties are defined by this material pair 
 //
 // Parameters:
@@ -5659,7 +5690,7 @@ NewtonMaterial* NewtonContactGetMaterial(const void* contact)
 // Remarks: This function is only effective when called from *NewtonApplyForceAndTorque callback*
 //
 // Remarks: This function adds buoyancy force and torque to a body when it is immersed in a fluid.
-// The force is calculated according to Archimedes’ Buoyancy Principle. When the parameter *buoyancyPlane* is set to NULL, the body is considered
+// The force is calculated according to Archimedesï¿½ Buoyancy Principle. When the parameter *buoyancyPlane* is set to NULL, the body is considered
 // to completely immersed in the fluid. This can be used to simulate boats and lighter than air vehicles etc..
 //
 // Remarks: If *buoyancyPlane* return 0 buoyancy calculation for this collision primitive is ignored, this could be used to filter buoyancy calculation 
@@ -5720,7 +5751,7 @@ void NewtonBodySetCollision(const NewtonBody* bodyPtr, const NewtonCollision* co
 //
 // Return: Nothing.
 //
-// Remarks: Gyroscopic forces internal forces generated as a result of an asymmetric tensor. They are a pure mathematical consequence that the physics have to comply in order to agree with the math. As Gyroscopic forces are not real forces but the result of net unbalance of the changing inertia tensor or a rigid body when its angular velocity is measured on a reference frame different than the body’s own.  
+// Remarks: Gyroscopic forces internal forces generated as a result of an asymmetric tensor. They are a pure mathematical consequence that the physics have to comply in order to agree with the math. As Gyroscopic forces are not real forces but the result of net unbalance of the changing inertia tensor or a rigid body when its angular velocity is measured on a reference frame different than the bodyï¿½s own.  
 // Gyroscopic forces are extremely non linear by nature, therefore a first order implicit integrator will have a extremely hard time at dealing with this kind of forces, however because the fact that they are not real forces they do not make much difference in the outcome of the integration.
 // Fortunately due to the fact that the magnitude of gyroscopic forces is proportional to the unbalance of the inertia tensor, it is possible to disregard the effect of this forces by assuming their inertial tensor is symmetric for the purpose of this calculation. For most cases an ordinary person is not capable to distinguish the motion of a body subject to gyroscopic forces and one that is not, especially when the motion is constrained.
 // Because of this fact gyroscopic force are turned off by default in Newton, however there are cases when the desire effect is precisely to simulate these forces like a spinning top, or the design of a space navigational system, etc. The most important feature of gyroscopic forces is that they make the rigid body to process. 
@@ -5741,7 +5772,7 @@ void  NewtonBodySetGyroscopicForcesMode(const NewtonBody* bodyPtr, int mode)
 //
 // Return: force mode 1 means Gyro copy force are on.
 //
-// Remarks: Gyroscopic forces are internal forces generated as a result of an asymmetric tensor. They are a pure mathematical consequence that the physics have to comply in order to agree with the math. As Gyroscopic forces are not real forces but the result of net unbalance of the changing inertia tensor or a rigid body when its angular velocity is measured on a reference frame different than the body’s own.  
+// Remarks: Gyroscopic forces are internal forces generated as a result of an asymmetric tensor. They are a pure mathematical consequence that the physics have to comply in order to agree with the math. As Gyroscopic forces are not real forces but the result of net unbalance of the changing inertia tensor or a rigid body when its angular velocity is measured on a reference frame different than the bodyï¿½s own.  
 // Gyroscopic forces are extremely non linear by nature, therefore a first order implicit integrator will have a extremely hard time at dealing with this kind of forces, however because the fact that they are not real forces they do not make much difference in the outcome of the integration.
 // Fortunately due to the fact that the magnitude of gyroscopic forces is proportional to the unbalance of the inertia tensor, it is possible to disregard the effect of this forces by assuming their inertial tensor is symmetric for the purpose of this calculation. For most cases an ordinary person is not capable to distinguish the motion of a body subject to gyroscopic forces and one that is not, especially when the motion is constrained.
 // Because of this fact gyroscopic force are turned off by default in Newton, however there are cases when the desire effect is precisely to simulate these forces like a spinning top, or the design of a space navigational system, etc. The most important feature of gyroscopic forces is that they make the rigid body to process. 

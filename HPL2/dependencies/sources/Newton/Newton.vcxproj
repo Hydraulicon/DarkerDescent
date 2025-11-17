@@ -55,7 +55,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;_WIN_64_VER;_NEWTON_USE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\include\;$(ProjectDir)\core\;$(ProjectDir)\physics\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\include\;$(ProjectDir)\core\;$(ProjectDir)\physics\;$(ProjectDir)\..\..\..\..\..\dependencies\SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -70,7 +70,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;_WIN_64_VER;_NEWTON_USE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\include\;$(ProjectDir)\core\;$(ProjectDir)\physics\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>$(ProjectDir)\..\..\include\;$(ProjectDir)\core\;$(ProjectDir)\physics\;$(ProjectDir)\..\..\..\..\..\dependencies\SDL\include\;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp23</LanguageStandard>
       <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
@@ -122,6 +122,7 @@
     <ClInclude Include="core\dgTree.h" />
     <ClInclude Include="core\dgTypes.h" />
     <ClInclude Include="core\dgVector.h" />
+    <ClInclude Include="core\dgMathSIMD.h" />
     <ClInclude Include="newton\NewtonClass.h" />
     <ClInclude Include="newton\NewtonStdAfx.h" />
     <ClInclude Include="physics\dgBallConstraint.h" />
@@ -193,6 +194,18 @@
     <ClCompile Include="core\dgThreads.cpp" />
     <ClCompile Include="core\dgTree.cpp" />
     <ClCompile Include="core\dgTypes.cpp" />
+    <ClCompile Include="core\dgMathSIMD_Init.cpp" />
+    <ClCompile Include="core\dgMathSIMD_SSE2.cpp" />
+    <ClCompile Include="core\dgMathSIMD_SSE41.cpp" />
+    <ClCompile Include="core\dgMathSIMD_AVX.cpp">
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <ClCompile Include="core\dgMathSIMD_AVX2.cpp">
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <ClCompile Include="core\dgMathSIMD_AVX512.cpp">
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions512</EnableEnhancedInstructionSet>
+    </ClCompile>
     <ClCompile Include="newton\Newton.cpp" />
     <ClCompile Include="newton\NewtonClass.cpp" />
     <ClCompile Include="physics\dgBallConstraint.cpp" />

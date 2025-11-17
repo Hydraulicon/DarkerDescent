@@ -346,6 +346,10 @@ extern "C" {
 	NEWTON_API void NewtonDestroy (const NewtonWorld* newtonWorld);
 	NEWTON_API void NewtonDestroyAllBodies (const NewtonWorld* newtonWorld);
 
+	// SIMD optimization control (must be called before NewtonCreate)
+	// Valid levels: "SSE2", "SSE41", "AVX", "AVX2", "AVX512", or NULL for auto-detect
+	NEWTON_API void NewtonSetSIMDLevel (const char* level);
+
 	NEWTON_API void NewtonUpdate (const NewtonWorld* newtonWorld, dFloat timestep);
 	NEWTON_API void NewtonInvalidateCache (const NewtonWorld* newtonWorld);
 	NEWTON_API void NewtonCollisionUpdate (const NewtonWorld* newtonWorld);
