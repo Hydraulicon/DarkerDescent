@@ -680,6 +680,18 @@
     <ClCompile Include="sources\math\CRC.cpp" />
     <ClCompile Include="sources\math\Frustum.cpp" />
     <ClCompile Include="sources\math\Math.cpp" />
+    <ClCompile Include="sources\math\MathSIMD_Init.cpp" />
+    <ClCompile Include="sources\math\MathSIMD_SSE2.cpp" />
+    <ClCompile Include="sources\math\MathSIMD_SSE41.cpp" />
+    <ClCompile Include="sources\math\MathSIMD_AVX.cpp">
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <ClCompile Include="sources\math\MathSIMD_AVX2.cpp">
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions2</EnableEnhancedInstructionSet>
+    </ClCompile>
+    <ClCompile Include="sources\math\MathSIMD_AVX512.cpp">
+      <EnableEnhancedInstructionSet>AdvancedVectorExtensions512</EnableEnhancedInstructionSet>
+    </ClCompile>
     <ClCompile Include="sources\math\MathTypes.cpp" />
     <ClCompile Include="sources\math\MeshTypes.cpp" />
     <ClCompile Include="sources\math\Quaternion.cpp" />

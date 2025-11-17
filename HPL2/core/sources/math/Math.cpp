@@ -1843,14 +1843,14 @@ namespace hpl {
 
 	cVector3f cMath::Vector3Cross(const cVector3f& avVecA,const cVector3f& avVecB)
 	{
-		return Vector3CrossSSE2(avVecA, avVecB);
+		return Vector3Cross_SIMD(avVecA, avVecB);
 	}
 
 	//-----------------------------------------------------------------------
 
 	float cMath::Vector3Dot(const cVector3f& avVecA,const cVector3f& avVecB)
 	{
-		return Vector3DotSSE2(avVecA, avVecB);
+		return Vector3Dot_SIMD(avVecA, avVecB);
 	}
 
 	//-----------------------------------------------------------------------
@@ -2516,14 +2516,14 @@ namespace hpl {
 
 	cMatrixf cMath::MatrixMul(const cMatrixf &a_mtxA,const cMatrixf &a_mtxB)
 	{
-		return MatrixMulSSE2(a_mtxA, a_mtxB);
+		return MatrixMul_SIMD(a_mtxA, a_mtxB);
 	}
-	
+
 	//-----------------------------------------------------------------------
-	
+
 	cVector3f cMath::MatrixMul(const cMatrixf &a_mtxA,const cVector3f &avB)
 	{
-		return MatrixMulVectorSSE2(a_mtxA, avB);
+		return MatrixMulVector_SIMD(a_mtxA, avB);
 	}
 
 	//-----------------------------------------------------------------------

@@ -39,11 +39,12 @@
 #include "impl/LowLevelSoundOpenAL.h"
 #include "impl/LowLevelPhysicsNewton.h"
 
-#ifdef INCLUDE_HAPTIC 
+#ifdef INCLUDE_HAPTIC
 #include "impl/LowLevelHapticHaptX.h"
 #endif
 
 #include <SDL3/SDL.h>
+#include "math/MathSIMD.h"
 
 namespace hpl {
 
@@ -74,6 +75,9 @@ namespace hpl {
 			// SDL3: Timer is always available, minimal init
 			SDL_Init(0);
 		}
+
+		// Initialize SIMD optimizations (requires SDL for CPU detection)
+		InitializeSIMD();
 
 		//////////////////////////
 		// System

@@ -30,7 +30,59 @@
 namespace hpl {
 
 	//-----------------------------------------------------------------------
-	// SIMD-OPTIMIZED MATH FUNCTIONS
+	// SIMD DISPATCH SYSTEM
+	// Runtime CPU detection selects best available instruction set:
+	// AVX-512F (512-bit, 2017+) > AVX2 (FMA, 2013+) > AVX (256-bit, 2011+) > SSE4.1 (dp, 2008+) > SSE2 (128-bit)
+	//-----------------------------------------------------------------------
+
+	// Function pointer typedefs for runtime dispatch
+	typedef cMatrixf (*MatrixMulFunc)(const cMatrixf&, const cMatrixf&);
+	typedef cVector3f (*MatrixMulVectorFunc)(const cMatrixf&, const cVector3f&);
+	typedef float (*Vector3DotFunc)(const cVector3f&, const cVector3f&);
+	typedef cVector3f (*Vector3CrossFunc)(const cVector3f&, const cVector3f&);
+	typedef cVector3f (*Vector3NormalizeFunc)(const cVector3f&);
+
+	// Global function pointers (initialized by InitializeSIMD)
+	extern MatrixMulFunc g_MatrixMul;
+	extern MatrixMulVectorFunc g_MatrixMulVector;
+	extern Vector3DotFunc g_Vector3Dot;
+	extern Vector3CrossFunc g_Vector3Cross;
+	extern Vector3NormalizeFunc g_Vector3Normalize;
+
+	// Initialize SIMD system (call once at startup, after SDL_Init)
+	void InitializeSIMD();
+
+	//-----------------------------------------------------------------------
+	// PUBLIC SIMD API (inline wrappers - zero overhead after initialization)
+	//-----------------------------------------------------------------------
+
+	inline cMatrixf MatrixMul_SIMD(const cMatrixf& a_mtxA, const cMatrixf& a_mtxB)
+	{
+		return g_MatrixMul(a_mtxA, a_mtxB);
+	}
+
+	inline cVector3f MatrixMulVector_SIMD(const cMatrixf& a_mtxA, const cVector3f& avB)
+	{
+		return g_MatrixMulVector(a_mtxA, avB);
+	}
+
+	inline float Vector3Dot_SIMD(const cVector3f& avVecA, const cVector3f& avVecB)
+	{
+		return g_Vector3Dot(avVecA, avVecB);
+	}
+
+	inline cVector3f Vector3Cross_SIMD(const cVector3f& avVecA, const cVector3f& avVecB)
+	{
+		return g_Vector3Cross(avVecA, avVecB);
+	}
+
+	inline cVector3f Vector3Normalize_SIMD(const cVector3f& avVec)
+	{
+		return g_Vector3Normalize(avVec);
+	}
+
+	//-----------------------------------------------------------------------
+	// SIMD-OPTIMIZED MATH FUNCTIONS (SSE2 baseline implementations)
 	// These use SSE2 intrinsics for improved performance on hot paths
 	//-----------------------------------------------------------------------
 
