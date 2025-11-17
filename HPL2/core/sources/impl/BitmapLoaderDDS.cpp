@@ -138,7 +138,7 @@ namespace hpl {
 
 				// Allocate and copy data
 				size_t dataSize = imageData->m_memSlicePitch;
-				pImage->mlSize = static_cast<int>(dataSize);
+				pImage->mlSize = dataSize;
 				pImage->mpData = hplNewArray(unsigned char, dataSize);
 				memcpy(pImage->mpData, imageData->m_mem, dataSize);
 			}

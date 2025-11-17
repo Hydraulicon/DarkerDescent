@@ -49,13 +49,13 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	void cBitmapData::SetData(const unsigned char* apData, int alSize)
+	void cBitmapData::SetData(const unsigned char* apData, size_t alSize)
 	{
 		if(mpData && mlSize != alSize) hplDelete( mpData );
-		
+
 		mlSize = alSize;
 		mpData = hplNewArray(unsigned char, mlSize);
-        
+
 		memcpy(mpData, apData, mlSize);
 	}
 
@@ -129,8 +129,8 @@ namespace hpl {
 		mPixelFormat = aFormat;
 		mlBytesPerPixel = GetChannelsInPixelFormat(aFormat);
 
-        int lDataSize = mvSize.x * mvSize.y * mvSize.z * mlBytesPerPixel;
-		
+		size_t lDataSize = mvSize.x * mvSize.y * mvSize.z * mlBytesPerPixel;
+
 		cBitmapData* pData = GetData(alImage, alMipMap);
 		pData->mpData = hplNewArray(unsigned char, lDataSize);
 		pData->mlSize = lDataSize;

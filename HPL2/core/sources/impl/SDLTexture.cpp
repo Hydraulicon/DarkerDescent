@@ -713,10 +713,10 @@ namespace hpl {
 		int lStartMipMapLevel = 0; 
 
 		/////////////////////////////
-		//Check if resize is needed, 
+		//Check if resize is needed,
 		// cannot do with compressed textures unless they have custom mipmaps
 		unsigned char *pResizeData = NULL;
-		int lResizeDataSize = 0;
+		size_t lResizeDataSize = 0;
 		if(	mlSizeDownScaleLevel > 0 && abCheckForResize && 
 			(mbIsCompressed==false || alNumOfMipMaps>1) &&
 			PixelFormatIsDepth(aPixelFormat) == false)
@@ -790,7 +790,7 @@ namespace hpl {
 
 
 			unsigned char *pData = apBitmapImage[lImageMipMap].mpData;
-			int lSize = apBitmapImage[lImageMipMap].mlSize;
+			size_t lSize = apBitmapImage[lImageMipMap].mlSize;
 
 			//Use resized data if available
 			if(lCount==0 && pResizeData)
@@ -843,8 +843,8 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	void cSDLTexture::GenerateMipMaps(	GLenum aGLTarget, ePixelFormat aPixelFormat,const cVector3l avSize, 
-										unsigned char *apData,int alDataSize, int alFaceNum)
+	void cSDLTexture::GenerateMipMaps(	GLenum aGLTarget, ePixelFormat aPixelFormat,const cVector3l avSize,
+										unsigned char *apData,size_t alDataSize, int alFaceNum)
 	{
 		GLenum GLFormat = PixelFormatToGLFormat(aPixelFormat);
 		GLenum GLInternalFormat = PixelFormatToGLInternalFormat(aPixelFormat);
@@ -903,7 +903,7 @@ namespace hpl {
 
 	//-----------------------------------------------------------------------
 
-	bool cSDLTexture::CopyTextureDataToGL(	int alTextureHandle, int alLevel,unsigned char *apData,int alDataSize,
+	bool cSDLTexture::CopyTextureDataToGL(	int alTextureHandle, int alLevel,unsigned char *apData,size_t alDataSize,
 											const cVector3l avSize, ePixelFormat aPixelFormat,int alFaceNum)
 	{
 		GLenum GLTarget = TextureTypeToGLTarget(mType);
@@ -915,7 +915,7 @@ namespace hpl {
 		while(glGetError()!=GL_NO_ERROR);
 
 		//Update memory size
-		mlMemorySize += alDataSize;
+		mlMemorySize += static_cast<int>(alDataSize);
 
 		/////////////////////////////////////////
 		// Load compressed data
@@ -928,7 +928,7 @@ namespace hpl {
 				glCompressedTexImage1DARB(	GLTarget, alLevel, 
 					GLCompressionFormat, 
 					avSize.x,
-					0, alDataSize, apData);
+					0, static_cast<GLsizei>(alDataSize), apData);
 			}
 			else if(mType == eTextureType_2D || mType == eTextureType_CubeMap)
 			{
@@ -937,14 +937,14 @@ namespace hpl {
 					alLevel, 
 					GLCompressionFormat, 
 					avSize.x, avSize.y,
-					0, alDataSize, apData);
+					0, static_cast<GLsizei>(alDataSize), apData);
 			}
 			else if(mType == eTextureType_3D)
 			{
 				glCompressedTexImage3DARB(	GLTarget, alLevel, 
 					GLCompressionFormat, 
 					avSize.x, avSize.y,avSize.z,
-					0, alDataSize, apData);
+					0, static_cast<GLsizei>(alDataSize), apData);
 			}
 		}
 		/////////////////////////////////////////

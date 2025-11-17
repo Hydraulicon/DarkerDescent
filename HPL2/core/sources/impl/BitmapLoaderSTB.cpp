@@ -92,7 +92,7 @@ namespace hpl {
 
 		// Copy data to bitmap
 		cBitmapData* pImage = pBitmap->GetData(0, 0);
-		int dataSize = width * height * channels;
+		size_t dataSize = width * height * channels;
 		pImage->SetData(data, dataSize);
 
 		// Free stb_image data

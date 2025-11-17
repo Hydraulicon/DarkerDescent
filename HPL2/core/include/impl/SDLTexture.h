@@ -85,11 +85,11 @@ namespace hpl {
 							int alFaceNum,bool abGenerateMipMaps,
 							bool abCheckForResize);
 
-		bool CopyTextureDataToGL(	int alTextureHandle, int alLevel,unsigned char *apData,int alDataSize,
+		bool CopyTextureDataToGL(	int alTextureHandle, int alLevel,unsigned char *apData,size_t alDataSize,
 									const cVector3l avSize, ePixelFormat aPixelFormat,int alFaceNum);
 
-		void GenerateMipMaps(	GLenum aGLTarget, ePixelFormat aPixelFormat,const cVector3l avSize, 
-								unsigned char *apData,int alDataSize, int alFaceNum);
+		void GenerateMipMaps(	GLenum aGLTarget, ePixelFormat aPixelFormat,const cVector3l avSize,
+								unsigned char *apData,size_t alDataSize, int alFaceNum);
 		
 		void SetupProperties(int alTextureHandle);
 

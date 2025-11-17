@@ -33,10 +33,10 @@ namespace hpl {
 		cBitmapData();
 		~cBitmapData();
 
-		void SetData(const unsigned char* apData, int alSize);
+		void SetData(const unsigned char* apData, size_t alSize);
 
 		unsigned char *mpData;
-		int mlSize;	
+		size_t mlSize;	
 	};
 
 	//-----------------------------------------
