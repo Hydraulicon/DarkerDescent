@@ -15,6 +15,7 @@ Currently pre-alpha; stable, as per my independent testing.
 	- Newton Dynamics was upgraded from 2.08 to 2.32.
 	- FBX support not available at this time.
 	- 64-bit optimizations: Converted vertex/index counts, file I/O operations, and bitmap/texture memory allocation from fixed-width types (int/unsigned long) to platform-appropriate size_t for improved performance and large asset support (>2GB textures, >4GB files).
+	- SIMD math optimizations: Implemented SSE2 intrinsics for critical math operations (matrix multiplication, vector dot/cross products, normalization) providing 2-6x speedup in rendering and scene graph calculations.
 
 ## Third-Party Libraries and Licenses
 

@@ -18,6 +18,7 @@
  */
 
 #include "math/Math.h"
+#include "math/MathSIMD.h"
 
 #include "math/Frustum.h"
 #include "graphics/VertexBuffer.h"
@@ -1842,20 +1843,14 @@ namespace hpl {
 
 	cVector3f cMath::Vector3Cross(const cVector3f& avVecA,const cVector3f& avVecB)
 	{
-		cVector3f vResult;
-		
-		vResult.x = avVecA.y * avVecB.z - avVecA.z * avVecB.y;
-		vResult.y = avVecA.z * avVecB.x - avVecA.x * avVecB.z;
-		vResult.z = avVecA.x * avVecB.y - avVecA.y * avVecB.x;
-		
-		return vResult;
+		return Vector3CrossSSE2(avVecA, avVecB);
 	}
 
 	//-----------------------------------------------------------------------
 
 	float cMath::Vector3Dot(const cVector3f& avVecA,const cVector3f& avVecB)
 	{
-		return avVecA.x*avVecB.x + avVecA.y*avVecB.y + avVecA.z*avVecB.z;
+		return Vector3DotSSE2(avVecA, avVecB);
 	}
 
 	//-----------------------------------------------------------------------
@@ -2521,42 +2516,14 @@ namespace hpl {
 
 	cMatrixf cMath::MatrixMul(const cMatrixf &a_mtxA,const cMatrixf &a_mtxB)
 	{
-		cMatrixf mtxC;
-		
-		mtxC.m[0][0] = a_mtxA.m[0][0] * a_mtxB.m[0][0] + a_mtxA.m[0][1] * a_mtxB.m[1][0] + a_mtxA.m[0][2] * a_mtxB.m[2][0] + a_mtxA.m[0][3] * a_mtxB.m[3][0];
-		mtxC.m[0][1] = a_mtxA.m[0][0] * a_mtxB.m[0][1] + a_mtxA.m[0][1] * a_mtxB.m[1][1] + a_mtxA.m[0][2] * a_mtxB.m[2][1] + a_mtxA.m[0][3] * a_mtxB.m[3][1];
-		mtxC.m[0][2] = a_mtxA.m[0][0] * a_mtxB.m[0][2] + a_mtxA.m[0][1] * a_mtxB.m[1][2] + a_mtxA.m[0][2] * a_mtxB.m[2][2] + a_mtxA.m[0][3] * a_mtxB.m[3][2];
-		mtxC.m[0][3] = a_mtxA.m[0][0] * a_mtxB.m[0][3] + a_mtxA.m[0][1] * a_mtxB.m[1][3] + a_mtxA.m[0][2] * a_mtxB.m[2][3] + a_mtxA.m[0][3] * a_mtxB.m[3][3];
-
-		mtxC.m[1][0] = a_mtxA.m[1][0] * a_mtxB.m[0][0] + a_mtxA.m[1][1] * a_mtxB.m[1][0] + a_mtxA.m[1][2] * a_mtxB.m[2][0] + a_mtxA.m[1][3] * a_mtxB.m[3][0];
-		mtxC.m[1][1] = a_mtxA.m[1][0] * a_mtxB.m[0][1] + a_mtxA.m[1][1] * a_mtxB.m[1][1] + a_mtxA.m[1][2] * a_mtxB.m[2][1] + a_mtxA.m[1][3] * a_mtxB.m[3][1];
-		mtxC.m[1][2] = a_mtxA.m[1][0] * a_mtxB.m[0][2] + a_mtxA.m[1][1] * a_mtxB.m[1][2] + a_mtxA.m[1][2] * a_mtxB.m[2][2] + a_mtxA.m[1][3] * a_mtxB.m[3][2];
-		mtxC.m[1][3] = a_mtxA.m[1][0] * a_mtxB.m[0][3] + a_mtxA.m[1][1] * a_mtxB.m[1][3] + a_mtxA.m[1][2] * a_mtxB.m[2][3] + a_mtxA.m[1][3] * a_mtxB.m[3][3];
-
-		mtxC.m[2][0] = a_mtxA.m[2][0] * a_mtxB.m[0][0] + a_mtxA.m[2][1] * a_mtxB.m[1][0] + a_mtxA.m[2][2] * a_mtxB.m[2][0] + a_mtxA.m[2][3] * a_mtxB.m[3][0];
-		mtxC.m[2][1] = a_mtxA.m[2][0] * a_mtxB.m[0][1] + a_mtxA.m[2][1] * a_mtxB.m[1][1] + a_mtxA.m[2][2] * a_mtxB.m[2][1] + a_mtxA.m[2][3] * a_mtxB.m[3][1];
-		mtxC.m[2][2] = a_mtxA.m[2][0] * a_mtxB.m[0][2] + a_mtxA.m[2][1] * a_mtxB.m[1][2] + a_mtxA.m[2][2] * a_mtxB.m[2][2] + a_mtxA.m[2][3] * a_mtxB.m[3][2];
-		mtxC.m[2][3] = a_mtxA.m[2][0] * a_mtxB.m[0][3] + a_mtxA.m[2][1] * a_mtxB.m[1][3] + a_mtxA.m[2][2] * a_mtxB.m[2][3] + a_mtxA.m[2][3] * a_mtxB.m[3][3];
-
-		mtxC.m[3][0] = a_mtxA.m[3][0] * a_mtxB.m[0][0] + a_mtxA.m[3][1] * a_mtxB.m[1][0] + a_mtxA.m[3][2] * a_mtxB.m[2][0] + a_mtxA.m[3][3] * a_mtxB.m[3][0];
-		mtxC.m[3][1] = a_mtxA.m[3][0] * a_mtxB.m[0][1] + a_mtxA.m[3][1] * a_mtxB.m[1][1] + a_mtxA.m[3][2] * a_mtxB.m[2][1] + a_mtxA.m[3][3] * a_mtxB.m[3][1];
-		mtxC.m[3][2] = a_mtxA.m[3][0] * a_mtxB.m[0][2] + a_mtxA.m[3][1] * a_mtxB.m[1][2] + a_mtxA.m[3][2] * a_mtxB.m[2][2] + a_mtxA.m[3][3] * a_mtxB.m[3][2];
-		mtxC.m[3][3] = a_mtxA.m[3][0] * a_mtxB.m[0][3] + a_mtxA.m[3][1] * a_mtxB.m[1][3] + a_mtxA.m[3][2] * a_mtxB.m[2][3] + a_mtxA.m[3][3] * a_mtxB.m[3][3];
-
-		return mtxC;	
+		return MatrixMulSSE2(a_mtxA, a_mtxB);
 	}
 	
 	//-----------------------------------------------------------------------
 	
 	cVector3f cMath::MatrixMul(const cMatrixf &a_mtxA,const cVector3f &avB)
 	{
-		cVector3f vC;
-		
-		vC.x = ( a_mtxA.m[0][0] * avB.x + a_mtxA.m[0][1] * avB.y + a_mtxA.m[0][2] * avB.z + a_mtxA.m[0][3] );
-		vC.y = ( a_mtxA.m[1][0] * avB.x + a_mtxA.m[1][1] * avB.y + a_mtxA.m[1][2] * avB.z + a_mtxA.m[1][3] );
-		vC.z = ( a_mtxA.m[2][0] * avB.x + a_mtxA.m[2][1] * avB.y + a_mtxA.m[2][2] * avB.z + a_mtxA.m[2][3] );
-
-		return vC;
+		return MatrixMulVectorSSE2(a_mtxA, avB);
 	}
 
 	//-----------------------------------------------------------------------
