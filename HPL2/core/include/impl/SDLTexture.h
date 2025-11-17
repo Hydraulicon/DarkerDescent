@@ -23,7 +23,7 @@
 #include "graphics/Texture.h"
 #include "impl/LowLevelGraphicsSDL.h"
 
-#include <GL/glew.h>
+#include "OpenGLExtensions.h"
 #if defined(__APPLE__)&&defined(__MACH__)
 #include <OpenGL/glu.h>
 #else

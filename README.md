@@ -10,6 +10,7 @@ Currently pre-alpha; stable, as per my independent testing.
 	- Gamma correction implemented via post-processing shader to replace SDL3's removed hardware gamma functionality.
 	- OpenAL Soft 1.24.3 integrated as static library with SDL3 audio backend.
 	- freealut dependency removed; replaced with custom lightweight WAV loader.
+	- GLEW dependency removed; replaced with SDL3's native OpenGL extension loading.
 	- Newton Dynamics was upgraded from 2.08 to 2.32.
 	- FBX support not available at this time.
 

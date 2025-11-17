@@ -48,7 +48,7 @@ namespace hpl {
 		{
 			///////
 			//Check so extension is supported!
-			if(!GLEW_EXT_packed_depth_stencil)
+			if(!g_OpenGLExtensions.EXT_packed_depth_stencil)
 			{
 				Error("Drivers does not support packed depth and stencil!\n");
                 return;

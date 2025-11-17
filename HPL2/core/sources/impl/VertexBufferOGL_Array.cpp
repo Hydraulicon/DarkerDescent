@@ -24,7 +24,7 @@
 
 #include "impl/LowLevelGraphicsSDL.h"
 
-#include <GL/glew.h>
+#include "impl/OpenGLExtensions.h"
 
 namespace hpl {
 

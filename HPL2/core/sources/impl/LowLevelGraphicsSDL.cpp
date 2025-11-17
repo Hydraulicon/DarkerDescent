@@ -258,14 +258,14 @@ namespace hpl {
 
 		//Trap Alt tab if in fullscreen
 
-		Log(" Init Glew...");
-		if (glewInit() == GLEW_OK)
+		Log(" Init OpenGL Extensions...");
+		if (InitOpenGLExtensions())
 		{
 			Log("OK\n");
 		}
 		else
 		{
-			Error(" Couldn't init glew!\n");
+			Error(" Couldn't init OpenGL extensions!\n");
 		}
 
 		///Setup up windows specifc context:
@@ -457,11 +457,11 @@ namespace hpl {
 		{
 		case eGraphicCaps_TextureTargetRectangle:	return 1;//GLEW_ARB_texture_rectangle?1:0;
 
-		case eGraphicCaps_VertexBufferObject:		return GLEW_ARB_vertex_buffer_object ? 1 : 0;
+		case eGraphicCaps_VertexBufferObject:		return g_OpenGLExtensions.ARB_vertex_buffer_object ? 1 : 0;
 		case eGraphicCaps_TwoSideStencil:
 		{
-			if (GLEW_EXT_stencil_two_side) return 1;
-			else if (GLEW_ATI_separate_stencil) return 1;
+			if (g_OpenGLExtensions.EXT_stencil_two_side) return 1;
+			else if (g_OpenGLExtensions.ATI_separate_stencil) return 1;
 			else return 0;
 		}
 
@@ -485,25 +485,25 @@ namespace hpl {
 			return lClipPlanes;
 		}
 
-		case eGraphicCaps_AnisotropicFiltering:		return GLEW_EXT_texture_filter_anisotropic ? 1 : 0;
+		case eGraphicCaps_AnisotropicFiltering:		return g_OpenGLExtensions.EXT_texture_filter_anisotropic ? 1 : 0;
 
 		case eGraphicCaps_MaxAnisotropicFiltering:
 		{
-			if (!GLEW_EXT_texture_filter_anisotropic) return 0;
+			if (!g_OpenGLExtensions.EXT_texture_filter_anisotropic) return 0;
 
 			float fMax;
 			glGetFloatv(GL_MAX_TEXTURE_MAX_ANISOTROPY_EXT, &fMax);
 			return (int)fMax;
 		}
 
-		case eGraphicCaps_Multisampling: return GLEW_ARB_multisample ? 1 : 0;
+		case eGraphicCaps_Multisampling: return g_OpenGLExtensions.ARB_multisample ? 1 : 0;
 
-		case eGraphicCaps_TextureCompression:		return GLEW_ARB_texture_compression ? 1 : 0;
-		case eGraphicCaps_TextureCompression_DXTC:	return GLEW_EXT_texture_compression_s3tc ? 1 : 0;
+		case eGraphicCaps_TextureCompression:		return g_OpenGLExtensions.ARB_texture_compression ? 1 : 0;
+		case eGraphicCaps_TextureCompression_DXTC:	return g_OpenGLExtensions.EXT_texture_compression_s3tc ? 1 : 0;
 
-		case eGraphicCaps_AutoGenerateMipMaps:		return GLEW_SGIS_generate_mipmap ? 1 : 0;
+		case eGraphicCaps_AutoGenerateMipMaps:		return g_OpenGLExtensions.SGIS_generate_mipmap ? 1 : 0;
 
-		case eGraphicCaps_RenderToTexture:			return GLEW_EXT_framebuffer_object ? 1 : 0;
+		case eGraphicCaps_RenderToTexture:			return g_OpenGLExtensions.EXT_framebuffer_object ? 1 : 0;
 
 		case eGraphicCaps_MaxDrawBuffers:
 		{
@@ -511,12 +511,12 @@ namespace hpl {
 			glGetIntegerv(GL_MAX_DRAW_BUFFERS, &lMaxbuffers);
 			return lMaxbuffers;
 		}
-		case eGraphicCaps_PackedDepthStencil:	return GLEW_EXT_packed_depth_stencil ? 1 : 0;
-		case eGraphicCaps_TextureFloat:			return GLEW_ARB_texture_float ? 1 : 0;
+		case eGraphicCaps_PackedDepthStencil:	return g_OpenGLExtensions.EXT_packed_depth_stencil ? 1 : 0;
+		case eGraphicCaps_TextureFloat:			return g_OpenGLExtensions.ARB_texture_float ? 1 : 0;
 
 		case eGraphicCaps_PolygonOffset:		return 1;	//OpenGL always support it!
 
-		case eGraphicCaps_ShaderModel_2:		return (GLEW_ARB_fragment_program || GLEW_ARB_fragment_shader) ? 1 : 0;	//Mac always support this, so not a good test.
+		case eGraphicCaps_ShaderModel_2:		return (g_OpenGLExtensions.ARB_fragment_program || g_OpenGLExtensions.ARB_fragment_shader) ? 1 : 0;	//Mac always support this, so not a good test.
 #ifdef SDL_PLATFORM_APPLE
 		case eGraphicCaps_ShaderModel_3:		return 0; // Force return false for OS X as dynamic branching doesn't work well (it's slow)
 		case eGraphicCaps_ShaderModel_4:		return 0;
@@ -526,18 +526,18 @@ namespace hpl {
 			if (mbForceShaderModel3And4Off)
 				return 0;
 			else
-				return  (GLEW_NV_vertex_program3 || GLEW_ATI_shader_texture_lod) ? 1 : 0;
+				return  (g_OpenGLExtensions.NV_vertex_program3 || g_OpenGLExtensions.ATI_shader_texture_lod) ? 1 : 0;
 		}
 		case eGraphicCaps_ShaderModel_4:
 		{
 			if (mbForceShaderModel3And4Off)
 				return 0;
 			else
-				return  GLEW_EXT_gpu_shader4 ? 1 : 0;
+				return  g_OpenGLExtensions.EXT_gpu_shader4 ? 1 : 0;
 		}
 #endif
 
-		case eGraphicCaps_OGL_ATIFragmentShader: return  GLEW_ATI_fragment_shader ? 1 : 0;
+		case eGraphicCaps_OGL_ATIFragmentShader: return  g_OpenGLExtensions.ATI_fragment_shader ? 1 : 0;
 
 		case eGraphicCaps_MaxColorRenderTargets:
 		{
@@ -607,7 +607,7 @@ namespace hpl {
 #if defined(__APPLE__)
 		SDL_GL_SetSwapInterval(abX ? (abAdaptive ? -1 : 1) : 0);
 #elif defined(_WIN32)
-		if (WGLEW_EXT_swap_control)
+		if (wglSwapIntervalEXT)
 		{
 			wglSwapIntervalEXT(abX ? (abAdaptive ? -1 : 1) : 0);
 		}
@@ -635,7 +635,7 @@ namespace hpl {
 	{
 		;
 
-		if (!GLEW_ARB_multisample || mlMultisampling <= 0) return;
+		if (!g_OpenGLExtensions.ARB_multisample || mlMultisampling <= 0) return;
 
 		if (abX)
 			glEnable(GL_MULTISAMPLE_ARB);
@@ -1090,7 +1090,7 @@ namespace hpl {
 		{
 			//DO this check, so you can setup stencil and then turn on / off afterwards
 			//and separate will still remain.
-			if (mbDoubleSidedStencilIsSet && GLEW_EXT_stencil_two_side)
+			if (mbDoubleSidedStencilIsSet && g_OpenGLExtensions.EXT_stencil_two_side)
 			{
 				glEnable(GL_STENCIL_TEST_TWO_SIDE_EXT);
 			}
@@ -1119,7 +1119,7 @@ namespace hpl {
 		;
 
 		mbDoubleSidedStencilIsSet = false;
-		if (GLEW_EXT_stencil_two_side)
+		if (g_OpenGLExtensions.EXT_stencil_two_side)
 		{
 			glDisable(GL_STENCIL_TEST_TWO_SIDE_EXT);
 			glActiveStencilFaceEXT(GL_FRONT);
@@ -1142,7 +1142,7 @@ namespace hpl {
 		mbDoubleSidedStencilIsSet = true;
 
 		//Nvidia implementation
-		if (GLEW_EXT_stencil_two_side)
+		if (g_OpenGLExtensions.EXT_stencil_two_side)
 		{
 			glEnable(GL_STENCIL_TEST_TWO_SIDE_EXT);
 
@@ -1160,7 +1160,7 @@ namespace hpl {
 				GetGLStencilOpEnum(aBackZPassOp));
 		}
 		//Ati implementation
-		else if (GLEW_ATI_separate_stencil)
+		else if (g_OpenGLExtensions.ATI_separate_stencil)
 		{
 			//Front
 			glStencilOpSeparateATI(GL_FRONT, GetGLStencilOpEnum(aFrontFailOp),
@@ -1295,7 +1295,7 @@ namespace hpl {
 	{
 		;
 
-		if (GLEW_EXT_blend_func_separate)
+		if (g_OpenGLExtensions.EXT_blend_func_separate)
 		{
 			glBlendFuncSeparateEXT(GetGLBlendEnum(aSrcFactorColor),
 				GetGLBlendEnum(aDestFactorColor),
@@ -1416,7 +1416,7 @@ namespace hpl {
 		GLenum LastTarget = mvCurrentTextureTarget[alUnit];
 
 		//Check if multi texturing is supported.
-		if (GLEW_ARB_multitexture) {
+		if (g_OpenGLExtensions.ARB_multitexture) {
 			glActiveTextureARB(GL_TEXTURE0_ARB + alUnit);
 		}
 

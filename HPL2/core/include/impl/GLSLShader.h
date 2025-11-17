@@ -21,7 +21,7 @@
 #define HPL_GLSL_SHADER_H
 
 //#include <windows.h>
-#include <GL/glew.h>
+#include "OpenGLExtensions.h"
 
 #include "system/SystemTypes.h"
 #include "math/MathTypes.h"

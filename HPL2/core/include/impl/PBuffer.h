@@ -20,10 +20,7 @@
 #ifndef HPL_P_BUFFER_H
 #define HPL_P_BUFFER_H
 
-#include <GL/glew.h>
-#ifdef _WIN32
-#include <GL/wglew.h>
-#endif
+#include "OpenGLExtensions.h"
 #include <vector>
 
 

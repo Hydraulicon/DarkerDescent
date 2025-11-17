@@ -584,7 +584,7 @@ namespace hpl {
 
 		;
 
-		if(GLEW_EXT_framebuffer_object)
+		if(g_OpenGLExtensions.EXT_framebuffer_object)
 		{
 			GLenum GLTarget = GetGLTextureTargetEnum(mType);
 
@@ -854,7 +854,7 @@ namespace hpl {
 		// Generate mipmaps if the format is not compressed.
 		if(mUsage == eTextureUsage_RenderTarget)
 		{
-			if(GLEW_EXT_framebuffer_object)
+			if(g_OpenGLExtensions.EXT_framebuffer_object)
 			{
 				glGenerateMipmapEXT(aGLTarget);
 			}

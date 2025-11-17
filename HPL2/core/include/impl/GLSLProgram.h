@@ -28,7 +28,7 @@
 
 #include "graphics/GPUProgram.h"
 
-#include <GL/glew.h>
+#include "OpenGLExtensions.h"
 
 namespace hpl {
 

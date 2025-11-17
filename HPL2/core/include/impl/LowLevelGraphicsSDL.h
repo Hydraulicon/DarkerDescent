@@ -33,10 +33,7 @@
 // SDL3 must be included FIRST to avoid macro conflicts
 #include <SDL3/SDL.h>
 
-#include <GL/glew.h>
-#ifdef _WIN32
-#include <GL/wglew.h>
-#endif
+#include "impl/OpenGLExtensions.h"
 
 #ifdef WITH_CG
 #include <Cg/cg.h>

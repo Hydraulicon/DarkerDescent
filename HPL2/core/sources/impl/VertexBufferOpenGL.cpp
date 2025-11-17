@@ -30,7 +30,7 @@
 
 #include <memory.h>
 
-#include <GL/glew.h>
+#include "impl/OpenGLExtensions.h"
 
 namespace hpl {
 

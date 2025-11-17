@@ -87,7 +87,7 @@
       <AdditionalIncludeDirectories>.\include;..\dependencies\include;..\dependencies\include\AL;..\dependencies\sources\zlib;..\dependencies\sources\AngelScript\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_WINDOWS;_USRDLL;HPL_EXPORTS;MEMORY_MANAGER_ACTIVE;USE_SDL2;USE_GAMEPAD;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;_NEWTON_USE_LIB;IL_STATIC_LIB;AL_LIBTYPE_STATIC;HAVE_LIBC;SDL_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;_DEBUG;_LIB;_WINDOWS;_USRDLL;HPL_EXPORTS;MEMORY_MANAGER_ACTIVE;USE_SDL2;USE_GAMEPAD;_CRT_SECURE_NO_WARNINGS;_NEWTON_USE_LIB;IL_STATIC_LIB;AL_LIBTYPE_STATIC;HAVE_LIBC;SDL_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>26495;26812;26451</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -105,7 +105,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_WINDOWS;_USRDLL;HPL_EXPORTS;USE_SDL2;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;_NEWTON_USE_LIB;IL_STATIC_LIB;AL_LIBTYPE_STATIC;HAVE_LIBC;SDL_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>WIN32;NDEBUG;_LIB;_WINDOWS;_USRDLL;HPL_EXPORTS;USE_SDL2;_CRT_SECURE_NO_WARNINGS;_NEWTON_USE_LIB;IL_STATIC_LIB;AL_LIBTYPE_STATIC;HAVE_LIBC;SDL_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>26495;26812;26451</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -123,7 +123,7 @@
       <AdditionalIncludeDirectories>.\include;..\dependencies\include;..\dependencies\include\AL;..\dependencies\sources\zlib;..\dependencies\sources\AngelScript\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>_DEBUG;_LIB;_WINDOWS;_USRDLL;HPL_EXPORTS;MEMORY_MANAGER_ACTIVE;USE_SDL2;USE_GAMEPAD;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;_NEWTON_USE_LIB;IL_STATIC_LIB;AL_LIBTYPE_STATIC;HAVE_LIBC;SDL_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_DEBUG;_LIB;_WINDOWS;_USRDLL;HPL_EXPORTS;MEMORY_MANAGER_ACTIVE;USE_SDL2;USE_GAMEPAD;_CRT_SECURE_NO_WARNINGS;_NEWTON_USE_LIB;IL_STATIC_LIB;AL_LIBTYPE_STATIC;HAVE_LIBC;SDL_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>26495;26812;26451</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -141,7 +141,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>NDEBUG;_LIB;_WINDOWS;_USRDLL;HPL_EXPORTS;USE_SDL2;_CRT_SECURE_NO_WARNINGS;GLEW_STATIC;_NEWTON_USE_LIB;IL_STATIC_LIB;AL_LIBTYPE_STATIC;HAVE_LIBC;SDL_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>NDEBUG;_LIB;_WINDOWS;_USRDLL;HPL_EXPORTS;USE_SDL2;_CRT_SECURE_NO_WARNINGS;_NEWTON_USE_LIB;IL_STATIC_LIB;AL_LIBTYPE_STATIC;HAVE_LIBC;SDL_STATIC_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <DisableSpecificWarnings>26495;26812;26451</DisableSpecificWarnings>
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
@@ -311,6 +311,7 @@
     <ClInclude Include="include\impl\GLSLProgram.h" />
     <ClInclude Include="include\impl\GLSLShader.h" />
     <ClInclude Include="include\impl\LowLevelGraphicsSDL.h" />
+    <ClInclude Include="include\impl\OpenGLExtensions.h" />
     <ClInclude Include="include\impl\OcclusionQueryOGL.h" />
     <ClInclude Include="include\impl\PBuffer.h" />
     <ClInclude Include="include\impl\SDLFontData.h" />
@@ -621,6 +622,7 @@
     <ClCompile Include="sources\impl\GLSLProgram.cpp" />
     <ClCompile Include="sources\impl\GLSLShader.cpp" />
     <ClCompile Include="sources\impl\LowLevelGraphicsSDL.cpp" />
+    <ClCompile Include="sources\impl\OpenGLExtensions.cpp" />
     <ClCompile Include="sources\impl\OcclusionQueryOGL.cpp" />
     <ClCompile Include="sources\impl\PBuffer.cpp" />
     <ClCompile Include="sources\impl\SDLFontData.cpp" />
@@ -791,9 +793,6 @@
     </ProjectReference>
     <ProjectReference Include="..\dependencies\sources\DevIL\DevIL.vcxproj">
       <Project>{a33d83b6-5377-4386-a670-9096db288370}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\dependencies\sources\GLEW\GLEW.vcxproj">
-      <Project>{69d24cff-31f6-4530-ac45-fb324aab5713}</Project>
     </ProjectReference>
     <ProjectReference Include="..\dependencies\sources\Newton\Newton.vcxproj">
       <Project>{bfb0e28b-c289-4982-a6f0-c19cb3a57141}</Project>
