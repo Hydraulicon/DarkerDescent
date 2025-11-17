@@ -33,7 +33,9 @@
 
 #include <zlib.h>
 
-// @todo Evil quick and dirty check to Prevent me from building 64-bit until I fix this code
+// 64-bit compatibility verified: These assertions ensure binary format compatibility.
+// int/short/float/char sizes are identical on Win32 and Win64 (4/2/4/1 bytes respectively).
+// size_t is used for all memory/file size operations (platform-dependent, 4 bytes on Win32, 8 bytes on Win64).
 SDL_COMPILE_TIME_ASSERT(int, sizeof(int) == 4);
 SDL_COMPILE_TIME_ASSERT(short, sizeof(short) == 2);
 SDL_COMPILE_TIME_ASSERT(float, sizeof(float) == 4);

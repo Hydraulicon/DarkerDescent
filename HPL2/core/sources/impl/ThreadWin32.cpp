@@ -62,7 +62,7 @@ namespace hpl {
 
 	void cThreadWin32::Sleep(unsigned int alSleepTime)
 	{
-		WaitForSingleObject(mpThreadHandle, alSleepTime);
+		::Sleep(alSleepTime);
 	}
 
 	void cThreadWin32::SetPriority(eThreadPrio aPrio)
