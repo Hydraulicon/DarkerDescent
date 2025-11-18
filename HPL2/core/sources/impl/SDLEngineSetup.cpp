@@ -32,6 +32,7 @@
 #include "impl/KeyboardSDL.h"
 #include "impl/MouseSDL.h"
 #include "impl/LowLevelGraphicsSDL.h"
+#include "impl/LowLevelGraphicsGPU.h"
 #include "impl/LowLevelResourcesSDL.h"
 #include "impl/LowLevelSystemSDL.h"
 #include "impl/LowLevelInputSDL.h"
@@ -45,8 +46,50 @@
 
 #include <SDL3/SDL.h>
 #include "math/MathSIMD.h"
+#include <algorithm>
+#include <cctype>
 
 namespace hpl {
+
+	//////////////////////////////////////////////////////////////////////////
+	// RENDER BACKEND SELECTION
+	//////////////////////////////////////////////////////////////////////////
+
+	enum eRenderBackend
+	{
+		eRenderBackend_OpenGL,
+		eRenderBackend_GPU
+	};
+
+	static eRenderBackend g_RenderBackend = eRenderBackend_OpenGL; // Default to OpenGL
+
+	void SetRenderBackend(const char* asBackend)
+	{
+		if (asBackend == nullptr)
+		{
+			g_RenderBackend = eRenderBackend_OpenGL;
+			return;
+		}
+
+		tString sBackend = asBackend;
+		std::transform(sBackend.begin(), sBackend.end(), sBackend.begin(), ::tolower);
+
+		if (sBackend == "gpu" || sBackend == "sdl_gpu" || sBackend == "vulkan")
+		{
+			g_RenderBackend = eRenderBackend_GPU;
+			Log("Render backend set to: SDL_GPU (Vulkan)\n");
+		}
+		else if (sBackend == "opengl" || sBackend == "gl")
+		{
+			g_RenderBackend = eRenderBackend_OpenGL;
+			Log("Render backend set to: OpenGL\n");
+		}
+		else
+		{
+			Warning("Unknown render backend '%s', defaulting to OpenGL\n", asBackend);
+			g_RenderBackend = eRenderBackend_OpenGL;
+		}
+	}
 
 	//////////////////////////////////////////////////////////////////////////
 	// CONSTRUCTORS
@@ -85,7 +128,16 @@ namespace hpl {
 
 		//////////////////////////
 		// Graphics
-		mpLowLevelGraphics = hplNew(cLowLevelGraphicsSDL, ());
+		if (g_RenderBackend == eRenderBackend_GPU)
+		{
+			Log("Creating SDL_GPU rendering backend\n");
+			mpLowLevelGraphics = hplNew(cLowLevelGraphicsGPU, ());
+		}
+		else
+		{
+			Log("Creating OpenGL rendering backend\n");
+			mpLowLevelGraphics = hplNew(cLowLevelGraphicsSDL, ());
+		}
 
 		//////////////////////////
 		// Input

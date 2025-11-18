@@ -359,3 +359,6 @@ projectstatus.log
 
 # Git directory (redundant but explicit)
 .git/
+
+# glslang library files (obtain separately)
+HPL2/dependencies/lib/glslang/

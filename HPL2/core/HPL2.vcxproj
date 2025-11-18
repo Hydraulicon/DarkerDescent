@@ -89,8 +89,9 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <Lib>
-      <AdditionalDependencies>%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>C:\Users\Michaelsoft\source\repos\DarkerDescent\HPL2\dependencies\lib\Win64;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>glslang.lib;SPIRV.lib;MachineIndependent.lib;OSDependent.lib;GenericCodeGen.lib;glslang-default-resource-limits.lib;SPIRV-Tools.lib;SPIRV-Tools-opt.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>C:\Users\Michaelsoft\source\repos\DarkerDescent\HPL2\dependencies\lib\Win64;C:\Users\Michaelsoft\source\repos\DarkerDescent\HPL2\dependencies\lib\glslang;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalOptions>/IGNORE:4006 %(AdditionalOptions)</AdditionalOptions>
     </Lib>
   </ItemDefinitionGroup>
   <ItemGroup>
@@ -245,15 +246,21 @@
     <ClInclude Include="include\impl\FrameBufferGL.h" />
     <ClInclude Include="include\impl\GLSLProgram.h" />
     <ClInclude Include="include\impl\GLSLShader.h" />
+    <ClInclude Include="include\impl\GPUProgram_GPU.h" />
+    <ClInclude Include="include\impl\GPUShader_GPU.h" />
     <ClInclude Include="include\impl\LowLevelGraphicsSDL.h" />
+    <ClInclude Include="include\impl\LowLevelGraphicsGPU.h" />
     <ClInclude Include="include\impl\OpenGLExtensions.h" />
     <ClInclude Include="include\impl\OcclusionQueryOGL.h" />
     <ClInclude Include="include\impl\PBuffer.h" />
     <ClInclude Include="include\impl\SDLFontData.h" />
     <ClInclude Include="include\impl\SDLTexture.h" />
+    <ClInclude Include="include\impl\GPUTexture.h" />
+    <ClInclude Include="include\impl\GPUFrameBuffer.h" />
     <ClInclude Include="include\impl\VertexBufferOGL_Array.h" />
     <ClInclude Include="include\impl\VertexBufferOGL_VBO.h" />
     <ClInclude Include="include\impl\VertexBufferOpenGL.h" />
+    <ClInclude Include="include\impl\VertexBufferGPU.h" />
     <ClInclude Include="include\impl\VideoStreamTheora.h" />
     <ClInclude Include="include\impl\BitmapLoaderSTB.h" />
     <ClInclude Include="include\impl\BitmapLoaderDDS.h" />
@@ -555,15 +562,21 @@
     <ClCompile Include="sources\impl\FrameBufferGL.cpp" />
     <ClCompile Include="sources\impl\GLSLProgram.cpp" />
     <ClCompile Include="sources\impl\GLSLShader.cpp" />
+    <ClCompile Include="sources\impl\GPUProgram_GPU.cpp" />
+    <ClCompile Include="sources\impl\GPUShader_GPU.cpp" />
     <ClCompile Include="sources\impl\LowLevelGraphicsSDL.cpp" />
+    <ClCompile Include="sources\impl\LowLevelGraphicsGPU.cpp" />
     <ClCompile Include="sources\impl\OpenGLExtensions.cpp" />
     <ClCompile Include="sources\impl\OcclusionQueryOGL.cpp" />
     <ClCompile Include="sources\impl\PBuffer.cpp" />
     <ClCompile Include="sources\impl\SDLFontData.cpp" />
     <ClCompile Include="sources\impl\SDLTexture.cpp" />
+    <ClCompile Include="sources\impl\GPUTexture.cpp" />
+    <ClCompile Include="sources\impl\GPUFrameBuffer.cpp" />
     <ClCompile Include="sources\impl\VertexBufferOGL_Array.cpp" />
     <ClCompile Include="sources\impl\VertexBufferOGL_VBO.cpp" />
     <ClCompile Include="sources\impl\VertexBufferOpenGL.cpp" />
+    <ClCompile Include="sources\impl\VertexBufferGPU.cpp" />
     <ClCompile Include="sources\impl\VideoStreamTheora.cpp" />
     <ClCompile Include="sources\impl\BitmapLoaderSTB.cpp" />
     <ClCompile Include="sources\impl\BitmapLoaderDDS.cpp" />

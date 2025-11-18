@@ -460,6 +460,7 @@ namespace hpl {
 	{
 		eGpuProgramFormat_CG,
 		eGpuProgramFormat_GLSL,
+		eGpuProgramFormat_SPIRV,
 		eGpuProgramFormat_LastEnum
 	};
 

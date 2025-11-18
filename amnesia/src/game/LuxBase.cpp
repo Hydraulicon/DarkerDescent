@@ -19,6 +19,8 @@
 
 #include "LuxBase.h"
 
+#include "impl/SDLEngineSetup.h"
+
 #include "LuxInputHandler.h"
 
 #include "LuxMapHandler.h"
@@ -619,11 +621,43 @@ bool cLuxBase::ParseCommandLine(const tString &asCommandline)
 {
 	msDefaultInitConfigFile = _W("config/main_init.cfg");
 
-	if(asCommandline == "ptest")
+	//////////////////////////////////
+	// Parse render backend flag
+	// Supports: --render-backend=gpu, --render-backend=opengl, etc.
+	tString sRemainingCommandline = asCommandline;
+	size_t backendPos = sRemainingCommandline.find("--render-backend=");
+	if (backendPos != tString::npos)
+	{
+		size_t valueStart = backendPos + 17; // Length of "--render-backend="
+		size_t valueEnd = sRemainingCommandline.find(' ', valueStart);
+		if (valueEnd == tString::npos)
+			valueEnd = sRemainingCommandline.length();
+
+		tString sBackend = sRemainingCommandline.substr(valueStart, valueEnd - valueStart);
+		Log("Command line: Setting render backend to '%s'\n", sBackend.c_str());
+		hpl::SetRenderBackend(sBackend.c_str());
+
+		// Remove the backend flag from the command line
+		size_t flagEnd = valueEnd;
+		if (flagEnd < sRemainingCommandline.length() && sRemainingCommandline[flagEnd] == ' ')
+			flagEnd++; // Skip the space after the flag
+		sRemainingCommandline = sRemainingCommandline.substr(0, backendPos) +
+		                        sRemainingCommandline.substr(flagEnd);
+
+		// Trim leading/trailing whitespace
+		size_t start = sRemainingCommandline.find_first_not_of(" \t\r\n");
+		size_t end = sRemainingCommandline.find_last_not_of(" \t\r\n");
+		if (start != tString::npos && end != tString::npos)
+			sRemainingCommandline = sRemainingCommandline.substr(start, end - start + 1);
+		else
+			sRemainingCommandline = "";
+	}
+
+	if(sRemainingCommandline == "ptest")
 	{
 		mbPTestActivated = true;
 		msInitConfigFile = cString::To16Char(DecryptString((char*)gv_main_init_str)); //_W("config/ptest_main_init.cfg");
-		
+
 		/*#ifndef SKIP_PTEST_TESTS
 			msErrorMessage = cString::To16Char(DecryptString((char*)gv_error_mess_str));
 			unsigned int lCRC = GetFileCRC(msInitConfigFile, 0x11af54e2);
@@ -638,7 +672,7 @@ bool cLuxBase::ParseCommandLine(const tString &asCommandline)
 
 	//////////////////////////////////
 	// HARDMODE
-	if(asCommandline == "hardmode")
+	if(sRemainingCommandline == "hardmode")
 	{
 		msInitConfigFile = msDefaultInitConfigFile;
 		mbHardMode = true;
@@ -647,9 +681,8 @@ bool cLuxBase::ParseCommandLine(const tString &asCommandline)
 
 	//////////////////////////////////
 	//Main Init config file
-	// TODO: Parse the command line better?
-	msInitConfigFile = cString::To16Char(asCommandline);
-	if(msInitConfigFile==_W("")) 
+	msInitConfigFile = cString::To16Char(sRemainingCommandline);
+	if(msInitConfigFile==_W(""))
 		msInitConfigFile = msDefaultInitConfigFile;
 
 	return true;

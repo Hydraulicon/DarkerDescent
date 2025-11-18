@@ -33,6 +33,14 @@ namespace hpl {
 	class iLowLevelPhysics;
 	class iLowLevelHaptic;
 
+	//////////////////////////////////////////////////////////////////////////
+	// RENDER BACKEND SELECTION
+	// Call this BEFORE creating the engine to select rendering backend
+	// Valid values: "opengl", "gl", "gpu", "sdl_gpu", "vulkan"
+	// Default: "opengl"
+	//////////////////////////////////////////////////////////////////////////
+	void SetRenderBackend(const char* asBackend);
+
 	class cSDLEngineSetup : public iLowLevelEngineSetup
 	{
 	public:
